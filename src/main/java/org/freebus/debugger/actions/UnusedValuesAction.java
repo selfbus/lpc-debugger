@@ -25,7 +25,7 @@ public class UnusedValuesAction extends BasicAction
       {
          protected Void doInBackground() throws Exception
          {
-            MainWindow.getInstance().setVariablesUnused();
+            MainWindow.getInstance().markVariablesUnused();
             return null;
          }
       }.execute();

@@ -1,86 +1,130 @@
-/*     */ package org.freebus.debugger.model;
-/*     */ 
-/*     */ import org.freebus.debugger.model.cdb.SymbolSpec;
-/*     */ import org.freebus.debugger.model.cdb.SymbolType;
-/*     */ import org.freebus.debugger.model.map.MapAreaLocation;
-/*     */ 
-/*     */ public class Variable extends MapAreaLocation
-/*     */   implements Comparable<Variable>
-/*     */ {
-/*     */   private byte[] value;
-/*  14 */   private boolean autoUpdate = false;
-/*  15 */   private boolean visible = true;
-/*     */   private SymbolSpec spec;
-/*     */ 
-/*     */   public Variable(String name, int address, int size, String module)
-/*     */   {
-/*  29 */     super(name, address, module);
-/*  30 */     this.value = new byte[size];
-/*     */   }
-/*     */ 
-/*     */   public Variable(MapAreaLocation location, int size)
-/*     */   {
-/*  41 */     super(location.getName(), location.getAddress(), location.getModule());
-/*  42 */     this.value = new byte[size];
-/*     */   }
-/*     */ 
-/*     */   public SymbolSpec getSpec()
-/*     */   {
-/*  50 */     return this.spec;
-/*     */   }
-/*     */ 
-/*     */   public SymbolType getType()
-/*     */   {
-/*  58 */     return this.spec == null ? null : this.spec.getType();
-/*     */   }
-/*     */ 
-/*     */   public void setSpec(SymbolSpec spec)
-/*     */   {
-/*  68 */     this.spec = spec;
-/*     */   }
-/*     */ 
-/*     */   public int size()
-/*     */   {
-/*  76 */     return this.value.length;
-/*     */   }
-/*     */ 
-/*     */   public void setValue(byte[] value)
-/*     */   {
-/*  86 */     this.value = value;
-/*     */   }
-/*     */ 
-/*     */   public byte[] getValue()
-/*     */   {
-/*  94 */     return this.value;
-/*     */   }
-/*     */ 
-/*     */   public boolean isAutoUpdate()
-/*     */   {
-/* 102 */     return this.autoUpdate;
-/*     */   }
-/*     */ 
-/*     */   public void setAutoUpdate(boolean enable)
-/*     */   {
-/* 112 */     this.autoUpdate = enable;
-/*     */   }
-/*     */ 
-/*     */   public boolean isVisible()
-/*     */   {
-/* 120 */     return this.visible;
-/*     */   }
-/*     */ 
-/*     */   public void setVisible(boolean visible)
-/*     */   {
-/* 130 */     this.visible = visible;
-/*     */   }
-/*     */ 
-/*     */   public int compareTo(Variable o)
-/*     */   {
-/* 139 */     return getName().compareTo(o.getName());
-/*     */   }
-/*     */ }
+package org.freebus.debugger.model;
 
-/* Location:           /home/stefan/Downloads/lpc-debugger/libs/lpc-debugger-0.1.7-SNAPSHOT.jar
- * Qualified Name:     org.freebus.debugger.model.Variable
- * JD-Core Version:    0.6.2
+import java.util.Arrays;
+
+import org.freebus.debugger.model.cdb.SymbolSpec;
+import org.freebus.debugger.model.cdb.SymbolType;
+import org.freebus.debugger.model.map.MapAreaLocation;
+
+/**
+ * A variable.
  */
+public class Variable extends MapAreaLocation implements Comparable<Variable>
+{
+   private byte[] value, prevValue;
+   private SymbolSpec spec;
+   private boolean modified;
+
+   public Variable(String name, int address, int size, String module)
+   {
+      super(name, address, module);
+      this.value = new byte[size];
+   }
+
+   public Variable(MapAreaLocation location, int size)
+   {
+      super(location.getName(), location.getAddress(), location.getModule());
+      this.value = new byte[size];
+   }
+
+   /**
+    * @return The symbol specification.
+    */
+   public SymbolSpec getSpec()
+   {
+      return this.spec;
+   }
+
+   /**
+    * Set the symbol specification.
+    * 
+    * @param spec - the symbol specification.
+    */
+   public void setSpec(SymbolSpec spec)
+   {
+      this.spec = spec;
+   }
+
+   /**
+    * Get the symbol type. This is a shortcut for <code>obj.getSpec().getType()</code>.
+    * 
+    * @return The symbol type.
+    */
+   public SymbolType getType()
+   {
+      return spec == null ? null : spec.getType();
+   }
+
+   /**
+    * @return The size of the variable in bytes.
+    */
+   public int size()
+   {
+      return value.length;
+   }
+
+   /**
+    * Set the value. Moves the current value to the previous value.
+    * 
+    * @param value - the value to set.
+    */
+   public void setValue(byte[] value)
+   {
+      this.prevValue = this.value;
+      this.value = value;
+
+      modified = prevValue != null && !Arrays.equals(value, prevValue);
+   }
+
+   /**
+    * @return The value of the variable.
+    */
+   public byte[] getValue()
+   {
+      return value;
+   }
+
+   /**
+    * @return The previous value of the variable, or null if the variable's value was never changed.
+    */
+   public byte[] getPrevValue()
+   {
+      return prevValue;
+   }
+
+   /**
+    * Test if the current and the previous value differ.
+    * 
+    * @return True if current and previous value are different, false if they are the same or the
+    *         previous value is null.
+    */
+   public boolean isModified()
+   {
+      return modified;
+   }
+
+   /**
+    * @return True if the variable was never set (the previous value is null).
+    */
+   public boolean isUnused()
+   {
+      return prevValue == null;
+   }
+
+   /**
+    * Mark the variable as unused by removing the previous value.
+    */
+   public void markUnused()
+   {
+      prevValue = null;
+      modified = false;
+   }
+
+   /**
+    * {@inheritDoc}
+    */
+   public int compareTo(Variable o)
+   {
+      return getName().compareTo(o.getName());
+   }
+}

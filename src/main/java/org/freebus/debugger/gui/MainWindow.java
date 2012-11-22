@@ -1,28 +1,22 @@
 package org.freebus.debugger.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+import javax.swing.table.TableColumnModel;
 
 import org.freebus.debugger.Application;
 import org.freebus.debugger.actions.ActionFactory;
@@ -33,6 +27,7 @@ import org.freebus.debugger.control.DebugListener;
 import org.freebus.debugger.misc.I18n;
 import org.freebus.debugger.misc.ImageCache;
 import org.freebus.debugger.model.Variable;
+import org.freebus.debugger.model.VariablesTableModel;
 import org.freebus.debugger.serial.SerialPortUtil;
 
 /**
@@ -43,15 +38,14 @@ public class MainWindow extends JFrame implements DebugListener
    private static final long serialVersionUID = 8206952584001708390L;
    private static MainWindow instance;
 
-   private Map<String, VariableComponent> varComps = new HashMap<String, VariableComponent>(256);
-
    private JToolBar toolBar = new JToolBar("mainToolbar");
    private JComboBox<String> cboConnection = new JComboBox<String>();
+   private VariablesTableModel varsTableModel;
    private ActionFactory actionFactory = ActionFactory.getInstance();
    private boolean initialUpdate;
    private final Application application;
-   private final JPanel variablesPanel = new JPanel();
-   private final JScrollPane variablesView = new JScrollPane(this.variablesPanel);
+   private final JTable varsTable = new JTable();
+   private final JScrollPane variablesView = new JScrollPane(varsTable);
    private final String demoConnectionName = I18n.getMessage("MainWindow.simulatedConnection");
 
    /**
@@ -82,25 +76,24 @@ public class MainWindow extends JFrame implements DebugListener
       setMinimumSize(new Dimension(700, 500));
       setLayout(new BorderLayout());
 
-      add(this.toolBar, "North");
+      add(toolBar, "North");
       setupToolbar();
 
-      this.variablesView.getVerticalScrollBar().setUnitIncrement(25);
-      this.variablesView.getVerticalScrollBar().setBlockIncrement(50);
-      add(this.variablesView, "Center");
+      variablesView.getVerticalScrollBar().setUnitIncrement(25);
+      variablesView.getVerticalScrollBar().setBlockIncrement(50);
+      add(variablesView, "Center");
 
-      this.variablesPanel.setLayout(new GridBagLayout());
-      this.variablesPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+      varsTable.setGridColor(getBackground());
 
-      this.cboConnection.setMaximumSize(new Dimension(150, 32));
-      this.cboConnection.addActionListener(new ActionListener()
+      cboConnection.setMaximumSize(new Dimension(150, 32));
+      cboConnection.addActionListener(new ActionListener()
       {
          public void actionPerformed(ActionEvent e)
          {
             DebugController controller = application.getController();
 
-            String connectionName = (String) MainWindow.this.cboConnection.getSelectedItem();
-            if (MainWindow.this.demoConnectionName.equals(connectionName))
+            String connectionName = (String) cboConnection.getSelectedItem();
+            if (demoConnectionName.equals(connectionName))
             {
                connectionName = null;
                application.getConfig().remove("connection");
@@ -131,16 +124,17 @@ public class MainWindow extends JFrame implements DebugListener
     */
    protected void setupToolbar()
    {
-      this.toolBar.add(this.actionFactory.getAction("connectAction"));
-      this.toolBar.add(this.cboConnection);
-      this.toolBar.addSeparator();
-      this.toolBar.add(this.actionFactory.getAction("openFileAction"));
-      this.toolBar.addSeparator();
-      this.toolBar.add(this.actionFactory.getAction("updateAction"));
-      this.toolBar.add(this.actionFactory.getAction("autoUpdateAction"));
-      this.toolBar.add(this.actionFactory.getAction("unusedValuesAction"));
-      this.toolBar.addSeparator();
-      this.toolBar.add(this.actionFactory.getAction("settingsAction"));
+      toolBar.add(actionFactory.getAction("connectAction"));
+      toolBar.add(cboConnection);
+      toolBar.addSeparator();
+      toolBar.add(actionFactory.getAction("openFileAction"));
+      toolBar.add(actionFactory.getAction("reloadFileAction"));
+      toolBar.addSeparator();
+      toolBar.add(actionFactory.getAction("updateAction"));
+      toolBar.add(actionFactory.getAction("autoUpdateAction"));
+      toolBar.add(actionFactory.getAction("unusedValuesAction"));
+      toolBar.addSeparator();
+      toolBar.add(actionFactory.getAction("settingsAction"));
    }
 
    /**
@@ -148,21 +142,21 @@ public class MainWindow extends JFrame implements DebugListener
     */
    protected void setupConnectOptions()
    {
-      String connectionName = this.application.getConfig().getProperty("connection");
+      String connectionName = application.getConfig().getProperty("connection");
 
       for (String portName : SerialPortUtil.getPortNames())
       {
-         this.cboConnection.addItem(portName);
+         cboConnection.addItem(portName);
 
          if (portName.equals(connectionName))
          {
-            this.cboConnection.setSelectedIndex(this.cboConnection.getItemCount() - 1);
+            cboConnection.setSelectedIndex(cboConnection.getItemCount() - 1);
          }
       }
-      if (this.cboConnection.getItemCount() <= 0)
+      if (cboConnection.getItemCount() <= 0)
       {
-         this.cboConnection.addItem(this.demoConnectionName);
-         this.cboConnection.setToolTipText(I18n.getMessage("MainWindow.noConnectionsToolTip"));
+         cboConnection.addItem(demoConnectionName);
+         cboConnection.setToolTipText(I18n.getMessage("MainWindow.noConnectionsToolTip"));
 
          SwingUtilities.invokeLater(new Runnable()
          {
@@ -174,8 +168,8 @@ public class MainWindow extends JFrame implements DebugListener
          });
       }
 
-      if (this.cboConnection.getSelectedIndex() < 0)
-         this.cboConnection.setSelectedIndex(0);
+      if (cboConnection.getSelectedIndex() < 0)
+         cboConnection.setSelectedIndex(0);
    }
 
    /**
@@ -183,37 +177,39 @@ public class MainWindow extends JFrame implements DebugListener
     */
    protected void setupVariables()
    {
-      this.variablesPanel.removeAll();
+      Set<Variable> varsSet = application.getController().getVariables();
+      Vector<Variable> newVars = new Vector<Variable>(varsSet.size());
+      newVars.addAll(varsSet);
+      
+      VariablesTableModel newModel = new VariablesTableModel(newVars);
 
-      Map<String, VariableComponent> newVarComps = new HashMap<String, VariableComponent>(256);
-      Color bgColor1 = this.variablesPanel.getBackground();
-      Color bgColor2 = bgColor1.brighter();
+      varsTable.setModel(newModel);
+      varsTableModel = newModel;
 
-      int row = -1;
-      VariableComponent.addHeaderTo(this.variablesPanel, 0, ++row, this.variablesPanel.getBackground().darker());
+      TableColumnModel columnModel = varsTable.getColumnModel(); 
+      columnModel.getColumn(VariablesTableModel.VALUE_COLUMN).setCellRenderer(new VariableValueCellRenderer());
+      columnModel.getColumn(VariablesTableModel.BYTES_COLUMN).setCellRenderer(new VariableBytesCellRenderer());
 
-      for (Variable var : this.application.getController().getVariables())
-      {
-         VariableComponent varComp = new VariableComponent(var, (row & 0x1) == 1 ? bgColor1 : bgColor2);
-         varComp.addTo(this.variablesPanel, 0, ++row);
-
-         newVarComps.put(var.getName(), varComp);
-      }
-
-      this.variablesPanel.add(Box.createVerticalGlue(), new GridBagConstraints(0, ++row, 1, 1, 1.0D, 100.0D, 18, 2,
-         new Insets(0, 0, 0, 0), 0, 0));
-
-      this.varComps = newVarComps;
       this.variablesView.updateUI();
+   }
+
+   /**
+    * Trigger an initial update of the variables. Does nothing if
+    * the connection is closed.
+    */
+   public void initialUpdate()
+   {
+      initialUpdate = true;
+      actionFactory.getAction("updateAction").actionPerformed(null);
    }
 
    /**
     * Mark all variables as unused.
     */
-   public void setVariablesUnused()
+   public void markVariablesUnused()
    {
-      for (VariableComponent varComp : this.varComps.values())
-         varComp.initValue();
+      if (varsTableModel != null)
+         varsTableModel.markAllUnused();
    }
 
    /**
@@ -238,21 +234,6 @@ public class MainWindow extends JFrame implements DebugListener
    @Override
    public void valueChanged(final Variable var)
    {
-      SwingUtilities.invokeLater(new Runnable()
-      {
-         @Override
-         public void run()
-         {
-            VariableComponent varComp = (VariableComponent) MainWindow.this.varComps.get(var.getName());
-
-            if (varComp != null)
-            {
-               if (MainWindow.this.initialUpdate)
-                  varComp.initValue();
-               else varComp.valueChanged();
-            }
-         }
-      });
    }
 
    /**
@@ -261,22 +242,6 @@ public class MainWindow extends JFrame implements DebugListener
    @Override
    public void beforeUpdate()
    {
-      try
-      {
-         SwingUtilities.invokeAndWait(new Runnable()
-         {
-            @Override
-            public void run()
-            {
-               for (VariableComponent varComp : MainWindow.this.varComps.values())
-                  varComp.oldenValue();
-            }
-         });
-      }
-      catch (InvocationTargetException | InterruptedException e)
-      {
-         Dialogs.showExceptionDialog(e, "GUI update failed");
-      }
    }
 
    /**
@@ -285,7 +250,18 @@ public class MainWindow extends JFrame implements DebugListener
    @Override
    public void afterUpdate()
    {
-      this.initialUpdate = false;
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         @Override
+         public void run()
+         {
+            if (initialUpdate)
+               varsTableModel.markAllUnused();
+            else varsTableModel.fireValuesChanged();
+
+            initialUpdate = false;
+         }
+      });
    }
 
    /**
@@ -299,13 +275,12 @@ public class MainWindow extends JFrame implements DebugListener
          @Override
          public void run()
          {
-            ((ConnectAction) MainWindow.this.actionFactory.getAction("connectAction")).setConnected();
+            ((ConnectAction) actionFactory.getAction("connectAction")).setConnected();
 
-            MainWindow.this.actionFactory.getAction("updateAction").setEnabled(true);
-            MainWindow.this.actionFactory.getAction("autoUpdateAction").setEnabled(true);
-
-            MainWindow.this.initialUpdate = true;
-            MainWindow.this.actionFactory.getAction("updateAction").actionPerformed(null);
+            actionFactory.getAction("updateAction").setEnabled(true);
+            actionFactory.getAction("autoUpdateAction").setEnabled(true);
+            
+            initialUpdate();
          }
       });
    }
@@ -321,12 +296,11 @@ public class MainWindow extends JFrame implements DebugListener
          @Override
          public void run()
          {
-            ((ConnectAction) MainWindow.this.actionFactory.getAction("connectAction")).setDisconnected();
+            ((ConnectAction) actionFactory.getAction("connectAction")).setDisconnected();
 
-            MainWindow.this.actionFactory.getAction("updateAction").setEnabled(false);
+            actionFactory.getAction("updateAction").setEnabled(false);
 
-            AutoUpdateAction autoUpdate = (AutoUpdateAction) MainWindow.this.actionFactory
-               .getAction("autoUpdateAction");
+            AutoUpdateAction autoUpdate = (AutoUpdateAction) actionFactory.getAction("autoUpdateAction");
             autoUpdate.setEnabled(false);
             autoUpdate.stopAutoUpdate();
          }

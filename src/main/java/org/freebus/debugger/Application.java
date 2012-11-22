@@ -52,9 +52,9 @@ public final class Application extends AbstractApplication
       {
          loadConfig(configFile);
       }
-      this.win = new MainWindow(this);
-      this.controller.addListener(this.win);
-      this.win.setVisible(true);
+      win = new MainWindow(this);
+      controller.addListener(win);
+      win.setVisible(true);
    }
 
    protected void shutdown()
@@ -114,9 +114,12 @@ public final class Application extends AbstractApplication
             }
          }
       }
-      this.controller.setVariables(variables);
-      this.win.setTitle(file.getName() + " - " + I18n.getMessage("App.name"));
-      this.cdbFile = file;
+
+      controller.setVariables(variables);
+      win.setTitle(file.getName() + " - " + I18n.getMessage("App.name"));
+      cdbFile = file;
+
+      win.initialUpdate();
    }
 
    public void setMapFile(File file)
@@ -142,15 +145,15 @@ public final class Application extends AbstractApplication
       variables.addAll(MapUtils.createVariablesForArea(parser.getArea(".ABS.")));
       variables.addAll(MapUtils.createVariablesForArea(parser.getArea("DSEG")));
 
-      this.controller.setVariables(variables);
+      controller.setVariables(variables);
 
       getConfig().setProperty("lastOpenDir", file.getParentFile().getAbsolutePath());
-      this.win.setTitle(file.getName() + " - " + I18n.getMessage("App.name"));
+      win.setTitle(file.getName() + " - " + I18n.getMessage("App.name"));
    }
 
    public void reloadFiles()
    {
-      if (this.cdbFile != null)
-         setCdbFile(this.cdbFile);
+      if (cdbFile != null)
+         setCdbFile(cdbFile);
    }
 }

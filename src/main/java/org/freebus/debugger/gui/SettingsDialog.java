@@ -31,7 +31,7 @@ public class SettingsDialog extends JDialog
 
    private static final Insets PARAGRAPH_INSETS = new Insets(10, 8, 2, 8);
    private static final Insets INSETS = new Insets(2, 8, 2, 8);
-   private static final int[] AUTO_UPDATE_MSEC = { 0, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
+   private static final int[] AUTO_UPDATE_MSEC = { 0, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000 };
    private static final int DEFAULT_AUTO_UPDATE_MSEC = 2000;
 
    private final JComboBox<Integer> cboBaudRate = new JComboBox<Integer>();

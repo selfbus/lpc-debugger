@@ -18,18 +18,27 @@ public class AutoUpdateAction extends BasicAction
    private SwingWorker<Void, Void> worker;
    private int updateIntervalMsec = 2000;
 
+   /**
+    * Create an auto-update action.
+    */
    public AutoUpdateAction()
    {
       super(I18n.getMessage("AutoUpdateAction.name"), I18n.getMessage("AutoUpdateAction.toolTip"), ImageCache
          .getIcon("icons/play"));
    }
 
+   /**
+    * Update the configuration.
+    */
    public void updateConfig()
    {
       Properties props = Application.getInstance().getConfig();
       this.updateIntervalMsec = Integer.parseInt(props.getProperty("autoUpdateMsec", Integer.toString(2000)));
    }
 
+   /**
+    * Start the automatic update.
+    */
    public synchronized void startAutoUpdate()
    {
       if (worker != null)
@@ -41,14 +50,14 @@ public class AutoUpdateAction extends BasicAction
       {
          protected Void doInBackground() throws Exception
          {
-            while (AutoUpdateAction.this.worker != null)
+            while (worker != null)
             {
+               long start = System.currentTimeMillis();
                Application.getInstance().getController().update();
+               long elapsed = System.currentTimeMillis() - start;
 
-               if (AutoUpdateAction.this.updateIntervalMsec > 0)
-               {
-                  Thread.sleep(AutoUpdateAction.this.updateIntervalMsec);
-               }
+               if (updateIntervalMsec > elapsed)
+                  Thread.sleep(updateIntervalMsec - elapsed);
             }
             return null;
          }
@@ -61,6 +70,9 @@ public class AutoUpdateAction extends BasicAction
       ActionFactory.getInstance().getAction("updateAction").setEnabled(false);
    }
 
+   /**
+    * Stop the automatic update.
+    */
    public synchronized void stopAutoUpdate()
    {
       if (worker == null)

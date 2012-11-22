@@ -62,6 +62,7 @@ public class DebugController extends AbstractDebugController implements Closeabl
 
       fireBeforeUpdate();
       clearMemCache();
+
       try
       {
          for (Variable var : this.variables)

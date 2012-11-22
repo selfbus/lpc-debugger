@@ -16,7 +16,7 @@ public final class ReloadFileAction extends BasicAction
    public ReloadFileAction()
    {
       super(I18n.getMessage("ReloadFileAction.name"), I18n.getMessage("ReloadFileAction.toolTip"), ImageCache
-         .getIcon("icons/fileopen"));
+         .getIcon("icons/filereload"));
       putValue("AcceleratorKey", KeyStroke.getKeyStroke("F5"));
    }
 
