@@ -1,0 +1,3 @@
+This program is (c) by Stefan Taferner <stefan.taferner@gmx.at>
+
+The icons are taken from the crystal icon set, by Everaldo.

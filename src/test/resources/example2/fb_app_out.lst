@@ -1,0 +1,2837 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.1.4 #7479 (Mar 23 2012) (MINGW32)
+                              4 ; This file was generated Wed Nov 14 20:17:12 2012
+                              5 ;--------------------------------------------------------
+                              6 	.module fb_app_out
+                              7 	.optsdcc -mmcs51 --model-small
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _find_first_objno
+                             13 	.globl _read_objflags
+                             14 	.globl _send_obj_value
+                             15 	.globl _gapos_in_gat
+                             16 	.globl _P3_1
+                             17 	.globl _P3_0
+                             18 	.globl _P1_7
+                             19 	.globl _P1_6
+                             20 	.globl _P1_5
+                             21 	.globl _P1_4
+                             22 	.globl _P1_3
+                             23 	.globl _P1_2
+                             24 	.globl _P1_1
+                             25 	.globl _P1_0
+                             26 	.globl _P0_7
+                             27 	.globl _P0_6
+                             28 	.globl _P0_5
+                             29 	.globl _P0_4
+                             30 	.globl _P0_3
+                             31 	.globl _P0_2
+                             32 	.globl _P0_1
+                             33 	.globl _P0_0
+                             34 	.globl _I2CON_0
+                             35 	.globl _I2CON_2
+                             36 	.globl _I2CON_3
+                             37 	.globl _I2CON_4
+                             38 	.globl _I2CON_5
+                             39 	.globl _I2CON_6
+                             40 	.globl _SCON_7
+                             41 	.globl _SCON_6
+                             42 	.globl _SCON_5
+                             43 	.globl _SCON_4
+                             44 	.globl _SCON_3
+                             45 	.globl _SCON_2
+                             46 	.globl _SCON_1
+                             47 	.globl _SCON_0
+                             48 	.globl _IP0_0
+                             49 	.globl _IP0_1
+                             50 	.globl _IP0_2
+                             51 	.globl _IP0_3
+                             52 	.globl _IP0_4
+                             53 	.globl _IP0_5
+                             54 	.globl _IP0_6
+                             55 	.globl _IP1_0
+                             56 	.globl _IP1_1
+                             57 	.globl _IP1_2
+                             58 	.globl _IP1_6
+                             59 	.globl _IEN1_0
+                             60 	.globl _IEN1_1
+                             61 	.globl _IEN1_2
+                             62 	.globl _IEN0_0
+                             63 	.globl _IEN0_1
+                             64 	.globl _IEN0_2
+                             65 	.globl _IEN0_3
+                             66 	.globl _IEN0_4
+                             67 	.globl _IEN0_5
+                             68 	.globl _IEN0_6
+                             69 	.globl _IEN0_7
+                             70 	.globl _TCON_0
+                             71 	.globl _TCON_1
+                             72 	.globl _TCON_2
+                             73 	.globl _TCON_3
+                             74 	.globl _TCON_4
+                             75 	.globl _TCON_5
+                             76 	.globl _TCON_6
+                             77 	.globl _TCON_7
+                             78 	.globl _PSW_7
+                             79 	.globl _PSW_6
+                             80 	.globl _PSW_5
+                             81 	.globl _PSW_4
+                             82 	.globl _PSW_3
+                             83 	.globl _PSW_2
+                             84 	.globl _PSW_1
+                             85 	.globl _PSW_0
+                             86 	.globl _IEN1
+                             87 	.globl _IP0H
+                             88 	.globl _WFEED2
+                             89 	.globl _WFEED1
+                             90 	.globl _WDL
+                             91 	.globl _WDCON
+                             92 	.globl _TRIM
+                             93 	.globl _TAMOD
+                             94 	.globl _SSTAT
+                             95 	.globl _RTCL
+                             96 	.globl _RTCH
+                             97 	.globl _RTCCON
+                             98 	.globl _RSTSRC
+                             99 	.globl _PT0AD
+                            100 	.globl _PCONA
+                            101 	.globl _P3M2
+                            102 	.globl _P3M1
+                            103 	.globl _P1M2
+                            104 	.globl _P1M1
+                            105 	.globl _P0M2
+                            106 	.globl _P0M1
+                            107 	.globl _KBPATN
+                            108 	.globl _KBMASK
+                            109 	.globl _KBCON
+                            110 	.globl _IP1H
+                            111 	.globl _IP1
+                            112 	.globl _I2STAT
+                            113 	.globl _I2SCLL
+                            114 	.globl _I2SCLH
+                            115 	.globl _I2DAT
+                            116 	.globl _I2CON
+                            117 	.globl _I2ADR
+                            118 	.globl _FMDATA
+                            119 	.globl _FMCON
+                            120 	.globl _FMADRL
+                            121 	.globl _FMADRH
+                            122 	.globl _DIVM
+                            123 	.globl _CMP2
+                            124 	.globl _CMP1
+                            125 	.globl _BRGCON
+                            126 	.globl _BRGR1
+                            127 	.globl _BRGR0
+                            128 	.globl _SADEN
+                            129 	.globl _SADDR
+                            130 	.globl _AUXR1
+                            131 	.globl _SBUF
+                            132 	.globl _SCON
+                            133 	.globl _IP0
+                            134 	.globl _IEN0
+                            135 	.globl _TH1
+                            136 	.globl _TH0
+                            137 	.globl _TL1
+                            138 	.globl _TL0
+                            139 	.globl _TMOD
+                            140 	.globl _TCON
+                            141 	.globl _PCON
+                            142 	.globl _DPH
+                            143 	.globl _DPL
+                            144 	.globl _SP
+                            145 	.globl _B
+                            146 	.globl _ACC
+                            147 	.globl _PSW
+                            148 	.globl _P3
+                            149 	.globl _P1
+                            150 	.globl _P0
+                            151 	.globl _portchanged
+                            152 	.globl _delay_toggle
+                            153 	.globl _rm_send
+                            154 	.globl _logicstate
+                            155 	.globl _blocked
+                            156 	.globl _oldportbuffer
+                            157 	.globl _portbuffer
+                            158 	.globl _zf_state
+                            159 	.globl _rm_state
+                            160 	.globl _out_state
+                            161 	.globl _Tval
+                            162 	.globl _timer
+                            163 	.globl _timercnt
+                            164 	.globl _timerbase
+                            165 	.globl _write_value_req
+                            166 	.globl _read_value_req
+                            167 	.globl _read_obj_value
+                            168 	.globl _write_obj_value
+                            169 	.globl _object_schalten
+                            170 	.globl _delay_timer
+                            171 	.globl _port_schalten
+                            172 	.globl _sort_output
+                            173 	.globl _spi_2_out
+                            174 	.globl _bus_return
+                            175 	.globl _restart_app
+                            176 ;--------------------------------------------------------
+                            177 ; special function registers
+                            178 ;--------------------------------------------------------
+                            179 	.area RSEG    (ABS,DATA)
+   0000                     180 	.org 0x0000
+                    0080    181 _P0	=	0x0080
+                    0090    182 _P1	=	0x0090
+                    00B0    183 _P3	=	0x00b0
+                    00D0    184 _PSW	=	0x00d0
+                    00E0    185 _ACC	=	0x00e0
+                    00F0    186 _B	=	0x00f0
+                    0081    187 _SP	=	0x0081
+                    0082    188 _DPL	=	0x0082
+                    0083    189 _DPH	=	0x0083
+                    0087    190 _PCON	=	0x0087
+                    0088    191 _TCON	=	0x0088
+                    0089    192 _TMOD	=	0x0089
+                    008A    193 _TL0	=	0x008a
+                    008B    194 _TL1	=	0x008b
+                    008C    195 _TH0	=	0x008c
+                    008D    196 _TH1	=	0x008d
+                    00A8    197 _IEN0	=	0x00a8
+                    00B8    198 _IP0	=	0x00b8
+                    0098    199 _SCON	=	0x0098
+                    0099    200 _SBUF	=	0x0099
+                    00A2    201 _AUXR1	=	0x00a2
+                    00A9    202 _SADDR	=	0x00a9
+                    00B9    203 _SADEN	=	0x00b9
+                    00BE    204 _BRGR0	=	0x00be
+                    00BF    205 _BRGR1	=	0x00bf
+                    00BD    206 _BRGCON	=	0x00bd
+                    00AC    207 _CMP1	=	0x00ac
+                    00AD    208 _CMP2	=	0x00ad
+                    0095    209 _DIVM	=	0x0095
+                    00E7    210 _FMADRH	=	0x00e7
+                    00E6    211 _FMADRL	=	0x00e6
+                    00E4    212 _FMCON	=	0x00e4
+                    00E5    213 _FMDATA	=	0x00e5
+                    00DB    214 _I2ADR	=	0x00db
+                    00D8    215 _I2CON	=	0x00d8
+                    00DA    216 _I2DAT	=	0x00da
+                    00DD    217 _I2SCLH	=	0x00dd
+                    00DC    218 _I2SCLL	=	0x00dc
+                    00D9    219 _I2STAT	=	0x00d9
+                    00F8    220 _IP1	=	0x00f8
+                    00F7    221 _IP1H	=	0x00f7
+                    0094    222 _KBCON	=	0x0094
+                    0086    223 _KBMASK	=	0x0086
+                    0093    224 _KBPATN	=	0x0093
+                    0084    225 _P0M1	=	0x0084
+                    0085    226 _P0M2	=	0x0085
+                    0091    227 _P1M1	=	0x0091
+                    0092    228 _P1M2	=	0x0092
+                    00B1    229 _P3M1	=	0x00b1
+                    00B2    230 _P3M2	=	0x00b2
+                    00B5    231 _PCONA	=	0x00b5
+                    00F6    232 _PT0AD	=	0x00f6
+                    00DF    233 _RSTSRC	=	0x00df
+                    00D1    234 _RTCCON	=	0x00d1
+                    00D2    235 _RTCH	=	0x00d2
+                    00D3    236 _RTCL	=	0x00d3
+                    00BA    237 _SSTAT	=	0x00ba
+                    008F    238 _TAMOD	=	0x008f
+                    0096    239 _TRIM	=	0x0096
+                    00A7    240 _WDCON	=	0x00a7
+                    00C1    241 _WDL	=	0x00c1
+                    00C2    242 _WFEED1	=	0x00c2
+                    00C3    243 _WFEED2	=	0x00c3
+                    00B7    244 _IP0H	=	0x00b7
+                    00E8    245 _IEN1	=	0x00e8
+                            246 ;--------------------------------------------------------
+                            247 ; special function bits
+                            248 ;--------------------------------------------------------
+                            249 	.area RSEG    (ABS,DATA)
+   0000                     250 	.org 0x0000
+                    00D0    251 _PSW_0	=	0x00d0
+                    00D1    252 _PSW_1	=	0x00d1
+                    00D2    253 _PSW_2	=	0x00d2
+                    00D3    254 _PSW_3	=	0x00d3
+                    00D4    255 _PSW_4	=	0x00d4
+                    00D5    256 _PSW_5	=	0x00d5
+                    00D6    257 _PSW_6	=	0x00d6
+                    00D7    258 _PSW_7	=	0x00d7
+                    008F    259 _TCON_7	=	0x008f
+                    008E    260 _TCON_6	=	0x008e
+                    008D    261 _TCON_5	=	0x008d
+                    008C    262 _TCON_4	=	0x008c
+                    008B    263 _TCON_3	=	0x008b
+                    008A    264 _TCON_2	=	0x008a
+                    0089    265 _TCON_1	=	0x0089
+                    0088    266 _TCON_0	=	0x0088
+                    00AF    267 _IEN0_7	=	0x00af
+                    00AE    268 _IEN0_6	=	0x00ae
+                    00AD    269 _IEN0_5	=	0x00ad
+                    00AC    270 _IEN0_4	=	0x00ac
+                    00AB    271 _IEN0_3	=	0x00ab
+                    00AA    272 _IEN0_2	=	0x00aa
+                    00A9    273 _IEN0_1	=	0x00a9
+                    00A8    274 _IEN0_0	=	0x00a8
+                    00EA    275 _IEN1_2	=	0x00ea
+                    00E9    276 _IEN1_1	=	0x00e9
+                    00E8    277 _IEN1_0	=	0x00e8
+                    00FE    278 _IP1_6	=	0x00fe
+                    00FA    279 _IP1_2	=	0x00fa
+                    00F9    280 _IP1_1	=	0x00f9
+                    00F8    281 _IP1_0	=	0x00f8
+                    00BE    282 _IP0_6	=	0x00be
+                    00BD    283 _IP0_5	=	0x00bd
+                    00BC    284 _IP0_4	=	0x00bc
+                    00BB    285 _IP0_3	=	0x00bb
+                    00BA    286 _IP0_2	=	0x00ba
+                    00B9    287 _IP0_1	=	0x00b9
+                    00B8    288 _IP0_0	=	0x00b8
+                    0098    289 _SCON_0	=	0x0098
+                    0099    290 _SCON_1	=	0x0099
+                    009A    291 _SCON_2	=	0x009a
+                    009B    292 _SCON_3	=	0x009b
+                    009C    293 _SCON_4	=	0x009c
+                    009D    294 _SCON_5	=	0x009d
+                    009E    295 _SCON_6	=	0x009e
+                    009F    296 _SCON_7	=	0x009f
+                    00DE    297 _I2CON_6	=	0x00de
+                    00DD    298 _I2CON_5	=	0x00dd
+                    00DC    299 _I2CON_4	=	0x00dc
+                    00DB    300 _I2CON_3	=	0x00db
+                    00DA    301 _I2CON_2	=	0x00da
+                    00D8    302 _I2CON_0	=	0x00d8
+                    0080    303 _P0_0	=	0x0080
+                    0081    304 _P0_1	=	0x0081
+                    0082    305 _P0_2	=	0x0082
+                    0083    306 _P0_3	=	0x0083
+                    0084    307 _P0_4	=	0x0084
+                    0085    308 _P0_5	=	0x0085
+                    0086    309 _P0_6	=	0x0086
+                    0087    310 _P0_7	=	0x0087
+                    0090    311 _P1_0	=	0x0090
+                    0091    312 _P1_1	=	0x0091
+                    0092    313 _P1_2	=	0x0092
+                    0093    314 _P1_3	=	0x0093
+                    0094    315 _P1_4	=	0x0094
+                    0095    316 _P1_5	=	0x0095
+                    0096    317 _P1_6	=	0x0096
+                    0097    318 _P1_7	=	0x0097
+                    00B0    319 _P3_0	=	0x00b0
+                    00B1    320 _P3_1	=	0x00b1
+                            321 ;--------------------------------------------------------
+                            322 ; overlayable register banks
+                            323 ;--------------------------------------------------------
+                            324 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                     325 	.ds 8
+                            326 ;--------------------------------------------------------
+                            327 ; overlayable bit register bank
+                            328 ;--------------------------------------------------------
+                            329 	.area BIT_BANK	(REL,OVR,DATA)
+   0000                     330 bits:
+   0000                     331 	.ds 1
+                    8000    332 	b0 = bits[0]
+                    8100    333 	b1 = bits[1]
+                    8200    334 	b2 = bits[2]
+                    8300    335 	b3 = bits[3]
+                    8400    336 	b4 = bits[4]
+                    8500    337 	b5 = bits[5]
+                    8600    338 	b6 = bits[6]
+                    8700    339 	b7 = bits[7]
+                            340 ;--------------------------------------------------------
+                            341 ; internal ram data
+                            342 ;--------------------------------------------------------
+                            343 	.area DSEG    (DATA)
+   0000                     344 _timerbase::
+   0000                     345 	.ds 8
+   0008                     346 _timercnt::
+   0008                     347 	.ds 8
+   0010                     348 _timer::
+   0010                     349 	.ds 2
+   0012                     350 _Tval::
+   0012                     351 	.ds 1
+   0013                     352 _out_state::
+   0013                     353 	.ds 1
+   0014                     354 _rm_state::
+   0014                     355 	.ds 1
+   0015                     356 _zf_state::
+   0015                     357 	.ds 1
+   0016                     358 _portbuffer::
+   0016                     359 	.ds 1
+   0017                     360 _oldportbuffer::
+   0017                     361 	.ds 1
+   0018                     362 _blocked::
+   0018                     363 	.ds 1
+   0019                     364 _logicstate::
+   0019                     365 	.ds 1
+   001A                     366 _rm_send::
+   001A                     367 	.ds 1
+                            368 ;--------------------------------------------------------
+                            369 ; overlayable items in internal ram 
+                            370 ;--------------------------------------------------------
+                            371 ;--------------------------------------------------------
+                            372 ; indirectly addressable internal ram data
+                            373 ;--------------------------------------------------------
+                            374 	.area ISEG    (DATA)
+                            375 ;--------------------------------------------------------
+                            376 ; absolute internal ram data
+                            377 ;--------------------------------------------------------
+                            378 	.area IABS    (ABS,DATA)
+                            379 	.area IABS    (ABS,DATA)
+                            380 ;--------------------------------------------------------
+                            381 ; bit data
+                            382 ;--------------------------------------------------------
+                            383 	.area BSEG    (BIT)
+   0000                     384 _delay_toggle::
+   0000                     385 	.ds 1
+   0001                     386 _portchanged::
+   0001                     387 	.ds 1
+                            388 ;--------------------------------------------------------
+                            389 ; paged external ram data
+                            390 ;--------------------------------------------------------
+                            391 	.area PSEG    (PAG,XDATA)
+                            392 ;--------------------------------------------------------
+                            393 ; external ram data
+                            394 ;--------------------------------------------------------
+                            395 	.area XSEG    (XDATA)
+                            396 ;--------------------------------------------------------
+                            397 ; absolute external ram data
+                            398 ;--------------------------------------------------------
+                            399 	.area XABS    (ABS,XDATA)
+                            400 ;--------------------------------------------------------
+                            401 ; external initialized ram data
+                            402 ;--------------------------------------------------------
+                            403 	.area XISEG   (XDATA)
+                            404 	.area HOME    (CODE)
+                            405 	.area GSINIT0 (CODE)
+                            406 	.area GSINIT1 (CODE)
+                            407 	.area GSINIT2 (CODE)
+                            408 	.area GSINIT3 (CODE)
+                            409 	.area GSINIT4 (CODE)
+                            410 	.area GSINIT5 (CODE)
+                            411 	.area GSINIT  (CODE)
+                            412 	.area GSFINAL (CODE)
+                            413 	.area CSEG    (CODE)
+                            414 ;--------------------------------------------------------
+                            415 ; global & static initialisations
+                            416 ;--------------------------------------------------------
+                            417 	.area HOME    (CODE)
+                            418 	.area GSINIT  (CODE)
+                            419 	.area GSFINAL (CODE)
+                            420 	.area GSINIT  (CODE)
+                            421 ;--------------------------------------------------------
+                            422 ; Home
+                            423 ;--------------------------------------------------------
+                            424 	.area HOME    (CODE)
+                            425 	.area HOME    (CODE)
+                            426 ;--------------------------------------------------------
+                            427 ; code
+                            428 ;--------------------------------------------------------
+                            429 	.area CSEG    (CODE)
+                            430 ;------------------------------------------------------------
+                            431 ;Allocation info for local variables in function 'write_value_req'
+                            432 ;------------------------------------------------------------
+                            433 ;objno                     Allocated to registers r4 
+                            434 ;objflags                  Allocated to registers 
+                            435 ;assno                     Allocated to registers r6 
+                            436 ;n                         Allocated to stack - _bp +1
+                            437 ;gaposh                    Allocated to registers r4 
+                            438 ;zfout                     Allocated to stack - _bp +2
+                            439 ;zftyp                     Allocated to registers r7 
+                            440 ;gapos                     Allocated to stack - _bp +3
+                            441 ;blockstart                Allocated to stack - _bp +4
+                            442 ;blockend                  Allocated to stack - _bp +5
+                            443 ;block_polarity            Allocated to registers r7 
+                            444 ;obj_bitpattern            Allocated to registers r3 
+                            445 ;zf_bitpattern             Allocated to registers r2 
+                            446 ;sloc0                     Allocated to stack - _bp +14
+                            447 ;sloc1                     Allocated to stack - _bp +16
+                            448 ;------------------------------------------------------------
+                            449 ;	../fb_app_out.c:75: void write_value_req(void) 				// Ausgänge schalten gemäß EIS 1 Protokoll (an/aus)
+                            450 ;	-----------------------------------------
+                            451 ;	 function write_value_req
+                            452 ;	-----------------------------------------
+   0000                     453 _write_value_req:
+                    0007    454 	ar7 = 0x07
+                    0006    455 	ar6 = 0x06
+                    0005    456 	ar5 = 0x05
+                    0004    457 	ar4 = 0x04
+                    0003    458 	ar3 = 0x03
+                    0002    459 	ar2 = 0x02
+                    0001    460 	ar1 = 0x01
+                    0000    461 	ar0 = 0x00
+   0000 C0*00               462 	push	_bp
+   0002 E5 81               463 	mov	a,sp
+   0004 F5*00               464 	mov	_bp,a
+   0006 24 05               465 	add	a,#0x05
+   0008 F5 81               466 	mov	sp,a
+                            467 ;	../fb_app_out.c:83: gapos=gapos_in_gat(telegramm[3],telegramm[4]);	// Position der Gruppenadresse in der Adresstabelle
+   000A 85*03 82            468 	mov	dpl,(_telegramm + 0x0003)
+   000D C0*04               469 	push	(_telegramm + 0x0004)
+   000F 12s00r00            470 	lcall	_gapos_in_gat
+   0012 AF 82               471 	mov	r7,dpl
+   0014 15 81               472 	dec	sp
+   0016 E5*00               473 	mov	a,_bp
+   0018 24 03               474 	add	a,#0x03
+   001A F8                  475 	mov	r0,a
+   001B A6 07               476 	mov	@r0,ar7
+                            477 ;	../fb_app_out.c:84: if (gapos!=0xFF)					// =0xFF falls nicht vorhanden
+   001D E5*00               478 	mov	a,_bp
+   001F 24 03               479 	add	a,#0x03
+   0021 F8                  480 	mov	r0,a
+   0022 B6 FF 03            481 	cjne	@r0,#0xFF,00204$
+   0025 02s03r23            482 	ljmp	00149$
+   0028                     483 00204$:
+                            484 ;	../fb_app_out.c:87: assno=eeprom[eeprom[ASSOCTABPTR]];				// Erster Eintrag = Anzahl Einträge
+   0028 90s00r11            485 	mov	dptr,#(_eeprom + 0x0011)
+   002B E4                  486 	clr	a
+   002C 93                  487 	movc	a,@a+dptr
+   002D F5 82               488 	mov	dpl,a
+   002F 75 83s00            489 	mov	dph,#(_eeprom >> 8)
+   0032 E4                  490 	clr	a
+   0033 93                  491 	movc	a,@a+dptr
+   0034 FE                  492 	mov	r6,a
+                            493 ;	../fb_app_out.c:89: for(n=0;n<assno;n++)				// Schleife über alle Einträge in der Ass-Table, denn es könnten mehrere Objekte (Pins) der gleichen Gruppenadresse zugeordnet sein
+   0035 A8*00               494 	mov	r0,_bp
+   0037 08                  495 	inc	r0
+   0038 76 00               496 	mov	@r0,#0x00
+   003A                     497 00145$:
+   003A A8*00               498 	mov	r0,_bp
+   003C 08                  499 	inc	r0
+   003D C3                  500 	clr	c
+   003E E6                  501 	mov	a,@r0
+   003F 9E                  502 	subb	a,r6
+   0040 40 03               503 	jc	00205$
+   0042 02s03r1A            504 	ljmp	00148$
+   0045                     505 00205$:
+                            506 ;	../fb_app_out.c:91: gaposh=eeprom[eeprom[ASSOCTABPTR]+1+(n*2)];
+   0045 90s00r11            507 	mov	dptr,#(_eeprom + 0x0011)
+   0048 E4                  508 	clr	a
+   0049 93                  509 	movc	a,@a+dptr
+   004A FC                  510 	mov	r4,a
+   004B 0C                  511 	inc	r4
+   004C A8*00               512 	mov	r0,_bp
+   004E 08                  513 	inc	r0
+   004F E6                  514 	mov	a,@r0
+   0050 25 E0               515 	add	a,acc
+   0052 FB                  516 	mov	r3,a
+   0053 2C                  517 	add	a,r4
+   0054 90s00r00            518 	mov	dptr,#_eeprom
+   0057 93                  519 	movc	a,@a+dptr
+   0058 FC                  520 	mov	r4,a
+                            521 ;	../fb_app_out.c:92: if(gapos==gaposh)					// Wenn Positionsnummer übereinstimmt
+   0059 E5*00               522 	mov	a,_bp
+   005B 24 03               523 	add	a,#0x03
+   005D F8                  524 	mov	r0,a
+   005E E6                  525 	mov	a,@r0
+   005F B5 04 02            526 	cjne	a,ar4,00206$
+   0062 80 03               527 	sjmp	00207$
+   0064                     528 00206$:
+   0064 02s03r13            529 	ljmp	00147$
+   0067                     530 00207$:
+                            531 ;	../fb_app_out.c:94: objno=eeprom[eeprom[ASSOCTABPTR]+2+(n*2)];				// Objektnummer
+   0067 90s00r11            532 	mov	dptr,#(_eeprom + 0x0011)
+   006A E4                  533 	clr	a
+   006B 93                  534 	movc	a,@a+dptr
+   006C 24 02               535 	add	a,#0x02
+   006E 2B                  536 	add	a,r3
+   006F 90s00r00            537 	mov	dptr,#_eeprom
+   0072 93                  538 	movc	a,@a+dptr
+                            539 ;	../fb_app_out.c:95: objflags=read_objflags(objno);			// Objekt Flags lesen
+   0073 FC                  540 	mov	r4,a
+   0074 F5 82               541 	mov	dpl,a
+   0076 C0 06               542 	push	ar6
+   0078 C0 04               543 	push	ar4
+   007A 12s00r00            544 	lcall	_read_objflags
+   007D D0 04               545 	pop	ar4
+   007F D0 06               546 	pop	ar6
+                            547 ;	../fb_app_out.c:97: obj_bitpattern=0x01<<(objno-8);
+   0081 EC                  548 	mov	a,r4
+   0082 24 F8               549 	add	a,#0xF8
+   0084 FB                  550 	mov	r3,a
+   0085 8B F0               551 	mov	b,r3
+   0087 05 F0               552 	inc	b
+   0089 74 01               553 	mov	a,#0x01
+   008B 80 02               554 	sjmp	00210$
+   008D                     555 00208$:
+   008D 25 E0               556 	add	a,acc
+   008F                     557 00210$:
+   008F D5 F0 FB            558 	djnz	b,00208$
+   0092 FB                  559 	mov	r3,a
+                            560 ;	../fb_app_out.c:99: if (objno<8) object_schalten(objno,telegramm[7]&0x01);	// Objektnummer 0-7 entspricht den Ausgängen 1-8
+   0093 BC 08 00            561 	cjne	r4,#0x08,00211$
+   0096                     562 00211$:
+   0096 50 1E               563 	jnc	00102$
+   0098 E5*07               564 	mov	a,(_telegramm + 0x0007)
+   009A 54 01               565 	anl	a,#0x01
+   009C 24 FF               566 	add	a,#0xff
+   009E 92*00               567 	mov  b0,c
+   00A0 92 F0               568 	mov	b[0],c
+   00A2 C0 06               569 	push	ar6
+   00A4 C0 04               570 	push	ar4
+   00A6 C0 03               571 	push	ar3
+   00A8 85 F0*00            572 	mov	bits,b
+   00AB 8C 82               573 	mov	dpl,r4
+   00AD 12s04rBF            574 	lcall	_object_schalten
+   00B0 D0 03               575 	pop	ar3
+   00B2 D0 04               576 	pop	ar4
+   00B4 D0 06               577 	pop	ar6
+   00B6                     578 00102$:
+                            579 ;	../fb_app_out.c:101: if (objno>7 && objno<12)	// Objektnummer 8-11 entspricht den Zusatzfunktionen 1-4
+   00B6 EC                  580 	mov	a,r4
+   00B7 24 F8               581 	add	a,#0xff - 0x07
+   00B9 40 03               582 	jc	00213$
+   00BB 02s03r13            583 	ljmp	00147$
+   00BE                     584 00213$:
+   00BE BC 0C 00            585 	cjne	r4,#0x0C,00214$
+   00C1                     586 00214$:
+   00C1 40 03               587 	jc	00215$
+   00C3 02s03r13            588 	ljmp	00147$
+   00C6                     589 00215$:
+                            590 ;	../fb_app_out.c:103: write_obj_value(objno, telegramm[7]&0x01);
+   00C6 C0 03               591 	push	ar3
+   00C8 74 01               592 	mov	a,#0x01
+   00CA 55*07               593 	anl	a,(_telegramm + 0x0007)
+   00CC FA                  594 	mov	r2,a
+   00CD 7B 00               595 	mov	r3,#0x00
+   00CF C0 06               596 	push	ar6
+   00D1 C0 04               597 	push	ar4
+   00D3 C0 03               598 	push	ar3
+   00D5 C0 02               599 	push	ar2
+   00D7 C0 03               600 	push	ar3
+   00D9 8C 82               601 	mov	dpl,r4
+   00DB 12s04r04            602 	lcall	_write_obj_value
+   00DE 15 81               603 	dec	sp
+   00E0 15 81               604 	dec	sp
+   00E2 D0 03               605 	pop	ar3
+   00E4 D0 04               606 	pop	ar4
+   00E6 D0 06               607 	pop	ar6
+                            608 ;	../fb_app_out.c:104: zfout=0;
+   00E8 A8*00               609 	mov	r0,_bp
+   00EA 08                  610 	inc	r0
+   00EB 08                  611 	inc	r0
+   00EC 76 00               612 	mov	@r0,#0x00
+                            613 ;	../fb_app_out.c:105: blockstart=0;
+   00EE E5*00               614 	mov	a,_bp
+   00F0 24 04               615 	add	a,#0x04
+   00F2 F8                  616 	mov	r0,a
+   00F3 76 00               617 	mov	@r0,#0x00
+                            618 ;	../fb_app_out.c:106: blockend=0;
+   00F5 E5*00               619 	mov	a,_bp
+   00F7 24 05               620 	add	a,#0x05
+   00F9 F8                  621 	mov	r0,a
+   00FA 76 00               622 	mov	@r0,#0x00
+                            623 ;	../fb_app_out.c:107: switch (objno-8)			// Zugeordneten Ausgang zu Zusatzfunktionsnr. in zfout speichern (1-8)
+   00FC 8C 07               624 	mov	ar7,r4
+   00FE 7D 00               625 	mov	r5,#0x00
+   0100 EF                  626 	mov	a,r7
+   0101 24 F8               627 	add	a,#0xF8
+   0103 FC                  628 	mov	r4,a
+   0104 ED                  629 	mov	a,r5
+   0105 34 FF               630 	addc	a,#0xFF
+   0107 FA                  631 	mov	r2,a
+   0108 BC 00 07            632 	cjne	r4,#0x00,00216$
+   010B BA 00 04            633 	cjne	r2,#0x00,00216$
+   010E D0 03               634 	pop	ar3
+   0110 80 1E               635 	sjmp	00103$
+   0112                     636 00216$:
+   0112 D0 03               637 	pop	ar3
+   0114 BC 01 05            638 	cjne	r4,#0x01,00217$
+   0117 BA 00 02            639 	cjne	r2,#0x00,00217$
+   011A 80 47               640 	sjmp	00104$
+   011C                     641 00217$:
+   011C BC 02 05            642 	cjne	r4,#0x02,00218$
+   011F BA 00 02            643 	cjne	r2,#0x00,00218$
+   0122 80 78               644 	sjmp	00105$
+   0124                     645 00218$:
+   0124 BC 03 06            646 	cjne	r4,#0x03,00219$
+   0127 BA 00 03            647 	cjne	r2,#0x00,00219$
+   012A 02s01rCE            648 	ljmp	00106$
+   012D                     649 00219$:
+   012D 02s02r05            650 	ljmp	00107$
+                            651 ;	../fb_app_out.c:109: case 0x00:		
+   0130                     652 00103$:
+                            653 ;	../fb_app_out.c:110: zfout=eeprom[FUNCASS]&0x0F;
+   0130 90s00rD8            654 	mov	dptr,#(_eeprom + 0x00d8)
+   0133 E4                  655 	clr	a
+   0134 93                  656 	movc	a,@a+dptr
+   0135 FC                  657 	mov	r4,a
+   0136 A8*00               658 	mov	r0,_bp
+   0138 08                  659 	inc	r0
+   0139 08                  660 	inc	r0
+   013A 74 0F               661 	mov	a,#0x0F
+   013C 5C                  662 	anl	a,r4
+   013D F6                  663 	mov	@r0,a
+                            664 ;	../fb_app_out.c:111: blockstart=eeprom[BLOCKACT]&0x03;		// Verhalten bei Beginn der Sperrung
+   013E 90s00rEF            665 	mov	dptr,#(_eeprom + 0x00ef)
+   0141 E4                  666 	clr	a
+   0142 93                  667 	movc	a,@a+dptr
+   0143 FC                  668 	mov	r4,a
+   0144 E5*00               669 	mov	a,_bp
+   0146 24 04               670 	add	a,#0x04
+   0148 F8                  671 	mov	r0,a
+   0149 74 03               672 	mov	a,#0x03
+   014B 5C                  673 	anl	a,r4
+   014C F6                  674 	mov	@r0,a
+                            675 ;	../fb_app_out.c:112: blockend=(eeprom[BLOCKACT]>>2)&0x03;	// Verhalten bei Ende der Sperrung
+   014D 90s00rEF            676 	mov	dptr,#(_eeprom + 0x00ef)
+   0150 E4                  677 	clr	a
+   0151 93                  678 	movc	a,@a+dptr
+   0152 03                  679 	rr	a
+   0153 03                  680 	rr	a
+   0154 54 3F               681 	anl	a,#0x3F
+   0156 FC                  682 	mov	r4,a
+   0157 E5*00               683 	mov	a,_bp
+   0159 24 05               684 	add	a,#0x05
+   015B F8                  685 	mov	r0,a
+   015C 74 03               686 	mov	a,#0x03
+   015E 5C                  687 	anl	a,r4
+   015F F6                  688 	mov	@r0,a
+                            689 ;	../fb_app_out.c:113: break;
+   0160 02s02r05            690 	ljmp	00107$
+                            691 ;	../fb_app_out.c:114: case 0x01:
+   0163                     692 00104$:
+                            693 ;	../fb_app_out.c:115: zfout=(eeprom[FUNCASS]&0xF0)>>4;
+   0163 90s00rD8            694 	mov	dptr,#(_eeprom + 0x00d8)
+   0166 E4                  695 	clr	a
+   0167 93                  696 	movc	a,@a+dptr
+   0168 FC                  697 	mov	r4,a
+   0169 53 04 F0            698 	anl	ar4,#0xF0
+   016C A8*00               699 	mov	r0,_bp
+   016E 08                  700 	inc	r0
+   016F 08                  701 	inc	r0
+   0170 EC                  702 	mov	a,r4
+   0171 C4                  703 	swap	a
+   0172 54 0F               704 	anl	a,#0x0F
+   0174 F6                  705 	mov	@r0,a
+                            706 ;	../fb_app_out.c:116: blockstart=(eeprom[BLOCKACT]>>4)&0x03;	// Verhalten bei Beginn der Sperrung
+   0175 90s00rEF            707 	mov	dptr,#(_eeprom + 0x00ef)
+   0178 E4                  708 	clr	a
+   0179 93                  709 	movc	a,@a+dptr
+   017A C4                  710 	swap	a
+   017B 54 0F               711 	anl	a,#0x0F
+   017D FC                  712 	mov	r4,a
+   017E E5*00               713 	mov	a,_bp
+   0180 24 04               714 	add	a,#0x04
+   0182 F8                  715 	mov	r0,a
+   0183 74 03               716 	mov	a,#0x03
+   0185 5C                  717 	anl	a,r4
+   0186 F6                  718 	mov	@r0,a
+                            719 ;	../fb_app_out.c:117: blockend=(eeprom[BLOCKACT]>>6)&0x03;	// Verhalten bei Ende der Sperrung
+   0187 90s00rEF            720 	mov	dptr,#(_eeprom + 0x00ef)
+   018A E4                  721 	clr	a
+   018B 93                  722 	movc	a,@a+dptr
+   018C 23                  723 	rl	a
+   018D 23                  724 	rl	a
+   018E 54 03               725 	anl	a,#0x03
+   0190 FC                  726 	mov	r4,a
+   0191 E5*00               727 	mov	a,_bp
+   0193 24 05               728 	add	a,#0x05
+   0195 F8                  729 	mov	r0,a
+   0196 74 03               730 	mov	a,#0x03
+   0198 5C                  731 	anl	a,r4
+   0199 F6                  732 	mov	@r0,a
+                            733 ;	../fb_app_out.c:118: break;
+                            734 ;	../fb_app_out.c:119: case 0x02:
+   019A 80 69               735 	sjmp	00107$
+   019C                     736 00105$:
+                            737 ;	../fb_app_out.c:120: zfout=eeprom[FUNCASS+1]&0x0F;
+   019C 90s00rD9            738 	mov	dptr,#(_eeprom + 0x00d9)
+   019F E4                  739 	clr	a
+   01A0 93                  740 	movc	a,@a+dptr
+   01A1 FC                  741 	mov	r4,a
+   01A2 A8*00               742 	mov	r0,_bp
+   01A4 08                  743 	inc	r0
+   01A5 08                  744 	inc	r0
+   01A6 74 0F               745 	mov	a,#0x0F
+   01A8 5C                  746 	anl	a,r4
+   01A9 F6                  747 	mov	@r0,a
+                            748 ;	../fb_app_out.c:121: blockstart=eeprom[BLOCKACT+1]&0x03;		// Verhalten bei Beginn der Sperrung
+   01AA 90s00rF0            749 	mov	dptr,#(_eeprom + 0x00f0)
+   01AD E4                  750 	clr	a
+   01AE 93                  751 	movc	a,@a+dptr
+   01AF FC                  752 	mov	r4,a
+   01B0 E5*00               753 	mov	a,_bp
+   01B2 24 04               754 	add	a,#0x04
+   01B4 F8                  755 	mov	r0,a
+   01B5 74 03               756 	mov	a,#0x03
+   01B7 5C                  757 	anl	a,r4
+   01B8 F6                  758 	mov	@r0,a
+                            759 ;	../fb_app_out.c:122: blockend=(eeprom[BLOCKACT+1]>>2)&0x03;	// Verhalten bei Ende der Sperrung
+   01B9 90s00rF0            760 	mov	dptr,#(_eeprom + 0x00f0)
+   01BC E4                  761 	clr	a
+   01BD 93                  762 	movc	a,@a+dptr
+   01BE 03                  763 	rr	a
+   01BF 03                  764 	rr	a
+   01C0 54 3F               765 	anl	a,#0x3F
+   01C2 FC                  766 	mov	r4,a
+   01C3 E5*00               767 	mov	a,_bp
+   01C5 24 05               768 	add	a,#0x05
+   01C7 F8                  769 	mov	r0,a
+   01C8 74 03               770 	mov	a,#0x03
+   01CA 5C                  771 	anl	a,r4
+   01CB F6                  772 	mov	@r0,a
+                            773 ;	../fb_app_out.c:123: break;
+                            774 ;	../fb_app_out.c:124: case 0x03:
+   01CC 80 37               775 	sjmp	00107$
+   01CE                     776 00106$:
+                            777 ;	../fb_app_out.c:125: zfout=(eeprom[FUNCASS+1]&0xF0)>>4;
+   01CE 90s00rD9            778 	mov	dptr,#(_eeprom + 0x00d9)
+   01D1 E4                  779 	clr	a
+   01D2 93                  780 	movc	a,@a+dptr
+   01D3 FC                  781 	mov	r4,a
+   01D4 53 04 F0            782 	anl	ar4,#0xF0
+   01D7 A8*00               783 	mov	r0,_bp
+   01D9 08                  784 	inc	r0
+   01DA 08                  785 	inc	r0
+   01DB EC                  786 	mov	a,r4
+   01DC C4                  787 	swap	a
+   01DD 54 0F               788 	anl	a,#0x0F
+   01DF F6                  789 	mov	@r0,a
+                            790 ;	../fb_app_out.c:126: blockstart=(eeprom[BLOCKACT+1]>>4)&0x03;	// Verhalten bei Beginn der Sperrung
+   01E0 90s00rF0            791 	mov	dptr,#(_eeprom + 0x00f0)
+   01E3 E4                  792 	clr	a
+   01E4 93                  793 	movc	a,@a+dptr
+   01E5 C4                  794 	swap	a
+   01E6 54 0F               795 	anl	a,#0x0F
+   01E8 FC                  796 	mov	r4,a
+   01E9 E5*00               797 	mov	a,_bp
+   01EB 24 04               798 	add	a,#0x04
+   01ED F8                  799 	mov	r0,a
+   01EE 74 03               800 	mov	a,#0x03
+   01F0 5C                  801 	anl	a,r4
+   01F1 F6                  802 	mov	@r0,a
+                            803 ;	../fb_app_out.c:127: blockend=(eeprom[BLOCKACT+1]>>6)&0x03;		// Verhalten bei Ende der Sperrung
+   01F2 90s00rF0            804 	mov	dptr,#(_eeprom + 0x00f0)
+   01F5 E4                  805 	clr	a
+   01F6 93                  806 	movc	a,@a+dptr
+   01F7 23                  807 	rl	a
+   01F8 23                  808 	rl	a
+   01F9 54 03               809 	anl	a,#0x03
+   01FB FC                  810 	mov	r4,a
+   01FC E5*00               811 	mov	a,_bp
+   01FE 24 05               812 	add	a,#0x05
+   0200 F8                  813 	mov	r0,a
+   0201 74 03               814 	mov	a,#0x03
+   0203 5C                  815 	anl	a,r4
+   0204 F6                  816 	mov	@r0,a
+                            817 ;	../fb_app_out.c:128: }
+   0205                     818 00107$:
+                            819 ;	../fb_app_out.c:129: zftyp=((eeprom[FUNCTYP])>>((objno-8)*2)) & 0x03;	// Typ der Zusatzfunktion
+   0205 C0 03               820 	push	ar3
+   0207 90s00rED            821 	mov	dptr,#(_eeprom + 0x00ed)
+   020A E4                  822 	clr	a
+   020B 93                  823 	movc	a,@a+dptr
+   020C FC                  824 	mov	r4,a
+   020D EF                  825 	mov	a,r7
+   020E 24 F8               826 	add	a,#0xF8
+   0210 FA                  827 	mov	r2,a
+   0211 ED                  828 	mov	a,r5
+   0212 34 FF               829 	addc	a,#0xFF
+   0214 CA                  830 	xch	a,r2
+   0215 25 E0               831 	add	a,acc
+   0217 CA                  832 	xch	a,r2
+   0218 33                  833 	rlc	a
+   0219 FB                  834 	mov	r3,a
+   021A 8A F0               835 	mov	b,r2
+   021C 05 F0               836 	inc	b
+   021E EC                  837 	mov	a,r4
+   021F 80 02               838 	sjmp	00221$
+   0221                     839 00220$:
+   0221 C3                  840 	clr	c
+   0222 13                  841 	rrc	a
+   0223                     842 00221$:
+   0223 D5 F0 FB            843 	djnz	b,00220$
+   0226 FC                  844 	mov	r4,a
+   0227 74 03               845 	mov	a,#0x03
+   0229 5C                  846 	anl	a,r4
+   022A FF                  847 	mov	r7,a
+                            848 ;	../fb_app_out.c:130: zf_bitpattern=0x01<<(zfout-1);
+   022B A8*00               849 	mov	r0,_bp
+   022D 08                  850 	inc	r0
+   022E 08                  851 	inc	r0
+   022F E6                  852 	mov	a,@r0
+   0230 14                  853 	dec	a
+   0231 FC                  854 	mov	r4,a
+   0232 8C F0               855 	mov	b,r4
+   0234 05 F0               856 	inc	b
+   0236 74 01               857 	mov	a,#0x01
+   0238 80 02               858 	sjmp	00224$
+   023A                     859 00222$:
+   023A 25 E0               860 	add	a,acc
+   023C                     861 00224$:
+   023C D5 F0 FB            862 	djnz	b,00222$
+   023F FA                  863 	mov	r2,a
+                            864 ;	../fb_app_out.c:132: switch (zftyp)
+   0240 BF 00 04            865 	cjne	r7,#0x00,00225$
+   0243 D0 03               866 	pop	ar3
+   0245 80 0A               867 	sjmp	00108$
+   0247                     868 00225$:
+   0247 D0 03               869 	pop	ar3
+   0249 BF 01 02            870 	cjne	r7,#0x01,00226$
+   024C 80 4D               871 	sjmp	00112$
+   024E                     872 00226$:
+   024E 02s03r13            873 	ljmp	00147$
+                            874 ;	../fb_app_out.c:134: case 0x00:			// Verknüpfung
+   0251                     875 00108$:
+                            876 ;	../fb_app_out.c:135: switch (telegramm[7])
+   0251 AC*07               877 	mov	r4,(_telegramm + 0x0007)
+   0253 BC 80 02            878 	cjne	r4,#0x80,00227$
+   0256 80 05               879 	sjmp	00109$
+   0258                     880 00227$:
+                            881 ;	../fb_app_out.c:137: case 0x80:
+   0258 BC 81 0D            882 	cjne	r4,#0x81,00111$
+   025B 80 08               883 	sjmp	00110$
+   025D                     884 00109$:
+                            885 ;	../fb_app_out.c:138: logicstate=logicstate&(0xFF-zf_bitpattern);
+   025D 74 FF               886 	mov	a,#0xFF
+   025F C3                  887 	clr	c
+   0260 9A                  888 	subb	a,r2
+   0261 52*19               889 	anl	_logicstate,a
+                            890 ;	../fb_app_out.c:139: break;
+                            891 ;	../fb_app_out.c:140: case 0x81:
+   0263 80 03               892 	sjmp	00111$
+   0265                     893 00110$:
+                            894 ;	../fb_app_out.c:141: logicstate=logicstate|zf_bitpattern;
+   0265 EA                  895 	mov	a,r2
+   0266 42*19               896 	orl	_logicstate,a
+                            897 ;	../fb_app_out.c:142: }
+   0268                     898 00111$:
+                            899 ;	../fb_app_out.c:143: object_schalten(zfout-1, read_obj_value(zfout-1));	//telegramm[7]&0x01);
+   0268 C0 06               900 	push	ar6
+   026A A8*00               901 	mov	r0,_bp
+   026C 08                  902 	inc	r0
+   026D 08                  903 	inc	r0
+   026E E6                  904 	mov	a,@r0
+   026F 14                  905 	dec	a
+   0270 FC                  906 	mov	r4,a
+   0271 F5 82               907 	mov	dpl,a
+   0273 C0 04               908 	push	ar4
+   0275 12s03r5C            909 	lcall	_read_obj_value
+   0278 AA 82               910 	mov	r2,dpl
+   027A AD 83               911 	mov	r5,dph
+   027C AE F0               912 	mov	r6,b
+   027E FF                  913 	mov	r7,a
+   027F D0 04               914 	pop	ar4
+   0281 EA                  915 	mov	a,r2
+   0282 4D                  916 	orl	a,r5
+   0283 4E                  917 	orl	a,r6
+   0284 4F                  918 	orl	a,r7
+   0285 24 FF               919 	add	a,#0xff
+   0287 92*00               920 	mov  b0,c
+   0289 92 F0               921 	mov	b[0],c
+   028B C0 06               922 	push	ar6
+   028D 85 F0*00            923 	mov	bits,b
+   0290 8C 82               924 	mov	dpl,r4
+   0292 12s04rBF            925 	lcall	_object_schalten
+   0295 D0 06               926 	pop	ar6
+                            927 ;	../fb_app_out.c:144: break;
+   0297 D0 06               928 	pop	ar6
+                            929 ;	../fb_app_out.c:145: case 0x01:			// Sperren
+   0299 80 78               930 	sjmp	00147$
+   029B                     931 00112$:
+                            932 ;	../fb_app_out.c:146: block_polarity=eeprom[BLOCKPOL] & obj_bitpattern;
+   029B 90s00rF1            933 	mov	dptr,#(_eeprom + 0x00f1)
+   029E E4                  934 	clr	a
+   029F 93                  935 	movc	a,@a+dptr
+   02A0 52 03               936 	anl	ar3,a
+   02A2 8B 07               937 	mov	ar7,r3
+                            938 ;	../fb_app_out.c:147: if (((telegramm[7]==0x80) && (block_polarity==0)) ||
+   02A4 AD*07               939 	mov	r5,(_telegramm + 0x0007)
+   02A6 E4                  940 	clr	a
+   02A7 BD 80 01            941 	cjne	r5,#0x80,00229$
+   02AA 04                  942 	inc	a
+   02AB                     943 00229$:
+   02AB FC                  944 	mov	r4,a
+   02AC 60 03               945 	jz	00123$
+   02AE EF                  946 	mov	a,r7
+   02AF 60 06               947 	jz	00119$
+   02B1                     948 00123$:
+                            949 ;	../fb_app_out.c:148: ((telegramm[7]==0x81) && (block_polarity!=0)))
+   02B1 BD 81 27            950 	cjne	r5,#0x81,00120$
+   02B4 EF                  951 	mov	a,r7
+   02B5 60 24               952 	jz	00120$
+   02B7                     953 00119$:
+                            954 ;	../fb_app_out.c:150: if((blocked & zf_bitpattern)!=0) {	// nur wenn Sperre aktiv war
+   02B7 EA                  955 	mov	a,r2
+   02B8 55*18               956 	anl	a,_blocked
+   02BA 60 1F               957 	jz	00120$
+                            958 ;	../fb_app_out.c:151: blocked=blocked&(0xFF-zf_bitpattern);
+   02BC 74 FF               959 	mov	a,#0xFF
+   02BE C3                  960 	clr	c
+   02BF 9A                  961 	subb	a,r2
+   02C0 52*18               962 	anl	_blocked,a
+                            963 ;	../fb_app_out.c:152: if (blockend==0x01) portbuffer=portbuffer&(0xFF-zf_bitpattern);	// Bei Ende der Sperrung ausschalten
+   02C2 E5*00               964 	mov	a,_bp
+   02C4 24 05               965 	add	a,#0x05
+   02C6 F8                  966 	mov	r0,a
+   02C7 B6 01 06            967 	cjne	@r0,#0x01,00114$
+   02CA 74 FF               968 	mov	a,#0xFF
+   02CC C3                  969 	clr	c
+   02CD 9A                  970 	subb	a,r2
+   02CE 52*16               971 	anl	_portbuffer,a
+   02D0                     972 00114$:
+                            973 ;	../fb_app_out.c:153: if (blockend==0x02) portbuffer=portbuffer|zf_bitpattern;		// Bei Ende der Sperrung einschalten
+   02D0 E5*00               974 	mov	a,_bp
+   02D2 24 05               975 	add	a,#0x05
+   02D4 F8                  976 	mov	r0,a
+   02D5 B6 02 03            977 	cjne	@r0,#0x02,00120$
+   02D8 EA                  978 	mov	a,r2
+   02D9 42*16               979 	orl	_portbuffer,a
+   02DB                     980 00120$:
+                            981 ;	../fb_app_out.c:157: if (((telegramm[7]==0x81) && (block_polarity==0)) ||
+   02DB BD 81 03            982 	cjne	r5,#0x81,00134$
+   02DE EF                  983 	mov	a,r7
+   02DF 60 06               984 	jz	00130$
+   02E1                     985 00134$:
+                            986 ;	../fb_app_out.c:158: ((telegramm[7]==0x80) && (block_polarity!=0)))
+   02E1 EC                  987 	mov	a,r4
+   02E2 60 2F               988 	jz	00147$
+   02E4 EF                  989 	mov	a,r7
+   02E5 60 2C               990 	jz	00147$
+   02E7                     991 00130$:
+                            992 ;	../fb_app_out.c:160: if((blocked & zf_bitpattern)==0) {	// nur wenn Sperre inaktiv war
+   02E7 EA                  993 	mov	a,r2
+   02E8 55*18               994 	anl	a,_blocked
+   02EA 70 27               995 	jnz	00147$
+                            996 ;	../fb_app_out.c:161: blocked=blocked|zf_bitpattern;
+   02EC EA                  997 	mov	a,r2
+   02ED 42*18               998 	orl	_blocked,a
+                            999 ;	../fb_app_out.c:162: if (blockstart==0x01) portbuffer=portbuffer&(0xFF-zf_bitpattern);	// Bei Beginn der Sperrung ausschalten
+   02EF E5*00              1000 	mov	a,_bp
+   02F1 24 04              1001 	add	a,#0x04
+   02F3 F8                 1002 	mov	r0,a
+   02F4 B6 01 06           1003 	cjne	@r0,#0x01,00125$
+   02F7 74 FF              1004 	mov	a,#0xFF
+   02F9 C3                 1005 	clr	c
+   02FA 9A                 1006 	subb	a,r2
+   02FB 52*16              1007 	anl	_portbuffer,a
+   02FD                    1008 00125$:
+                           1009 ;	../fb_app_out.c:163: if (blockstart==0x02) portbuffer=portbuffer|zf_bitpattern;		// Bei Beginn der Sperrung einschalten
+   02FD E5*00              1010 	mov	a,_bp
+   02FF 24 04              1011 	add	a,#0x04
+   0301 F8                 1012 	mov	r0,a
+   0302 B6 02 03           1013 	cjne	@r0,#0x02,00127$
+   0305 EA                 1014 	mov	a,r2
+   0306 42*16              1015 	orl	_portbuffer,a
+   0308                    1016 00127$:
+                           1017 ;	../fb_app_out.c:164: timercnt[zfout-1]=0;//delrec[(zfout-1)*4]=0;	// ggf. Eintrag für Schaltverzögerung löschen
+   0308 A8*00              1018 	mov	r0,_bp
+   030A 08                 1019 	inc	r0
+   030B 08                 1020 	inc	r0
+   030C E6                 1021 	mov	a,@r0
+   030D 14                 1022 	dec	a
+   030E 24r08              1023 	add	a,#_timercnt
+   0310 F8                 1024 	mov	r0,a
+   0311 76 00              1025 	mov	@r0,#0x00
+                           1026 ;	../fb_app_out.c:170: }
+   0313                    1027 00147$:
+                           1028 ;	../fb_app_out.c:89: for(n=0;n<assno;n++)				// Schleife über alle Einträge in der Ass-Table, denn es könnten mehrere Objekte (Pins) der gleichen Gruppenadresse zugeordnet sein
+   0313 A8*00              1029 	mov	r0,_bp
+   0315 08                 1030 	inc	r0
+   0316 06                 1031 	inc	@r0
+   0317 02s00r3A           1032 	ljmp	00145$
+   031A                    1033 00148$:
+                           1034 ;	../fb_app_out.c:174: if (portbuffer != oldportbuffer) portchanged=1;//post für port_schalten hinterlegen
+   031A E5*17              1035 	mov	a,_oldportbuffer
+   031C B5*16 02           1036 	cjne	a,_portbuffer,00251$
+   031F 80 02              1037 	sjmp	00149$
+   0321                    1038 00251$:
+   0321 D2*01              1039 	setb	_portchanged
+   0323                    1040 00149$:
+   0323 85*00 81           1041 	mov	sp,_bp
+   0326 D0*00              1042 	pop	_bp
+   0328 22                 1043 	ret
+                           1044 ;------------------------------------------------------------
+                           1045 ;Allocation info for local variables in function 'read_value_req'
+                           1046 ;------------------------------------------------------------
+                           1047 ;objno                     Allocated to registers r7 
+                           1048 ;objflags                  Allocated to registers r6 
+                           1049 ;objvalue                  Allocated to registers 
+                           1050 ;------------------------------------------------------------
+                           1051 ;	../fb_app_out.c:189: void read_value_req(void)
+                           1052 ;	-----------------------------------------
+                           1053 ;	 function read_value_req
+                           1054 ;	-----------------------------------------
+   0329                    1055 _read_value_req:
+                           1056 ;	../fb_app_out.c:194: objno=find_first_objno(telegramm[3],telegramm[4]);	// erste Objektnummer zu empfangener GA finden
+   0329 85*03 82           1057 	mov	dpl,(_telegramm + 0x0003)
+   032C C0*04              1058 	push	(_telegramm + 0x0004)
+   032E 12s00r00           1059 	lcall	_find_first_objno
+   0331 AF 82              1060 	mov	r7,dpl
+   0333 15 81              1061 	dec	sp
+                           1062 ;	../fb_app_out.c:195: if(objno!=0xFF) {	// falls Gruppenadresse nicht gefunden
+   0335 BF FF 01           1063 	cjne	r7,#0xFF,00111$
+   0338 22                 1064 	ret
+   0339                    1065 00111$:
+                           1066 ;	../fb_app_out.c:197: objvalue=read_obj_value(objno);		// Objektwert aus USER-RAM lesen (Standard Einstellung)
+   0339 8F 82              1067 	mov	dpl,r7
+   033B C0 07              1068 	push	ar7
+   033D 12s03r5C           1069 	lcall	_read_obj_value
+   0340 D0 07              1070 	pop	ar7
+                           1071 ;	../fb_app_out.c:199: objflags=read_objflags(objno);		// Objekt Flags lesen
+   0342 8F 82              1072 	mov	dpl,r7
+   0344 C0 07              1073 	push	ar7
+   0346 12s00r00           1074 	lcall	_read_objflags
+   0349 AE 82              1075 	mov	r6,dpl
+   034B D0 07              1076 	pop	ar7
+                           1077 ;	../fb_app_out.c:201: if((objflags&0x0C)==0x0C) send_obj_value(objno+64); //send_value(0,objno,objvalue);
+   034D 53 06 0C           1078 	anl	ar6,#0x0C
+   0350 BE 0C 08           1079 	cjne	r6,#0x0C,00105$
+   0353 74 40              1080 	mov	a,#0x40
+   0355 2F                 1081 	add	a,r7
+   0356 F5 82              1082 	mov	dpl,a
+   0358 02s00r00           1083 	ljmp	_send_obj_value
+   035B                    1084 00105$:
+   035B 22                 1085 	ret
+                           1086 ;------------------------------------------------------------
+                           1087 ;Allocation info for local variables in function 'read_obj_value'
+                           1088 ;------------------------------------------------------------
+                           1089 ;objno                     Allocated to registers r7 
+                           1090 ;ret_val                   Allocated to registers r6 
+                           1091 ;------------------------------------------------------------
+                           1092 ;	../fb_app_out.c:206: unsigned long read_obj_value(unsigned char objno) 	// gibt den Wert eines Objektes zurueck
+                           1093 ;	-----------------------------------------
+                           1094 ;	 function read_obj_value
+                           1095 ;	-----------------------------------------
+   035C                    1096 _read_obj_value:
+   035C AF 82              1097 	mov	r7,dpl
+                           1098 ;	../fb_app_out.c:208: unsigned char ret_val=0;
+   035E 7E 00              1099 	mov	r6,#0x00
+                           1100 ;	../fb_app_out.c:210: if(objno<8) {
+   0360 BF 08 00           1101 	cjne	r7,#0x08,00130$
+   0363                    1102 00130$:
+   0363 E4                 1103 	clr	a
+   0364 33                 1104 	rlc	a
+   0365 FD                 1105 	mov	r5,a
+   0366 60 27              1106 	jz	00104$
+                           1107 ;	../fb_app_out.c:211: if(out_state&(1<<objno)) ret_val=1;
+   0368 C0 06              1108 	push	ar6
+   036A 8F F0              1109 	mov	b,r7
+   036C 05 F0              1110 	inc	b
+   036E 7B 01              1111 	mov	r3,#0x01
+   0370 7C 00              1112 	mov	r4,#0x00
+   0372 80 06              1113 	sjmp	00133$
+   0374                    1114 00132$:
+   0374 EB                 1115 	mov	a,r3
+   0375 2B                 1116 	add	a,r3
+   0376 FB                 1117 	mov	r3,a
+   0377 EC                 1118 	mov	a,r4
+   0378 33                 1119 	rlc	a
+   0379 FC                 1120 	mov	r4,a
+   037A                    1121 00133$:
+   037A D5 F0 F7           1122 	djnz	b,00132$
+   037D AA*13              1123 	mov	r2,_out_state
+   037F 7E 00              1124 	mov	r6,#0x00
+   0381 EA                 1125 	mov	a,r2
+   0382 52 03              1126 	anl	ar3,a
+   0384 EE                 1127 	mov	a,r6
+   0385 52 04              1128 	anl	ar4,a
+   0387 D0 06              1129 	pop	ar6
+   0389 EB                 1130 	mov	a,r3
+   038A 4C                 1131 	orl	a,r4
+   038B 60 02              1132 	jz	00104$
+   038D 7E 01              1133 	mov	r6,#0x01
+   038F                    1134 00104$:
+                           1135 ;	../fb_app_out.c:213: if(objno>=8 && objno<12) {
+   038F ED                 1136 	mov	a,r5
+   0390 70 33              1137 	jnz	00108$
+   0392 BF 0C 00           1138 	cjne	r7,#0x0C,00136$
+   0395                    1139 00136$:
+   0395 50 2E              1140 	jnc	00108$
+                           1141 ;	../fb_app_out.c:214: if(zf_state&(1<<(objno-8))) ret_val=1;
+   0397 8F 04              1142 	mov	ar4,r7
+   0399 7D 00              1143 	mov	r5,#0x00
+   039B EC                 1144 	mov	a,r4
+   039C 24 F8              1145 	add	a,#0xF8
+   039E FC                 1146 	mov	r4,a
+   039F ED                 1147 	mov	a,r5
+   03A0 34 FF              1148 	addc	a,#0xFF
+   03A2 8C F0              1149 	mov	b,r4
+   03A4 05 F0              1150 	inc	b
+   03A6 7C 01              1151 	mov	r4,#0x01
+   03A8 7D 00              1152 	mov	r5,#0x00
+   03AA 80 06              1153 	sjmp	00139$
+   03AC                    1154 00138$:
+   03AC EC                 1155 	mov	a,r4
+   03AD 2C                 1156 	add	a,r4
+   03AE FC                 1157 	mov	r4,a
+   03AF ED                 1158 	mov	a,r5
+   03B0 33                 1159 	rlc	a
+   03B1 FD                 1160 	mov	r5,a
+   03B2                    1161 00139$:
+   03B2 D5 F0 F7           1162 	djnz	b,00138$
+   03B5 AA*15              1163 	mov	r2,_zf_state
+   03B7 7B 00              1164 	mov	r3,#0x00
+   03B9 EA                 1165 	mov	a,r2
+   03BA 52 04              1166 	anl	ar4,a
+   03BC EB                 1167 	mov	a,r3
+   03BD 52 05              1168 	anl	ar5,a
+   03BF EC                 1169 	mov	a,r4
+   03C0 4D                 1170 	orl	a,r5
+   03C1 60 02              1171 	jz	00108$
+   03C3 7E 01              1172 	mov	r6,#0x01
+   03C5                    1173 00108$:
+                           1174 ;	../fb_app_out.c:216: if(objno>=12) {
+   03C5 BF 0C 00           1175 	cjne	r7,#0x0C,00141$
+   03C8                    1176 00141$:
+   03C8 40 2C              1177 	jc	00113$
+                           1178 ;	../fb_app_out.c:217: if(rm_state&(1<<(objno-12))) ret_val=1;
+   03CA 7D 00              1179 	mov	r5,#0x00
+   03CC EF                 1180 	mov	a,r7
+   03CD 24 F4              1181 	add	a,#0xF4
+   03CF FF                 1182 	mov	r7,a
+   03D0 ED                 1183 	mov	a,r5
+   03D1 34 FF              1184 	addc	a,#0xFF
+   03D3 8F F0              1185 	mov	b,r7
+   03D5 05 F0              1186 	inc	b
+   03D7 7F 01              1187 	mov	r7,#0x01
+   03D9 7D 00              1188 	mov	r5,#0x00
+   03DB 80 06              1189 	sjmp	00144$
+   03DD                    1190 00143$:
+   03DD EF                 1191 	mov	a,r7
+   03DE 2F                 1192 	add	a,r7
+   03DF FF                 1193 	mov	r7,a
+   03E0 ED                 1194 	mov	a,r5
+   03E1 33                 1195 	rlc	a
+   03E2 FD                 1196 	mov	r5,a
+   03E3                    1197 00144$:
+   03E3 D5 F0 F7           1198 	djnz	b,00143$
+   03E6 AB*14              1199 	mov	r3,_rm_state
+   03E8 7C 00              1200 	mov	r4,#0x00
+   03EA EB                 1201 	mov	a,r3
+   03EB 52 07              1202 	anl	ar7,a
+   03ED EC                 1203 	mov	a,r4
+   03EE 52 05              1204 	anl	ar5,a
+   03F0 EF                 1205 	mov	a,r7
+   03F1 4D                 1206 	orl	a,r5
+   03F2 60 02              1207 	jz	00113$
+   03F4 7E 01              1208 	mov	r6,#0x01
+   03F6                    1209 00113$:
+                           1210 ;	../fb_app_out.c:219: return(ret_val);
+   03F6 7F 00              1211 	mov	r7,#0x00
+   03F8 7D 00              1212 	mov	r5,#0x00
+   03FA 7C 00              1213 	mov	r4,#0x00
+   03FC 8E 82              1214 	mov	dpl,r6
+   03FE 8F 83              1215 	mov	dph,r7
+   0400 8D F0              1216 	mov	b,r5
+   0402 EC                 1217 	mov	a,r4
+   0403 22                 1218 	ret
+                           1219 ;------------------------------------------------------------
+                           1220 ;Allocation info for local variables in function 'write_obj_value'
+                           1221 ;------------------------------------------------------------
+                           1222 ;objvalue                  Allocated to stack - _bp -4
+                           1223 ;objno                     Allocated to registers r7 
+                           1224 ;------------------------------------------------------------
+                           1225 ;	../fb_app_out.c:223: void write_obj_value(unsigned char objno,unsigned int objvalue)	// schreibt den aktuellen Wert eines Objektes ins 'USERRAM'
+                           1226 ;	-----------------------------------------
+                           1227 ;	 function write_obj_value
+                           1228 ;	-----------------------------------------
+   0404                    1229 _write_obj_value:
+   0404 C0*00              1230 	push	_bp
+   0406 85 81*00           1231 	mov	_bp,sp
+   0409 AF 82              1232 	mov	r7,dpl
+                           1233 ;	../fb_app_out.c:225: if(objno<8) {
+   040B BF 08 00           1234 	cjne	r7,#0x08,00133$
+   040E                    1235 00133$:
+   040E E4                 1236 	clr	a
+   040F 33                 1237 	rlc	a
+   0410 FE                 1238 	mov	r6,a
+   0411 60 30              1239 	jz	00105$
+                           1240 ;	../fb_app_out.c:226: if(objvalue==0) out_state&=0xFF-(1<<objno);
+   0413 E5*00              1241 	mov	a,_bp
+   0415 24 FC              1242 	add	a,#0xfc
+   0417 F8                 1243 	mov	r0,a
+   0418 E6                 1244 	mov	a,@r0
+   0419 08                 1245 	inc	r0
+   041A 46                 1246 	orl	a,@r0
+   041B 70 16              1247 	jnz	00102$
+   041D 8F F0              1248 	mov	b,r7
+   041F 05 F0              1249 	inc	b
+   0421 74 01              1250 	mov	a,#0x01
+   0423 80 02              1251 	sjmp	00138$
+   0425                    1252 00136$:
+   0425 25 E0              1253 	add	a,acc
+   0427                    1254 00138$:
+   0427 D5 F0 FB           1255 	djnz	b,00136$
+   042A FD                 1256 	mov	r5,a
+   042B 74 FF              1257 	mov	a,#0xFF
+   042D C3                 1258 	clr	c
+   042E 9D                 1259 	subb	a,r5
+   042F 52*13              1260 	anl	_out_state,a
+   0431 80 10              1261 	sjmp	00105$
+   0433                    1262 00102$:
+                           1263 ;	../fb_app_out.c:227: else out_state|=1<<objno;
+   0433 8F F0              1264 	mov	b,r7
+   0435 05 F0              1265 	inc	b
+   0437 74 01              1266 	mov	a,#0x01
+   0439 80 02              1267 	sjmp	00141$
+   043B                    1268 00139$:
+   043B 25 E0              1269 	add	a,acc
+   043D                    1270 00141$:
+   043D D5 F0 FB           1271 	djnz	b,00139$
+   0440 FD                 1272 	mov	r5,a
+   0441 42*13              1273 	orl	_out_state,a
+   0443                    1274 00105$:
+                           1275 ;	../fb_app_out.c:229: if(objno>=8 && objno<12) {
+   0443 EE                 1276 	mov	a,r6
+   0444 70 3B              1277 	jnz	00110$
+   0446 BF 0C 00           1278 	cjne	r7,#0x0C,00143$
+   0449                    1279 00143$:
+   0449 50 36              1280 	jnc	00110$
+                           1281 ;	../fb_app_out.c:230: if(objvalue==0) zf_state&=0x0F-(1<<(objno-8));
+   044B E5*00              1282 	mov	a,_bp
+   044D 24 FC              1283 	add	a,#0xfc
+   044F F8                 1284 	mov	r0,a
+   0450 E6                 1285 	mov	a,@r0
+   0451 08                 1286 	inc	r0
+   0452 46                 1287 	orl	a,@r0
+   0453 70 19              1288 	jnz	00107$
+   0455 EF                 1289 	mov	a,r7
+   0456 24 F8              1290 	add	a,#0xF8
+   0458 F5 F0              1291 	mov	b,a
+   045A 05 F0              1292 	inc	b
+   045C 74 01              1293 	mov	a,#0x01
+   045E 80 02              1294 	sjmp	00148$
+   0460                    1295 00146$:
+   0460 25 E0              1296 	add	a,acc
+   0462                    1297 00148$:
+   0462 D5 F0 FB           1298 	djnz	b,00146$
+   0465 FE                 1299 	mov	r6,a
+   0466 74 0F              1300 	mov	a,#0x0F
+   0468 C3                 1301 	clr	c
+   0469 9E                 1302 	subb	a,r6
+   046A 52*15              1303 	anl	_zf_state,a
+   046C 80 13              1304 	sjmp	00110$
+   046E                    1305 00107$:
+                           1306 ;	../fb_app_out.c:231: else zf_state|=1<<(objno-8);
+   046E EF                 1307 	mov	a,r7
+   046F 24 F8              1308 	add	a,#0xF8
+   0471 F5 F0              1309 	mov	b,a
+   0473 05 F0              1310 	inc	b
+   0475 74 01              1311 	mov	a,#0x01
+   0477 80 02              1312 	sjmp	00151$
+   0479                    1313 00149$:
+   0479 25 E0              1314 	add	a,acc
+   047B                    1315 00151$:
+   047B D5 F0 FB           1316 	djnz	b,00149$
+   047E FE                 1317 	mov	r6,a
+   047F 42*15              1318 	orl	_zf_state,a
+   0481                    1319 00110$:
+                           1320 ;	../fb_app_out.c:233: if(objno>=12) {
+   0481 BF 0C 00           1321 	cjne	r7,#0x0C,00152$
+   0484                    1322 00152$:
+   0484 40 36              1323 	jc	00117$
+                           1324 ;	../fb_app_out.c:234: if(objvalue==0) rm_state&=0xFF-(1<<(objno-12));
+   0486 E5*00              1325 	mov	a,_bp
+   0488 24 FC              1326 	add	a,#0xfc
+   048A F8                 1327 	mov	r0,a
+   048B E6                 1328 	mov	a,@r0
+   048C 08                 1329 	inc	r0
+   048D 46                 1330 	orl	a,@r0
+   048E 70 19              1331 	jnz	00113$
+   0490 EF                 1332 	mov	a,r7
+   0491 24 F4              1333 	add	a,#0xF4
+   0493 F5 F0              1334 	mov	b,a
+   0495 05 F0              1335 	inc	b
+   0497 74 01              1336 	mov	a,#0x01
+   0499 80 02              1337 	sjmp	00157$
+   049B                    1338 00155$:
+   049B 25 E0              1339 	add	a,acc
+   049D                    1340 00157$:
+   049D D5 F0 FB           1341 	djnz	b,00155$
+   04A0 FE                 1342 	mov	r6,a
+   04A1 74 FF              1343 	mov	a,#0xFF
+   04A3 C3                 1344 	clr	c
+   04A4 9E                 1345 	subb	a,r6
+   04A5 52*14              1346 	anl	_rm_state,a
+   04A7 80 13              1347 	sjmp	00117$
+   04A9                    1348 00113$:
+                           1349 ;	../fb_app_out.c:235: else rm_state|=1<<(objno-12);
+   04A9 EF                 1350 	mov	a,r7
+   04AA 24 F4              1351 	add	a,#0xF4
+   04AC F5 F0              1352 	mov	b,a
+   04AE 05 F0              1353 	inc	b
+   04B0 74 01              1354 	mov	a,#0x01
+   04B2 80 02              1355 	sjmp	00160$
+   04B4                    1356 00158$:
+   04B4 25 E0              1357 	add	a,acc
+   04B6                    1358 00160$:
+   04B6 D5 F0 FB           1359 	djnz	b,00158$
+   04B9 FF                 1360 	mov	r7,a
+   04BA 42*14              1361 	orl	_rm_state,a
+   04BC                    1362 00117$:
+   04BC D0*00              1363 	pop	_bp
+   04BE 22                 1364 	ret
+                           1365 ;------------------------------------------------------------
+                           1366 ;Allocation info for local variables in function 'object_schalten'
+                           1367 ;------------------------------------------------------------
+                           1368 ;objstate                  Allocated to registers b0 
+                           1369 ;objno                     Allocated to registers r7 
+                           1370 ;delay_base                Allocated to registers r6 
+                           1371 ;delay_state               Allocated to registers r4 
+                           1372 ;logicfunc                 Allocated to stack - _bp +1
+                           1373 ;zfno                      Allocated to stack - _bp +2
+                           1374 ;delay_onoff               Allocated to registers r5 
+                           1375 ;off_disable               Allocated to registers b1 
+                           1376 ;------------------------------------------------------------
+                           1377 ;	../fb_app_out.c:244: void object_schalten(unsigned char objno, __bit objstate)	// Schaltet einen Ausgang gemäß objstate und den zugörigen Parametern
+                           1378 ;	-----------------------------------------
+                           1379 ;	 function object_schalten
+                           1380 ;	-----------------------------------------
+   04BF                    1381 _object_schalten:
+   04BF C0*00              1382 	push	_bp
+   04C1 85 81*00           1383 	mov	_bp,sp
+   04C4 05 81              1384 	inc	sp
+   04C6 05 81              1385 	inc	sp
+   04C8 AF 82              1386 	mov	r7,dpl
+                           1387 ;	../fb_app_out.c:253: off_disable=((eeprom[OFFDISABLE]>>objno)&0x01);	// nur ausschalten wenn AUS-Tete nicht ignoriert werden soll
+   04CA 90s00rEB           1388 	mov	dptr,#(_eeprom + 0x00eb)
+   04CD E4                 1389 	clr	a
+   04CE 93                 1390 	movc	a,@a+dptr
+   04CF FE                 1391 	mov	r6,a
+   04D0 8F F0              1392 	mov	b,r7
+   04D2 05 F0              1393 	inc	b
+   04D4 EE                 1394 	mov	a,r6
+   04D5 80 02              1395 	sjmp	00216$
+   04D7                    1396 00215$:
+   04D7 C3                 1397 	clr	c
+   04D8 13                 1398 	rrc	a
+   04D9                    1399 00216$:
+   04D9 D5 F0 FB           1400 	djnz	b,00215$
+   04DC 54 01              1401 	anl	a,#0x01
+   04DE FE                 1402 	mov	r6,a
+   04DF 24 FF              1403 	add	a,#0xff
+   04E1 92*00              1404 	mov	b1,c
+                           1405 ;	../fb_app_out.c:254: if ((!objstate && !off_disable) || objstate) {
+   04E3 20*00 03           1406 	jb	b0,00158$
+   04E6 30*00 06           1407 	jnb	b1,00155$
+   04E9                    1408 00158$:
+   04E9 20*00 03           1409 	jb	b0,00219$
+   04EC 02s08r30           1410 	ljmp	00159$
+   04EF                    1411 00219$:
+   04EF                    1412 00155$:
+                           1413 ;	../fb_app_out.c:255: write_obj_value(objno,objstate);		// Objektwert speichern
+   04EF A2*00              1414 	mov	c,b0
+   04F1 E4                 1415 	clr	a
+   04F2 33                 1416 	rlc	a
+   04F3 FD                 1417 	mov	r5,a
+   04F4 7E 00              1418 	mov	r6,#0x00
+   04F6 C0 07              1419 	push	ar7
+   04F8 C0*00              1420 	push	bits
+   04FA C0 05              1421 	push	ar5
+   04FC C0 06              1422 	push	ar6
+   04FE 8F 82              1423 	mov	dpl,r7
+   0500 12s04r04           1424 	lcall	_write_obj_value
+   0503 15 81              1425 	dec	sp
+   0505 15 81              1426 	dec	sp
+   0507 D0*00              1427 	pop	bits
+   0509 D0 07              1428 	pop	ar7
+                           1429 ;	../fb_app_out.c:258: zfno=0;
+   050B A8*00              1430 	mov	r0,_bp
+   050D 08                 1431 	inc	r0
+   050E 08                 1432 	inc	r0
+   050F 76 00              1433 	mov	@r0,#0x00
+                           1434 ;	../fb_app_out.c:259: logicfunc=0;
+   0511 A8*00              1435 	mov	r0,_bp
+   0513 08                 1436 	inc	r0
+   0514 76 00              1437 	mov	@r0,#0x00
+                           1438 ;	../fb_app_out.c:260: if((eeprom[FUNCASS]&0x0F)==(objno+1)) zfno=1;
+   0516 90s00rD8           1439 	mov	dptr,#(_eeprom + 0x00d8)
+   0519 E4                 1440 	clr	a
+   051A 93                 1441 	movc	a,@a+dptr
+   051B FC                 1442 	mov	r4,a
+   051C 53 04 0F           1443 	anl	ar4,#0x0F
+   051F 8F 02              1444 	mov	ar2,r7
+   0521 7B 00              1445 	mov	r3,#0x00
+   0523 C0 07              1446 	push	ar7
+   0525 74 01              1447 	mov	a,#0x01
+   0527 2A                 1448 	add	a,r2
+   0528 FE                 1449 	mov	r6,a
+   0529 E4                 1450 	clr	a
+   052A 3B                 1451 	addc	a,r3
+   052B FF                 1452 	mov	r7,a
+   052C 7D 00              1453 	mov	r5,#0x00
+   052E EC                 1454 	mov	a,r4
+   052F B5 06 06           1455 	cjne	a,ar6,00220$
+   0532 ED                 1456 	mov	a,r5
+   0533 B5 07 02           1457 	cjne	a,ar7,00220$
+   0536 80 04              1458 	sjmp	00221$
+   0538                    1459 00220$:
+   0538 D0 07              1460 	pop	ar7
+   053A 80 08              1461 	sjmp	00102$
+   053C                    1462 00221$:
+   053C D0 07              1463 	pop	ar7
+   053E A8*00              1464 	mov	r0,_bp
+   0540 08                 1465 	inc	r0
+   0541 08                 1466 	inc	r0
+   0542 76 01              1467 	mov	@r0,#0x01
+   0544                    1468 00102$:
+                           1469 ;	../fb_app_out.c:261: if(((eeprom[FUNCASS]&0xF0)>>4)==(objno+1)) zfno=2;
+   0544 C0 07              1470 	push	ar7
+   0546 90s00rD8           1471 	mov	dptr,#(_eeprom + 0x00d8)
+   0549 E4                 1472 	clr	a
+   054A 93                 1473 	movc	a,@a+dptr
+   054B 54 F0              1474 	anl	a,#0xF0
+   054D C4                 1475 	swap	a
+   054E 54 0F              1476 	anl	a,#0x0F
+   0550 FE                 1477 	mov	r6,a
+   0551 74 01              1478 	mov	a,#0x01
+   0553 2A                 1479 	add	a,r2
+   0554 FC                 1480 	mov	r4,a
+   0555 E4                 1481 	clr	a
+   0556 3B                 1482 	addc	a,r3
+   0557 FD                 1483 	mov	r5,a
+   0558 7F 00              1484 	mov	r7,#0x00
+   055A EE                 1485 	mov	a,r6
+   055B B5 04 06           1486 	cjne	a,ar4,00222$
+   055E EF                 1487 	mov	a,r7
+   055F B5 05 02           1488 	cjne	a,ar5,00222$
+   0562 80 04              1489 	sjmp	00223$
+   0564                    1490 00222$:
+   0564 D0 07              1491 	pop	ar7
+   0566 80 08              1492 	sjmp	00104$
+   0568                    1493 00223$:
+   0568 D0 07              1494 	pop	ar7
+   056A A8*00              1495 	mov	r0,_bp
+   056C 08                 1496 	inc	r0
+   056D 08                 1497 	inc	r0
+   056E 76 02              1498 	mov	@r0,#0x02
+   0570                    1499 00104$:
+                           1500 ;	../fb_app_out.c:262: if((eeprom[FUNCASS+1]&0x0F)==(objno+1)) zfno=3;
+   0570 C0 07              1501 	push	ar7
+   0572 90s00rD9           1502 	mov	dptr,#(_eeprom + 0x00d9)
+   0575 E4                 1503 	clr	a
+   0576 93                 1504 	movc	a,@a+dptr
+   0577 FE                 1505 	mov	r6,a
+   0578 53 06 0F           1506 	anl	ar6,#0x0F
+   057B 74 01              1507 	mov	a,#0x01
+   057D 2A                 1508 	add	a,r2
+   057E FC                 1509 	mov	r4,a
+   057F E4                 1510 	clr	a
+   0580 3B                 1511 	addc	a,r3
+   0581 FD                 1512 	mov	r5,a
+   0582 7F 00              1513 	mov	r7,#0x00
+   0584 EE                 1514 	mov	a,r6
+   0585 B5 04 06           1515 	cjne	a,ar4,00224$
+   0588 EF                 1516 	mov	a,r7
+   0589 B5 05 02           1517 	cjne	a,ar5,00224$
+   058C 80 04              1518 	sjmp	00225$
+   058E                    1519 00224$:
+   058E D0 07              1520 	pop	ar7
+   0590 80 08              1521 	sjmp	00106$
+   0592                    1522 00225$:
+   0592 D0 07              1523 	pop	ar7
+   0594 A8*00              1524 	mov	r0,_bp
+   0596 08                 1525 	inc	r0
+   0597 08                 1526 	inc	r0
+   0598 76 03              1527 	mov	@r0,#0x03
+   059A                    1528 00106$:
+                           1529 ;	../fb_app_out.c:263: if(((eeprom[FUNCASS+1]&0xF0)>>4)==(objno+1)) zfno=4;
+   059A C0 07              1530 	push	ar7
+   059C 90s00rD9           1531 	mov	dptr,#(_eeprom + 0x00d9)
+   059F E4                 1532 	clr	a
+   05A0 93                 1533 	movc	a,@a+dptr
+   05A1 54 F0              1534 	anl	a,#0xF0
+   05A3 C4                 1535 	swap	a
+   05A4 54 0F              1536 	anl	a,#0x0F
+   05A6 FE                 1537 	mov	r6,a
+   05A7 74 01              1538 	mov	a,#0x01
+   05A9 2A                 1539 	add	a,r2
+   05AA FC                 1540 	mov	r4,a
+   05AB E4                 1541 	clr	a
+   05AC 3B                 1542 	addc	a,r3
+   05AD FD                 1543 	mov	r5,a
+   05AE 7F 00              1544 	mov	r7,#0x00
+   05B0 EE                 1545 	mov	a,r6
+   05B1 B5 04 06           1546 	cjne	a,ar4,00226$
+   05B4 EF                 1547 	mov	a,r7
+   05B5 B5 05 02           1548 	cjne	a,ar5,00226$
+   05B8 80 04              1549 	sjmp	00227$
+   05BA                    1550 00226$:
+   05BA D0 07              1551 	pop	ar7
+   05BC 80 08              1552 	sjmp	00108$
+   05BE                    1553 00227$:
+   05BE D0 07              1554 	pop	ar7
+   05C0 A8*00              1555 	mov	r0,_bp
+   05C2 08                 1556 	inc	r0
+   05C3 08                 1557 	inc	r0
+   05C4 76 04              1558 	mov	@r0,#0x04
+   05C6                    1559 00108$:
+                           1560 ;	../fb_app_out.c:264: if(zfno) {
+   05C6 A8*00              1561 	mov	r0,_bp
+   05C8 08                 1562 	inc	r0
+   05C9 08                 1563 	inc	r0
+   05CA E6                 1564 	mov	a,@r0
+   05CB 60 5F              1565 	jz	00112$
+                           1566 ;	../fb_app_out.c:265: if(((eeprom[FUNCTYP]>>((zfno-1)*2))&0x03)==0x00) logicfunc=((eeprom[LOGICTYP]>>((zfno-1)*2))&0x03);
+   05CD C0 02              1567 	push	ar2
+   05CF C0 03              1568 	push	ar3
+   05D1 90s00rED           1569 	mov	dptr,#(_eeprom + 0x00ed)
+   05D4 E4                 1570 	clr	a
+   05D5 93                 1571 	movc	a,@a+dptr
+   05D6 FE                 1572 	mov	r6,a
+   05D7 A8*00              1573 	mov	r0,_bp
+   05D9 08                 1574 	inc	r0
+   05DA 08                 1575 	inc	r0
+   05DB 86 04              1576 	mov	ar4,@r0
+   05DD 7D 00              1577 	mov	r5,#0x00
+   05DF EC                 1578 	mov	a,r4
+   05E0 24 FF              1579 	add	a,#0xFF
+   05E2 FA                 1580 	mov	r2,a
+   05E3 ED                 1581 	mov	a,r5
+   05E4 34 FF              1582 	addc	a,#0xFF
+   05E6 CA                 1583 	xch	a,r2
+   05E7 25 E0              1584 	add	a,acc
+   05E9 CA                 1585 	xch	a,r2
+   05EA 33                 1586 	rlc	a
+   05EB FB                 1587 	mov	r3,a
+   05EC 8A F0              1588 	mov	b,r2
+   05EE 05 F0              1589 	inc	b
+   05F0 EE                 1590 	mov	a,r6
+   05F1 80 02              1591 	sjmp	00230$
+   05F3                    1592 00229$:
+   05F3 C3                 1593 	clr	c
+   05F4 13                 1594 	rrc	a
+   05F5                    1595 00230$:
+   05F5 D5 F0 FB           1596 	djnz	b,00229$
+   05F8 54 03              1597 	anl	a,#0x03
+   05FA 60 06              1598 	jz	00232$
+   05FC D0 03              1599 	pop	ar3
+   05FE D0 02              1600 	pop	ar2
+   0600 80 2A              1601 	sjmp	00112$
+   0602                    1602 00232$:
+   0602 D0 03              1603 	pop	ar3
+   0604 D0 02              1604 	pop	ar2
+   0606 90s00rEE           1605 	mov	dptr,#(_eeprom + 0x00ee)
+   0609 E4                 1606 	clr	a
+   060A 93                 1607 	movc	a,@a+dptr
+   060B FE                 1608 	mov	r6,a
+   060C 1C                 1609 	dec	r4
+   060D BC FF 01           1610 	cjne	r4,#0xFF,00233$
+   0610 1D                 1611 	dec	r5
+   0611                    1612 00233$:
+   0611 ED                 1613 	mov	a,r5
+   0612 CC                 1614 	xch	a,r4
+   0613 25 E0              1615 	add	a,acc
+   0615 CC                 1616 	xch	a,r4
+   0616 33                 1617 	rlc	a
+   0617 FD                 1618 	mov	r5,a
+   0618 8C F0              1619 	mov	b,r4
+   061A 05 F0              1620 	inc	b
+   061C EE                 1621 	mov	a,r6
+   061D 80 02              1622 	sjmp	00235$
+   061F                    1623 00234$:
+   061F C3                 1624 	clr	c
+   0620 13                 1625 	rrc	a
+   0621                    1626 00235$:
+   0621 D5 F0 FB           1627 	djnz	b,00234$
+   0624 FE                 1628 	mov	r6,a
+   0625 A8*00              1629 	mov	r0,_bp
+   0627 08                 1630 	inc	r0
+   0628 74 03              1631 	mov	a,#0x03
+   062A 5E                 1632 	anl	a,r6
+   062B F6                 1633 	mov	@r0,a
+   062C                    1634 00112$:
+                           1635 ;	../fb_app_out.c:268: if(((0x01<<objno) & blocked)==0 && (read_objflags(objno)&0x14)==0x14) {	// Objekt ist nicht gesperrt und Kommunikation zulässig (Bit 2 = communication enable) und Schreiben zulässig (Bit 4 = write enable)
+   062C C0 02              1636 	push	ar2
+   062E C0 03              1637 	push	ar3
+   0630 8F F0              1638 	mov	b,r7
+   0632 05 F0              1639 	inc	b
+   0634 7D 01              1640 	mov	r5,#0x01
+   0636 7E 00              1641 	mov	r6,#0x00
+   0638 80 06              1642 	sjmp	00237$
+   063A                    1643 00236$:
+   063A ED                 1644 	mov	a,r5
+   063B 2D                 1645 	add	a,r5
+   063C FD                 1646 	mov	r5,a
+   063D EE                 1647 	mov	a,r6
+   063E 33                 1648 	rlc	a
+   063F FE                 1649 	mov	r6,a
+   0640                    1650 00237$:
+   0640 D5 F0 F7           1651 	djnz	b,00236$
+   0643 AB*18              1652 	mov	r3,_blocked
+   0645 7C 00              1653 	mov	r4,#0x00
+   0647 EB                 1654 	mov	a,r3
+   0648 52 05              1655 	anl	ar5,a
+   064A EC                 1656 	mov	a,r4
+   064B 52 06              1657 	anl	ar6,a
+   064D D0 03              1658 	pop	ar3
+   064F D0 02              1659 	pop	ar2
+   0651 ED                 1660 	mov	a,r5
+   0652 4E                 1661 	orl	a,r6
+   0653 60 03              1662 	jz	00238$
+   0655 02s08r30           1663 	ljmp	00159$
+   0658                    1664 00238$:
+   0658 8F 82              1665 	mov	dpl,r7
+   065A C0 07              1666 	push	ar7
+   065C C0 03              1667 	push	ar3
+   065E C0 02              1668 	push	ar2
+   0660 C0*00              1669 	push	bits
+   0662 12s00r00           1670 	lcall	_read_objflags
+   0665 E5 82              1671 	mov	a,dpl
+   0667 D0*00              1672 	pop	bits
+   0669 D0 02              1673 	pop	ar2
+   066B D0 03              1674 	pop	ar3
+   066D D0 07              1675 	pop	ar7
+   066F 54 14              1676 	anl	a,#0x14
+   0671 FE                 1677 	mov	r6,a
+   0672 BE 14 02           1678 	cjne	r6,#0x14,00239$
+   0675 80 03              1679 	sjmp	00240$
+   0677                    1680 00239$:
+   0677 02s08r30           1681 	ljmp	00159$
+   067A                    1682 00240$:
+                           1683 ;	../fb_app_out.c:269: delay_base=eeprom[(((objno+1)>>1)+DELAYTAB)];   
+   067A 0A                 1684 	inc	r2
+   067B BA 00 01           1685 	cjne	r2,#0x00,00241$
+   067E 0B                 1686 	inc	r3
+   067F                    1687 00241$:
+   067F EB                 1688 	mov	a,r3
+   0680 A2 E7              1689 	mov	c,acc.7
+   0682 13                 1690 	rrc	a
+   0683 CA                 1691 	xch	a,r2
+   0684 13                 1692 	rrc	a
+   0685 CA                 1693 	xch	a,r2
+   0686 FB                 1694 	mov	r3,a
+   0687 74 F9              1695 	mov	a,#0xF9
+   0689 2A                 1696 	add	a,r2
+   068A 90s00r00           1697 	mov	dptr,#_eeprom
+   068D 93                 1698 	movc	a,@a+dptr
+   068E FE                 1699 	mov	r6,a
+                           1700 ;	../fb_app_out.c:270: if((objno&0x01)==0x01) delay_base&=0x0F;
+   068F 74 01              1701 	mov	a,#0x01
+   0691 5F                 1702 	anl	a,r7
+   0692 FD                 1703 	mov	r5,a
+   0693 BD 01 05           1704 	cjne	r5,#0x01,00114$
+   0696 53 06 0F           1705 	anl	ar6,#0x0F
+   0699 80 08              1706 	sjmp	00115$
+   069B                    1707 00114$:
+                           1708 ;	../fb_app_out.c:271: else delay_base=(delay_base&0xF0)>>4;
+   069B 74 F0              1709 	mov	a,#0xF0
+   069D 5E                 1710 	anl	a,r6
+   069E FD                 1711 	mov	r5,a
+   069F C4                 1712 	swap	a
+   06A0 54 0F              1713 	anl	a,#0x0F
+   06A2 FE                 1714 	mov	r6,a
+   06A3                    1715 00115$:
+                           1716 ;	../fb_app_out.c:273: delay_onoff=0;
+   06A3 7D 00              1717 	mov	r5,#0x00
+                           1718 ;	../fb_app_out.c:274: delay_state=0;
+   06A5 7C 00              1719 	mov	r4,#0x00
+                           1720 ;	../fb_app_out.c:278: if ( (objstate==0 && (logicfunc==0 || (logicfunc==1 && ((logicstate>>objno)&0x01)==0x00) || logicfunc>=2))
+   06A7 20*00 24           1721 	jb	b0,00131$
+   06AA A8*00              1722 	mov	r0,_bp
+   06AC 08                 1723 	inc	r0
+   06AD E6                 1724 	mov	a,@r0
+   06AE 60 43              1725 	jz	00123$
+   06B0 A8*00              1726 	mov	r0,_bp
+   06B2 08                 1727 	inc	r0
+   06B3 B6 01 10           1728 	cjne	@r0,#0x01,00127$
+   06B6 8F F0              1729 	mov	b,r7
+   06B8 05 F0              1730 	inc	b
+   06BA E5*19              1731 	mov	a,_logicstate
+   06BC 80 02              1732 	sjmp	00249$
+   06BE                    1733 00248$:
+   06BE C3                 1734 	clr	c
+   06BF 13                 1735 	rrc	a
+   06C0                    1736 00249$:
+   06C0 D5 F0 FB           1737 	djnz	b,00248$
+   06C3 30 E0 2D           1738 	jnb	acc.0,00123$
+   06C6                    1739 00127$:
+   06C6 A8*00              1740 	mov	r0,_bp
+   06C8 08                 1741 	inc	r0
+   06C9 B6 02 00           1742 	cjne	@r0,#0x02,00251$
+   06CC                    1743 00251$:
+   06CC 50 25              1744 	jnc	00123$
+   06CE                    1745 00131$:
+                           1746 ;	../fb_app_out.c:279: || (objstate==1 && (logicfunc>=2 && ((logicstate>>objno)&0x01)==0x00)) )
+   06CE A2*00              1747 	mov	c,b0
+   06D0 E4                 1748 	clr	a
+   06D1 33                 1749 	rlc	a
+   06D2 FB                 1750 	mov	r3,a
+   06D3 BB 01 02           1751 	cjne	r3,#0x01,00253$
+   06D6 80 03              1752 	sjmp	00254$
+   06D8                    1753 00253$:
+   06D8 02s07r52           1754 	ljmp	00124$
+   06DB                    1755 00254$:
+   06DB A8*00              1756 	mov	r0,_bp
+   06DD 08                 1757 	inc	r0
+   06DE B6 02 00           1758 	cjne	@r0,#0x02,00255$
+   06E1                    1759 00255$:
+   06E1 40 6F              1760 	jc	00124$
+   06E3 8F F0              1761 	mov	b,r7
+   06E5 05 F0              1762 	inc	b
+   06E7 E5*19              1763 	mov	a,_logicstate
+   06E9 80 02              1764 	sjmp	00258$
+   06EB                    1765 00257$:
+   06EB C3                 1766 	clr	c
+   06EC 13                 1767 	rrc	a
+   06ED                    1768 00258$:
+   06ED D5 F0 FB           1769 	djnz	b,00257$
+   06F0 20 E0 5F           1770 	jb	acc.0,00124$
+   06F3                    1771 00123$:
+                           1772 ;	../fb_app_out.c:281: delay_onoff=eeprom[objno+0xE2];
+   06F3 74 E2              1773 	mov	a,#0xE2
+   06F5 2F                 1774 	add	a,r7
+   06F6 90s00r00           1775 	mov	dptr,#_eeprom
+   06F9 93                 1776 	movc	a,@a+dptr
+   06FA FB                 1777 	mov	r3,a
+                           1778 ;	../fb_app_out.c:282: if(delay_onoff==0x00 || ((eeprom[0xEA]>>objno)&0x01)==0x01) {		// sofort ausschalten
+   06FB FD                 1779 	mov	r5,a
+   06FC 60 18              1780 	jz	00119$
+   06FE 90s00rEA           1781 	mov	dptr,#(_eeprom + 0x00ea)
+   0701 E4                 1782 	clr	a
+   0702 93                 1783 	movc	a,@a+dptr
+   0703 FB                 1784 	mov	r3,a
+   0704 8F F0              1785 	mov	b,r7
+   0706 05 F0              1786 	inc	b
+   0708 EB                 1787 	mov	a,r3
+   0709 80 02              1788 	sjmp	00262$
+   070B                    1789 00261$:
+   070B C3                 1790 	clr	c
+   070C 13                 1791 	rrc	a
+   070D                    1792 00262$:
+   070D D5 F0 FB           1793 	djnz	b,00261$
+   0710 54 01              1794 	anl	a,#0x01
+   0712 FB                 1795 	mov	r3,a
+   0713 BB 01 3A           1796 	cjne	r3,#0x01,00120$
+   0716                    1797 00119$:
+                           1798 ;	../fb_app_out.c:283: if (((eeprom[RELMODE]>>objno)&0x01)==0x00) portbuffer=portbuffer&~(0x01<<objno);	// Schliesserbetrieb
+   0716 90s00rF2           1799 	mov	dptr,#(_eeprom + 0x00f2)
+   0719 E4                 1800 	clr	a
+   071A 93                 1801 	movc	a,@a+dptr
+   071B FB                 1802 	mov	r3,a
+   071C 8F F0              1803 	mov	b,r7
+   071E 05 F0              1804 	inc	b
+   0720 EB                 1805 	mov	a,r3
+   0721 80 02              1806 	sjmp	00266$
+   0723                    1807 00265$:
+   0723 C3                 1808 	clr	c
+   0724 13                 1809 	rrc	a
+   0725                    1810 00266$:
+   0725 D5 F0 FB           1811 	djnz	b,00265$
+   0728 20 E0 13           1812 	jb	acc.0,00117$
+   072B 8F F0              1813 	mov	b,r7
+   072D 05 F0              1814 	inc	b
+   072F 74 01              1815 	mov	a,#0x01
+   0731 80 02              1816 	sjmp	00270$
+   0733                    1817 00268$:
+   0733 25 E0              1818 	add	a,acc
+   0735                    1819 00270$:
+   0735 D5 F0 FB           1820 	djnz	b,00268$
+   0738 F4                 1821 	cpl	a
+   0739 FB                 1822 	mov	r3,a
+   073A 52*16              1823 	anl	_portbuffer,a
+   073C 80 14              1824 	sjmp	00124$
+   073E                    1825 00117$:
+                           1826 ;	../fb_app_out.c:284: else portbuffer=portbuffer|(0x01<<objno);						// Öffnerbetrieb
+   073E 8F F0              1827 	mov	b,r7
+   0740 05 F0              1828 	inc	b
+   0742 74 01              1829 	mov	a,#0x01
+   0744 80 02              1830 	sjmp	00273$
+   0746                    1831 00271$:
+   0746 25 E0              1832 	add	a,acc
+   0748                    1833 00273$:
+   0748 D5 F0 FB           1834 	djnz	b,00271$
+   074B FB                 1835 	mov	r3,a
+   074C 42*16              1836 	orl	_portbuffer,a
+   074E 80 02              1837 	sjmp	00124$
+   0750                    1838 00120$:
+                           1839 ;	../fb_app_out.c:286: else delay_state=0x01;				// verzögert ausschalten
+   0750 7C 01              1840 	mov	r4,#0x01
+   0752                    1841 00124$:
+                           1842 ;	../fb_app_out.c:290: if ( (objstate==1 && (logicfunc==0 || logicfunc==1 || (logicfunc>=2 && ((logicstate>>objno)&0x01)==0x01))) 
+   0752 A2*00              1843 	mov	c,b0
+   0754 E4                 1844 	clr	a
+   0755 33                 1845 	rlc	a
+   0756 FB                 1846 	mov	r3,a
+   0757 BB 01 2B           1847 	cjne	r3,#0x01,00148$
+   075A A8*00              1848 	mov	r0,_bp
+   075C 08                 1849 	inc	r0
+   075D E6                 1850 	mov	a,@r0
+   075E 60 49              1851 	jz	00140$
+   0760 A8*00              1852 	mov	r0,_bp
+   0762 08                 1853 	inc	r0
+   0763 B6 01 02           1854 	cjne	@r0,#0x01,00277$
+   0766 80 41              1855 	sjmp	00140$
+   0768                    1856 00277$:
+   0768 A8*00              1857 	mov	r0,_bp
+   076A 08                 1858 	inc	r0
+   076B B6 02 00           1859 	cjne	@r0,#0x02,00278$
+   076E                    1860 00278$:
+   076E 40 15              1861 	jc	00148$
+   0770 8F F0              1862 	mov	b,r7
+   0772 05 F0              1863 	inc	b
+   0774 E5*19              1864 	mov	a,_logicstate
+   0776 80 02              1865 	sjmp	00281$
+   0778                    1866 00280$:
+   0778 C3                 1867 	clr	c
+   0779 13                 1868 	rrc	a
+   077A                    1869 00281$:
+   077A D5 F0 FB           1870 	djnz	b,00280$
+   077D 54 01              1871 	anl	a,#0x01
+   077F FB                 1872 	mov	r3,a
+   0780 BB 01 02           1873 	cjne	r3,#0x01,00282$
+   0783 80 24              1874 	sjmp	00140$
+   0785                    1875 00282$:
+   0785                    1876 00148$:
+                           1877 ;	../fb_app_out.c:291: || (objstate==0 && (logicfunc==1 && ((logicstate>>objno)&0x01)==0x01)) )
+   0785 30*00 03           1878 	jnb	b0,00283$
+   0788 02s08r13           1879 	ljmp	00141$
+   078B                    1880 00283$:
+   078B A8*00              1881 	mov	r0,_bp
+   078D 08                 1882 	inc	r0
+   078E B6 01 02           1883 	cjne	@r0,#0x01,00284$
+   0791 80 03              1884 	sjmp	00285$
+   0793                    1885 00284$:
+   0793 02s08r13           1886 	ljmp	00141$
+   0796                    1887 00285$:
+   0796 8F F0              1888 	mov	b,r7
+   0798 05 F0              1889 	inc	b
+   079A E5*19              1890 	mov	a,_logicstate
+   079C 80 02              1891 	sjmp	00287$
+   079E                    1892 00286$:
+   079E C3                 1893 	clr	c
+   079F 13                 1894 	rrc	a
+   07A0                    1895 00287$:
+   07A0 D5 F0 FB           1896 	djnz	b,00286$
+   07A3 54 01              1897 	anl	a,#0x01
+   07A5 FB                 1898 	mov	r3,a
+   07A6 BB 01 6A           1899 	cjne	r3,#0x01,00141$
+   07A9                    1900 00140$:
+                           1901 ;	../fb_app_out.c:293: delay_onoff=eeprom[objno+0xDA];
+   07A9 74 DA              1902 	mov	a,#0xDA
+   07AB 2F                 1903 	add	a,r7
+   07AC 90s00r00           1904 	mov	dptr,#_eeprom
+   07AF 93                 1905 	movc	a,@a+dptr
+   07B0 FB                 1906 	mov	r3,a
+                           1907 ;	../fb_app_out.c:294: if(delay_onoff==0x00) {
+   07B1 FD                 1908 	mov	r5,a
+   07B2 70 5D              1909 	jnz	00138$
+                           1910 ;	../fb_app_out.c:297: if(((eeprom[0xEA]>>objno)&0x01)==0x01) { 			// Zeitschaltfunktion
+   07B4 90s00rEA           1911 	mov	dptr,#(_eeprom + 0x00ea)
+   07B7 E4                 1912 	clr	a
+   07B8 93                 1913 	movc	a,@a+dptr
+   07B9 FB                 1914 	mov	r3,a
+   07BA 8F F0              1915 	mov	b,r7
+   07BC 05 F0              1916 	inc	b
+   07BE EB                 1917 	mov	a,r3
+   07BF 80 02              1918 	sjmp	00292$
+   07C1                    1919 00291$:
+   07C1 C3                 1920 	clr	c
+   07C2 13                 1921 	rrc	a
+   07C3                    1922 00292$:
+   07C3 D5 F0 FB           1923 	djnz	b,00291$
+   07C6 54 01              1924 	anl	a,#0x01
+   07C8 FB                 1925 	mov	r3,a
+   07C9 BB 01 0B           1926 	cjne	r3,#0x01,00133$
+                           1927 ;	../fb_app_out.c:298: delay_state=0x80;
+   07CC 7C 80              1928 	mov	r4,#0x80
+                           1929 ;	../fb_app_out.c:299: delay_onoff=eeprom[objno+0xE2];
+   07CE 74 E2              1930 	mov	a,#0xE2
+   07D0 2F                 1931 	add	a,r7
+   07D1 90s00r00           1932 	mov	dptr,#_eeprom
+   07D4 93                 1933 	movc	a,@a+dptr
+   07D5 FB                 1934 	mov	r3,a
+   07D6 FD                 1935 	mov	r5,a
+   07D7                    1936 00133$:
+                           1937 ;	../fb_app_out.c:301: if (((eeprom[RELMODE]>>objno)&0x01)==0x00) portbuffer=portbuffer|(0x01<<objno);	// sofort einschalten (Schliesserbetrieb)
+   07D7 90s00rF2           1938 	mov	dptr,#(_eeprom + 0x00f2)
+   07DA E4                 1939 	clr	a
+   07DB 93                 1940 	movc	a,@a+dptr
+   07DC FB                 1941 	mov	r3,a
+   07DD 8F F0              1942 	mov	b,r7
+   07DF 05 F0              1943 	inc	b
+   07E1 EB                 1944 	mov	a,r3
+   07E2 80 02              1945 	sjmp	00296$
+   07E4                    1946 00295$:
+   07E4 C3                 1947 	clr	c
+   07E5 13                 1948 	rrc	a
+   07E6                    1949 00296$:
+   07E6 D5 F0 FB           1950 	djnz	b,00295$
+   07E9 20 E0 12           1951 	jb	acc.0,00135$
+   07EC 8F F0              1952 	mov	b,r7
+   07EE 05 F0              1953 	inc	b
+   07F0 74 01              1954 	mov	a,#0x01
+   07F2 80 02              1955 	sjmp	00300$
+   07F4                    1956 00298$:
+   07F4 25 E0              1957 	add	a,acc
+   07F6                    1958 00300$:
+   07F6 D5 F0 FB           1959 	djnz	b,00298$
+   07F9 FB                 1960 	mov	r3,a
+   07FA 42*16              1961 	orl	_portbuffer,a
+   07FC 80 15              1962 	sjmp	00141$
+   07FE                    1963 00135$:
+                           1964 ;	../fb_app_out.c:302: else portbuffer=portbuffer&~(0x01<<objno);					// sofort einschalten (Öffnerbetrieb)
+   07FE 8F F0              1965 	mov	b,r7
+   0800 05 F0              1966 	inc	b
+   0802 74 01              1967 	mov	a,#0x01
+   0804 80 02              1968 	sjmp	00303$
+   0806                    1969 00301$:
+   0806 25 E0              1970 	add	a,acc
+   0808                    1971 00303$:
+   0808 D5 F0 FB           1972 	djnz	b,00301$
+   080B F4                 1973 	cpl	a
+   080C FB                 1974 	mov	r3,a
+   080D 52*16              1975 	anl	_portbuffer,a
+   080F 80 02              1976 	sjmp	00141$
+   0811                    1977 00138$:
+                           1978 ;	../fb_app_out.c:304: else delay_state=0x11;				// verzögert einschalten
+   0811 7C 11              1979 	mov	r4,#0x11
+   0813                    1980 00141$:
+                           1981 ;	../fb_app_out.c:307: if(delay_state!=0) {				// wenn Verzögerung, dann timer-Wert ins Flash schreiben  
+   0813 EC                 1982 	mov	a,r4
+   0814 60 14              1983 	jz	00150$
+                           1984 ;	../fb_app_out.c:308: timercnt[objno]=delay_onoff|0x80;//delay_target=(delay_onoff<<delay_base)+timer;
+   0816 EF                 1985 	mov	a,r7
+   0817 24r08              1986 	add	a,#_timercnt
+   0819 F9                 1987 	mov	r1,a
+   081A 74 80              1988 	mov	a,#0x80
+   081C 4D                 1989 	orl	a,r5
+   081D F7                 1990 	mov	@r1,a
+                           1991 ;	../fb_app_out.c:309: timerbase[objno]=delay_base|(delay_state & 0xF0);//write_delay_record(objno,delay_state,delay_target);
+   081E EF                 1992 	mov	a,r7
+   081F 24r00              1993 	add	a,#_timerbase
+   0821 F9                 1994 	mov	r1,a
+   0822 53 04 F0           1995 	anl	ar4,#0xF0
+   0825 EC                 1996 	mov	a,r4
+   0826 4E                 1997 	orl	a,r6
+   0827 F7                 1998 	mov	@r1,a
+   0828 80 06              1999 	sjmp	00159$
+   082A                    2000 00150$:
+                           2001 ;	../fb_app_out.c:311: else timercnt[objno]= 0;//clear_delay_record(objno);    
+   082A EF                 2002 	mov	a,r7
+   082B 24r08              2003 	add	a,#_timercnt
+   082D F8                 2004 	mov	r0,a
+   082E 76 00              2005 	mov	@r0,#0x00
+   0830                    2006 00159$:
+   0830 85*00 81           2007 	mov	sp,_bp
+   0833 D0*00              2008 	pop	_bp
+   0835 22                 2009 	ret
+                           2010 ;------------------------------------------------------------
+                           2011 ;Allocation info for local variables in function 'delay_timer'
+                           2012 ;------------------------------------------------------------
+                           2013 ;objno                     Allocated to registers r7 
+                           2014 ;port_pattern              Allocated to registers r6 
+                           2015 ;delay_zeit                Allocated to registers r5 
+                           2016 ;delay_onoff               Allocated to registers r3 
+                           2017 ;delay_base                Allocated to registers r4 
+                           2018 ;n                         Allocated to registers r5 
+                           2019 ;m                         Allocated to registers r4 
+                           2020 ;timerflags                Allocated to registers r6 r7 
+                           2021 ;------------------------------------------------------------
+                           2022 ;	../fb_app_out.c:318: void delay_timer(void)	// zählt alle 65ms die Variable Timer hoch und prüft Queue
+                           2023 ;	-----------------------------------------
+                           2024 ;	 function delay_timer
+                           2025 ;	-----------------------------------------
+   0836                    2026 _delay_timer:
+                           2027 ;	../fb_app_out.c:329: RTCCON=0x60;		// RTC anhalten und Flag löschen
+   0836 75 D1 60           2028 	mov	_RTCCON,#0x60
+                           2029 ;	../fb_app_out.c:330: RTCH=0x0E;			// reload Real Time Clock
+   0839 75 D2 0E           2030 	mov	_RTCH,#0x0E
+                           2031 ;	../fb_app_out.c:331: RTCL=0xA0;
+   083C 75 D3 A0           2032 	mov	_RTCL,#0xA0
+                           2033 ;	../fb_app_out.c:334: timer++;
+   083F 05*10              2034 	inc	_timer
+   0841 E4                 2035 	clr	a
+   0842 B5*10 02           2036 	cjne	a,_timer,00177$
+   0845 05*11              2037 	inc	(_timer + 1)
+   0847                    2038 00177$:
+                           2039 ;	../fb_app_out.c:335: timerflags = timer&(~(timer-1));
+   0847 E5*10              2040 	mov	a,_timer
+   0849 24 FF              2041 	add	a,#0xFF
+   084B FE                 2042 	mov	r6,a
+   084C E5*11              2043 	mov	a,(_timer + 1)
+   084E 34 FF              2044 	addc	a,#0xFF
+   0850 FF                 2045 	mov	r7,a
+   0851 EE                 2046 	mov	a,r6
+   0852 F4                 2047 	cpl	a
+   0853 FE                 2048 	mov	r6,a
+   0854 EF                 2049 	mov	a,r7
+   0855 F4                 2050 	cpl	a
+   0856 FF                 2051 	mov	r7,a
+   0857 E5*10              2052 	mov	a,_timer
+   0859 52 06              2053 	anl	ar6,a
+   085B E5*11              2054 	mov	a,(_timer + 1)
+   085D 52 07              2055 	anl	ar7,a
+                           2056 ;	../fb_app_out.c:336: for(n=0;n<16;n++){
+   085F 7D 00              2057 	mov	r5,#0x00
+   0861                    2058 00130$:
+   0861 BD 10 00           2059 	cjne	r5,#0x10,00178$
+   0864                    2060 00178$:
+   0864 50 32              2061 	jnc	00133$
+                           2062 ;	../fb_app_out.c:337: if(timerflags & 0x0001){// positive flags erzeugen und schieben
+   0866 EE                 2063 	mov	a,r6
+   0867 30 E0 24           2064 	jnb	acc.0,00106$
+                           2065 ;	../fb_app_out.c:338: for(m=0;m<TIMERANZ;m++){// die timer der reihe nach checken und dec wenn laufen
+   086A 7C 00              2066 	mov	r4,#0x00
+   086C                    2067 00126$:
+   086C BC 08 00           2068 	cjne	r4,#0x08,00181$
+   086F                    2069 00181$:
+   086F 50 1D              2070 	jnc	00106$
+                           2071 ;	../fb_app_out.c:339: if ((timerbase[m]& 0x0F)==n){// wenn die base mit der gespeicherten base übereinstimmt
+   0871 EC                 2072 	mov	a,r4
+   0872 24r00              2073 	add	a,#_timerbase
+   0874 F9                 2074 	mov	r1,a
+   0875 87 03              2075 	mov	ar3,@r1
+   0877 53 03 0F           2076 	anl	ar3,#0x0F
+   087A EB                 2077 	mov	a,r3
+   087B B5 05 0D           2078 	cjne	a,ar5,00128$
+                           2079 ;	../fb_app_out.c:340: if (timercnt[m]>0x80){// wenn der counter läuft...
+   087E EC                 2080 	mov	a,r4
+   087F 24r08              2081 	add	a,#_timercnt
+   0881 F9                 2082 	mov	r1,a
+   0882 E7                 2083 	mov	a,@r1
+   0883 FB                 2084 	mov	r3,a
+   0884 24 7F              2085 	add	a,#0xff - 0x80
+   0886 50 03              2086 	jnc	00128$
+                           2087 ;	../fb_app_out.c:341: timercnt[m]=timercnt[m]-1;// den timer [m]decrementieren
+   0888 EB                 2088 	mov	a,r3
+   0889 14                 2089 	dec	a
+   088A F7                 2090 	mov	@r1,a
+   088B                    2091 00128$:
+                           2092 ;	../fb_app_out.c:338: for(m=0;m<TIMERANZ;m++){// die timer der reihe nach checken und dec wenn laufen
+   088B 0C                 2093 	inc	r4
+   088C 80 DE              2094 	sjmp	00126$
+   088E                    2095 00106$:
+                           2096 ;	../fb_app_out.c:346: timerflags = timerflags>>1;
+   088E EF                 2097 	mov	a,r7
+   088F C3                 2098 	clr	c
+   0890 13                 2099 	rrc	a
+   0891 CE                 2100 	xch	a,r6
+   0892 13                 2101 	rrc	a
+   0893 CE                 2102 	xch	a,r6
+   0894 FF                 2103 	mov	r7,a
+                           2104 ;	../fb_app_out.c:336: for(n=0;n<16;n++){
+   0895 0D                 2105 	inc	r5
+   0896 80 C9              2106 	sjmp	00130$
+   0898                    2107 00133$:
+                           2108 ;	../fb_app_out.c:351: for(objno=0;objno<=7;objno++) {
+   0898 7F 00              2109 	mov	r7,#0x00
+   089A                    2110 00134$:
+   089A EF                 2111 	mov	a,r7
+   089B 24 F8              2112 	add	a,#0xff - 0x07
+   089D 50 03              2113 	jnc	00186$
+   089F 02s09r75           2114 	ljmp	00137$
+   08A2                    2115 00186$:
+                           2116 ;	../fb_app_out.c:357: if(timercnt[objno]==0x80) {			// 0x00 = delay Eintrag ist leer   
+   08A2 EF                 2117 	mov	a,r7
+   08A3 24r08              2118 	add	a,#_timercnt
+   08A5 F9                 2119 	mov	r1,a
+   08A6 87 06              2120 	mov	ar6,@r1
+   08A8 BE 80 02           2121 	cjne	r6,#0x80,00187$
+   08AB 80 03              2122 	sjmp	00188$
+   08AD                    2123 00187$:
+   08AD 02s09r71           2124 	ljmp	00136$
+   08B0                    2125 00188$:
+                           2126 ;	../fb_app_out.c:359: portchanged=1;
+   08B0 D2*01              2127 	setb	_portchanged
+                           2128 ;	../fb_app_out.c:360: port_pattern=0x01<<objno;
+   08B2 8F F0              2129 	mov	b,r7
+   08B4 05 F0              2130 	inc	b
+   08B6 74 01              2131 	mov	a,#0x01
+   08B8 80 02              2132 	sjmp	00191$
+   08BA                    2133 00189$:
+   08BA 25 E0              2134 	add	a,acc
+   08BC                    2135 00191$:
+   08BC D5 F0 FB           2136 	djnz	b,00189$
+   08BF FE                 2137 	mov	r6,a
+                           2138 ;	../fb_app_out.c:361: if(timerbase[objno]&0x10) { //if(delay_state==0x81) {	// einschalten
+   08C0 EF                 2139 	mov	a,r7
+   08C1 24r00              2140 	add	a,#_timerbase
+   08C3 F9                 2141 	mov	r1,a
+   08C4 E7                 2142 	mov	a,@r1
+   08C5 FD                 2143 	mov	r5,a
+   08C6 20 E4 03           2144 	jb	acc.4,00192$
+   08C9 02s09r4C           2145 	ljmp	00122$
+   08CC                    2146 00192$:
+                           2147 ;	../fb_app_out.c:362: if (((eeprom[RELMODE]>>objno)&0x01)==0x00) {				
+   08CC 90s00rF2           2148 	mov	dptr,#(_eeprom + 0x00f2)
+   08CF E4                 2149 	clr	a
+   08D0 93                 2150 	movc	a,@a+dptr
+   08D1 FD                 2151 	mov	r5,a
+   08D2 8F F0              2152 	mov	b,r7
+   08D4 05 F0              2153 	inc	b
+   08D6 ED                 2154 	mov	a,r5
+   08D7 80 02              2155 	sjmp	00194$
+   08D9                    2156 00193$:
+   08D9 C3                 2157 	clr	c
+   08DA 13                 2158 	rrc	a
+   08DB                    2159 00194$:
+   08DB D5 F0 FB           2160 	djnz	b,00193$
+   08DE 20 E0 05           2161 	jb	acc.0,00108$
+                           2162 ;	../fb_app_out.c:363: portbuffer=portbuffer|port_pattern;		// Einschalten (Schliesserbetrieb)
+   08E1 EE                 2163 	mov	a,r6
+   08E2 42*16              2164 	orl	_portbuffer,a
+   08E4 80 05              2165 	sjmp	00109$
+   08E6                    2166 00108$:
+                           2167 ;	../fb_app_out.c:366: portbuffer=portbuffer&~port_pattern;	// Einschalten (Öffnerbetrieb)
+   08E6 EE                 2168 	mov	a,r6
+   08E7 F4                 2169 	cpl	a
+   08E8 FD                 2170 	mov	r5,a
+   08E9 52*16              2171 	anl	_portbuffer,a
+   08EB                    2172 00109$:
+                           2173 ;	../fb_app_out.c:368: timercnt[objno]=0;//delrec[objno*4]=0;
+   08EB EF                 2174 	mov	a,r7
+   08EC 24r08              2175 	add	a,#_timercnt
+   08EE F8                 2176 	mov	r0,a
+   08EF 76 00              2177 	mov	@r0,#0x00
+                           2178 ;	../fb_app_out.c:370: delay_zeit=eeprom[0xEA];
+   08F1 90s00rEA           2179 	mov	dptr,#(_eeprom + 0x00ea)
+   08F4 E4                 2180 	clr	a
+   08F5 93                 2181 	movc	a,@a+dptr
+   08F6 FD                 2182 	mov	r5,a
+                           2183 ;	../fb_app_out.c:371: delay_zeit=((delay_zeit>>objno)&0x01);
+   08F7 8F F0              2184 	mov	b,r7
+   08F9 05 F0              2185 	inc	b
+   08FB ED                 2186 	mov	a,r5
+   08FC 80 02              2187 	sjmp	00197$
+   08FE                    2188 00196$:
+   08FE C3                 2189 	clr	c
+   08FF 13                 2190 	rrc	a
+   0900                    2191 00197$:
+   0900 D5 F0 FB           2192 	djnz	b,00196$
+   0903 FC                 2193 	mov	r4,a
+   0904 74 01              2194 	mov	a,#0x01
+   0906 5C                 2195 	anl	a,r4
+   0907 FD                 2196 	mov	r5,a
+                           2197 ;	../fb_app_out.c:372: if(delay_zeit==0x01) {
+   0908 BD 01 66           2198 	cjne	r5,#0x01,00136$
+                           2199 ;	../fb_app_out.c:373: delay_base=eeprom[(((objno+1)>>1)+0xF9)];   
+   090B 8F 03              2200 	mov	ar3,r7
+   090D 7C 00              2201 	mov	r4,#0x00
+   090F 0B                 2202 	inc	r3
+   0910 BB 00 01           2203 	cjne	r3,#0x00,00200$
+   0913 0C                 2204 	inc	r4
+   0914                    2205 00200$:
+   0914 EC                 2206 	mov	a,r4
+   0915 A2 E7              2207 	mov	c,acc.7
+   0917 13                 2208 	rrc	a
+   0918 CB                 2209 	xch	a,r3
+   0919 13                 2210 	rrc	a
+   091A CB                 2211 	xch	a,r3
+   091B 74 F9              2212 	mov	a,#0xF9
+   091D 2B                 2213 	add	a,r3
+   091E 90s00r00           2214 	mov	dptr,#_eeprom
+   0921 93                 2215 	movc	a,@a+dptr
+   0922 FC                 2216 	mov	r4,a
+                           2217 ;	../fb_app_out.c:374: if((objno&0x01)==0x01) delay_base&=0x0F;
+   0923 74 01              2218 	mov	a,#0x01
+   0925 5F                 2219 	anl	a,r7
+   0926 FB                 2220 	mov	r3,a
+   0927 BB 01 05           2221 	cjne	r3,#0x01,00111$
+   092A 53 04 0F           2222 	anl	ar4,#0x0F
+   092D 80 08              2223 	sjmp	00112$
+   092F                    2224 00111$:
+                           2225 ;	../fb_app_out.c:375: else delay_base=(delay_base&0xF0)>>4;
+   092F 74 F0              2226 	mov	a,#0xF0
+   0931 5C                 2227 	anl	a,r4
+   0932 FB                 2228 	mov	r3,a
+   0933 C4                 2229 	swap	a
+   0934 54 0F              2230 	anl	a,#0x0F
+   0936 FC                 2231 	mov	r4,a
+   0937                    2232 00112$:
+                           2233 ;	../fb_app_out.c:376: delay_onoff=eeprom[objno+0xE2];
+   0937 74 E2              2234 	mov	a,#0xE2
+   0939 2F                 2235 	add	a,r7
+   093A 90s00r00           2236 	mov	dptr,#_eeprom
+   093D 93                 2237 	movc	a,@a+dptr
+                           2238 ;	../fb_app_out.c:377: if (delay_onoff!=0x00 && delay_zeit!=0x00) {  
+   093E FB                 2239 	mov	r3,a
+   093F 60 30              2240 	jz	00136$
+   0941 ED                 2241 	mov	a,r5
+   0942 60 2D              2242 	jz	00136$
+                           2243 ;	../fb_app_out.c:378: timercnt[objno]=delay_onoff|0x80;//delay_target=(delay_onoff<<delay_base)+timer;
+   0944 74 80              2244 	mov	a,#0x80
+   0946 4B                 2245 	orl	a,r3
+   0947 F6                 2246 	mov	@r0,a
+                           2247 ;	../fb_app_out.c:379: timerbase[objno]=delay_base;//write_delay_record(objno,0x80,delay_target);		// Schaltverzögerung in Flash schreiben
+   0948 A7 04              2248 	mov	@r1,ar4
+   094A 80 25              2249 	sjmp	00136$
+   094C                    2250 00122$:
+                           2251 ;	../fb_app_out.c:386: if (((eeprom[RELMODE]>>objno)&0x01)==0x00) {
+   094C 90s00rF2           2252 	mov	dptr,#(_eeprom + 0x00f2)
+   094F E4                 2253 	clr	a
+   0950 93                 2254 	movc	a,@a+dptr
+   0951 FD                 2255 	mov	r5,a
+   0952 8F F0              2256 	mov	b,r7
+   0954 05 F0              2257 	inc	b
+   0956 ED                 2258 	mov	a,r5
+   0957 80 02              2259 	sjmp	00206$
+   0959                    2260 00205$:
+   0959 C3                 2261 	clr	c
+   095A 13                 2262 	rrc	a
+   095B                    2263 00206$:
+   095B D5 F0 FB           2264 	djnz	b,00205$
+   095E 20 E0 07           2265 	jb	acc.0,00119$
+                           2266 ;	../fb_app_out.c:387: portbuffer=portbuffer&~port_pattern;		// Ausschalten (Schliesserbetrieb)
+   0961 EE                 2267 	mov	a,r6
+   0962 F4                 2268 	cpl	a
+   0963 FD                 2269 	mov	r5,a
+   0964 52*16              2270 	anl	_portbuffer,a
+   0966 80 03              2271 	sjmp	00120$
+   0968                    2272 00119$:
+                           2273 ;	../fb_app_out.c:390: portbuffer=portbuffer|port_pattern;			// Ausschalten (Öffnerbetrieb)
+   0968 EE                 2274 	mov	a,r6
+   0969 42*16              2275 	orl	_portbuffer,a
+   096B                    2276 00120$:
+                           2277 ;	../fb_app_out.c:392: timercnt[objno]=0;//delrec[objno*4]=0;
+   096B EF                 2278 	mov	a,r7
+   096C 24r08              2279 	add	a,#_timercnt
+   096E F8                 2280 	mov	r0,a
+   096F 76 00              2281 	mov	@r0,#0x00
+   0971                    2282 00136$:
+                           2283 ;	../fb_app_out.c:351: for(objno=0;objno<=7;objno++) {
+   0971 0F                 2284 	inc	r7
+   0972 02s08r9A           2285 	ljmp	00134$
+   0975                    2286 00137$:
+                           2287 ;	../fb_app_out.c:460: RTCCON=0x61;		// RTC starten
+   0975 75 D1 61           2288 	mov	_RTCCON,#0x61
+   0978 22                 2289 	ret
+                           2290 ;------------------------------------------------------------
+                           2291 ;Allocation info for local variables in function 'port_schalten'
+                           2292 ;------------------------------------------------------------
+                           2293 ;n                         Allocated to registers r7 
+                           2294 ;pattern                   Allocated to registers r6 
+                           2295 ;------------------------------------------------------------
+                           2296 ;	../fb_app_out.c:524: void port_schalten(void)		// Schaltet die Ports mit PWM, DUTY ist Pulsverhältnis
+                           2297 ;	-----------------------------------------
+                           2298 ;	 function port_schalten
+                           2299 ;	-----------------------------------------
+   0979                    2300 _port_schalten:
+                           2301 ;	../fb_app_out.c:590: if(portbuffer & ~oldportbuffer) {	// Vollstrom nur wenn ein relais eingeschaltet wird
+   0979 AE*17              2302 	mov	r6,_oldportbuffer
+   097B 7F 00              2303 	mov	r7,#0x00
+   097D EE                 2304 	mov	a,r6
+   097E F4                 2305 	cpl	a
+   097F FE                 2306 	mov	r6,a
+   0980 EF                 2307 	mov	a,r7
+   0981 F4                 2308 	cpl	a
+   0982 FF                 2309 	mov	r7,a
+   0983 AC*16              2310 	mov	r4,_portbuffer
+   0985 7D 00              2311 	mov	r5,#0x00
+   0987 EC                 2312 	mov	a,r4
+   0988 52 06              2313 	anl	ar6,a
+   098A ED                 2314 	mov	a,r5
+   098B 52 07              2315 	anl	ar7,a
+   098D EE                 2316 	mov	a,r6
+   098E 4F                 2317 	orl	a,r7
+   098F 60 1F              2318 	jz	00102$
+                           2319 ;	../fb_app_out.c:591: TR0=0;
+   0991 C2 8C              2320 	clr	_TCON_4
+                           2321 ;	../fb_app_out.c:592: AUXR1&=0xE9;	// PWM von Timer 0 nicht mehr auf Pin ausgeben
+   0993 53 A2 E9           2322 	anl	_AUXR1,#0xE9
+                           2323 ;	../fb_app_out.c:595: PWM=0;			// Vollstrom an
+   0996 C2 92              2324 	clr	_P1_2
+                           2325 ;	../fb_app_out.c:597: P0=portbuffer;		// Ports schalten
+   0998 85*16 80           2326 	mov	_P0,_portbuffer
+                           2327 ;	../fb_app_out.c:598: TF0=0;			// Timer 0 für Haltezeit Vollstrom verwenden
+   099B C2 8D              2328 	clr	_TCON_5
+                           2329 ;	../fb_app_out.c:599: TH0=0x00;		// 16ms (10ms=6fff)
+                           2330 ;	../fb_app_out.c:600: TL0=0x00;
+                           2331 ;	../fb_app_out.c:601: TMOD=(TMOD & 0xF0) +1;		// Timer 0 als 16-Bit Timer
+   099D E4                 2332 	clr	a
+   099E F5 8C              2333 	mov	_TH0,a
+   09A0 F5 8A              2334 	mov	_TL0,a
+   09A2 74 F0              2335 	mov	a,#0xF0
+   09A4 55 89              2336 	anl	a,_TMOD
+   09A6 04                 2337 	inc	a
+   09A7 F5 89              2338 	mov	_TMOD,a
+                           2339 ;	../fb_app_out.c:602: TAMOD=0x00;
+   09A9 75 8F 00           2340 	mov	_TAMOD,#0x00
+                           2341 ;	../fb_app_out.c:603: TR0=1;
+   09AC D2 8C              2342 	setb	_TCON_4
+   09AE 80 03              2343 	sjmp	00103$
+   09B0                    2344 00102$:
+                           2345 ;	../fb_app_out.c:605: else P0=portbuffer;
+   09B0 85*16 80           2346 	mov	_P0,_portbuffer
+   09B3                    2347 00103$:
+                           2348 ;	../fb_app_out.c:607: rm_state=portbuffer ^ eeprom[RMINV];	// Rückmeldeobjekte setzen
+   09B3 90s00rF3           2349 	mov	dptr,#(_eeprom + 0x00f3)
+   09B6 E4                 2350 	clr	a
+   09B7 93                 2351 	movc	a,@a+dptr
+   09B8 65*16              2352 	xrl	a,_portbuffer
+   09BA F5*14              2353 	mov	_rm_state,a
+                           2354 ;	../fb_app_out.c:609: for (n=0;n<8;n++) {	// Rückmeldung wenn ein Ausgag sich geändert hat
+   09BC 7F 00              2355 	mov	r7,#0x00
+   09BE                    2356 00106$:
+   09BE BF 08 00           2357 	cjne	r7,#0x08,00122$
+   09C1                    2358 00122$:
+   09C1 50 21              2359 	jnc	00109$
+                           2360 ;	../fb_app_out.c:610: pattern=1<<n;
+   09C3 8F F0              2361 	mov	b,r7
+   09C5 05 F0              2362 	inc	b
+   09C7 74 01              2363 	mov	a,#0x01
+   09C9 80 02              2364 	sjmp	00126$
+   09CB                    2365 00124$:
+   09CB 25 E0              2366 	add	a,acc
+   09CD                    2367 00126$:
+   09CD D5 F0 FB           2368 	djnz	b,00124$
+                           2369 ;	../fb_app_out.c:611: if((portbuffer&pattern)!=(oldportbuffer&pattern)) rm_send|=pattern;		//send_obj_value(n+12);
+   09D0 FE                 2370 	mov	r6,a
+   09D1 55*16              2371 	anl	a,_portbuffer
+   09D3 FD                 2372 	mov	r5,a
+   09D4 EE                 2373 	mov	a,r6
+   09D5 55*17              2374 	anl	a,_oldportbuffer
+   09D7 FC                 2375 	mov	r4,a
+   09D8 ED                 2376 	mov	a,r5
+   09D9 B5 04 02           2377 	cjne	a,ar4,00127$
+   09DC 80 03              2378 	sjmp	00108$
+   09DE                    2379 00127$:
+   09DE EE                 2380 	mov	a,r6
+   09DF 42*1A              2381 	orl	_rm_send,a
+   09E1                    2382 00108$:
+                           2383 ;	../fb_app_out.c:609: for (n=0;n<8;n++) {	// Rückmeldung wenn ein Ausgag sich geändert hat
+   09E1 0F                 2384 	inc	r7
+   09E2 80 DA              2385 	sjmp	00106$
+   09E4                    2386 00109$:
+                           2387 ;	../fb_app_out.c:619: oldportbuffer=portbuffer;
+   09E4 85*16*17           2388 	mov	_oldportbuffer,_portbuffer
+                           2389 ;	../fb_app_out.c:620: portchanged=0;
+   09E7 C2*01              2390 	clr	_portchanged
+   09E9 22                 2391 	ret
+                           2392 ;------------------------------------------------------------
+                           2393 ;Allocation info for local variables in function 'sort_output'
+                           2394 ;------------------------------------------------------------
+                           2395 ;portbuffer                Allocated to registers r7 
+                           2396 ;diff                      Allocated to registers r6 
+                           2397 ;result                    Allocated to registers r4 r5 
+                           2398 ;------------------------------------------------------------
+                           2399 ;	../fb_app_out.c:626: unsigned int sort_output(unsigned char portbuffer){
+                           2400 ;	-----------------------------------------
+                           2401 ;	 function sort_output
+                           2402 ;	-----------------------------------------
+   09EA                    2403 _sort_output:
+   09EA AF 82              2404 	mov	r7,dpl
+                           2405 ;	../fb_app_out.c:629: diff=portbuffer ^ oldportbuffer;
+   09EC E5*17              2406 	mov	a,_oldportbuffer
+   09EE 6F                 2407 	xrl	a,r7
+   09EF FE                 2408 	mov	r6,a
+                           2409 ;	../fb_app_out.c:630: result=0;
+                           2410 ;	../fb_app_out.c:632: if (diff & 0x01){
+   09F0 E4                 2411 	clr	a
+   09F1 FC                 2412 	mov	r4,a
+   09F2 FD                 2413 	mov	r5,a
+   09F3 EE                 2414 	mov	a,r6
+   09F4 30 E0 0E           2415 	jnb	acc.0,00105$
+                           2416 ;	../fb_app_out.c:633: if(portbuffer & 0x01){
+   09F7 EF                 2417 	mov	a,r7
+   09F8 30 E0 06           2418 	jnb	acc.0,00102$
+                           2419 ;	../fb_app_out.c:634: result|=0x1000;
+   09FB 7C 00              2420 	mov	r4,#0x00
+   09FD 7D 10              2421 	mov	r5,#0x10
+   09FF 80 04              2422 	sjmp	00105$
+   0A01                    2423 00102$:
+                           2424 ;	../fb_app_out.c:637: result|=0x2000;
+   0A01 7C 00              2425 	mov	r4,#0x00
+   0A03 7D 20              2426 	mov	r5,#0x20
+   0A05                    2427 00105$:
+                           2428 ;	../fb_app_out.c:642: if (diff & 0x02){
+   0A05 EE                 2429 	mov	a,r6
+   0A06 30 E1 0C           2430 	jnb	acc.1,00110$
+                           2431 ;	../fb_app_out.c:643: if(portbuffer & 0x02){
+   0A09 EF                 2432 	mov	a,r7
+   0A0A 30 E1 05           2433 	jnb	acc.1,00107$
+                           2434 ;	../fb_app_out.c:644: result|=0x0004;
+   0A0D 43 04 04           2435 	orl	ar4,#0x04
+   0A10 80 03              2436 	sjmp	00110$
+   0A12                    2437 00107$:
+                           2438 ;	../fb_app_out.c:647: result|=0x0008;
+   0A12 43 04 08           2439 	orl	ar4,#0x08
+   0A15                    2440 00110$:
+                           2441 ;	../fb_app_out.c:651: if (diff & 0x04){
+   0A15 EE                 2442 	mov	a,r6
+   0A16 30 E2 0C           2443 	jnb	acc.2,00115$
+                           2444 ;	../fb_app_out.c:652: if(portbuffer & 0x04){
+   0A19 EF                 2445 	mov	a,r7
+   0A1A 30 E2 05           2446 	jnb	acc.2,00112$
+                           2447 ;	../fb_app_out.c:653: result|=0x4000;
+   0A1D 43 05 40           2448 	orl	ar5,#0x40
+   0A20 80 03              2449 	sjmp	00115$
+   0A22                    2450 00112$:
+                           2451 ;	../fb_app_out.c:656: result|=0x8000;
+   0A22 43 05 80           2452 	orl	ar5,#0x80
+   0A25                    2453 00115$:
+                           2454 ;	../fb_app_out.c:660: if (diff & 0x08){
+   0A25 EE                 2455 	mov	a,r6
+   0A26 30 E3 0C           2456 	jnb	acc.3,00120$
+                           2457 ;	../fb_app_out.c:661: if(portbuffer & 0x08){
+   0A29 EF                 2458 	mov	a,r7
+   0A2A 30 E3 05           2459 	jnb	acc.3,00117$
+                           2460 ;	../fb_app_out.c:662: result|=0x0001;
+   0A2D 43 04 01           2461 	orl	ar4,#0x01
+   0A30 80 03              2462 	sjmp	00120$
+   0A32                    2463 00117$:
+                           2464 ;	../fb_app_out.c:665: result|=0x0002;
+   0A32 43 04 02           2465 	orl	ar4,#0x02
+   0A35                    2466 00120$:
+                           2467 ;	../fb_app_out.c:670: if (diff & 0x10){
+   0A35 EE                 2468 	mov	a,r6
+   0A36 30 E4 0C           2469 	jnb	acc.4,00125$
+                           2470 ;	../fb_app_out.c:671: if(portbuffer & 0x10){
+   0A39 EF                 2471 	mov	a,r7
+   0A3A 30 E4 05           2472 	jnb	acc.4,00122$
+                           2473 ;	../fb_app_out.c:672: result|=0x0040;
+   0A3D 43 04 40           2474 	orl	ar4,#0x40
+   0A40 80 03              2475 	sjmp	00125$
+   0A42                    2476 00122$:
+                           2477 ;	../fb_app_out.c:675: result|=0x0080;
+   0A42 43 04 80           2478 	orl	ar4,#0x80
+   0A45                    2479 00125$:
+                           2480 ;	../fb_app_out.c:679: if (diff & 0x20){
+   0A45 EE                 2481 	mov	a,r6
+   0A46 30 E5 0C           2482 	jnb	acc.5,00130$
+                           2483 ;	../fb_app_out.c:680: if(portbuffer & 0x20){
+   0A49 EF                 2484 	mov	a,r7
+   0A4A 30 E5 05           2485 	jnb	acc.5,00127$
+                           2486 ;	../fb_app_out.c:681: result|=0x0100;
+   0A4D 43 05 01           2487 	orl	ar5,#0x01
+   0A50 80 03              2488 	sjmp	00130$
+   0A52                    2489 00127$:
+                           2490 ;	../fb_app_out.c:684: result|=0x0200;
+   0A52 43 05 02           2491 	orl	ar5,#0x02
+   0A55                    2492 00130$:
+                           2493 ;	../fb_app_out.c:689: if (diff & 0x40){
+   0A55 EE                 2494 	mov	a,r6
+   0A56 30 E6 0C           2495 	jnb	acc.6,00135$
+                           2496 ;	../fb_app_out.c:690: if(portbuffer & 0x40){
+   0A59 EF                 2497 	mov	a,r7
+   0A5A 30 E6 05           2498 	jnb	acc.6,00132$
+                           2499 ;	../fb_app_out.c:691: result|=0x0010;
+   0A5D 43 04 10           2500 	orl	ar4,#0x10
+   0A60 80 03              2501 	sjmp	00135$
+   0A62                    2502 00132$:
+                           2503 ;	../fb_app_out.c:694: result|=0x0020;
+   0A62 43 04 20           2504 	orl	ar4,#0x20
+   0A65                    2505 00135$:
+                           2506 ;	../fb_app_out.c:698: if (diff & 0x80){
+   0A65 EE                 2507 	mov	a,r6
+   0A66 30 E7 0C           2508 	jnb	acc.7,00140$
+                           2509 ;	../fb_app_out.c:699: if(portbuffer & 0x80){
+   0A69 EF                 2510 	mov	a,r7
+   0A6A 30 E7 05           2511 	jnb	acc.7,00137$
+                           2512 ;	../fb_app_out.c:700: result|=0x0400;
+   0A6D 43 05 04           2513 	orl	ar5,#0x04
+   0A70 80 03              2514 	sjmp	00140$
+   0A72                    2515 00137$:
+                           2516 ;	../fb_app_out.c:703: result|=0x0800;
+   0A72 43 05 08           2517 	orl	ar5,#0x08
+   0A75                    2518 00140$:
+                           2519 ;	../fb_app_out.c:706: return result;
+   0A75 8C 82              2520 	mov	dpl,r4
+   0A77 8D 83              2521 	mov	dph,r5
+   0A79 22                 2522 	ret
+                           2523 ;------------------------------------------------------------
+                           2524 ;Allocation info for local variables in function 'spi_2_out'
+                           2525 ;------------------------------------------------------------
+                           2526 ;daten                     Allocated to registers r6 r7 
+                           2527 ;n                         Allocated to registers r6 
+                           2528 ;unten                     Allocated to registers r4 
+                           2529 ;mitte                     Allocated to registers r7 
+                           2530 ;------------------------------------------------------------
+                           2531 ;	../fb_app_out.c:711: void spi_2_out(unsigned int daten){
+                           2532 ;	-----------------------------------------
+                           2533 ;	 function spi_2_out
+                           2534 ;	-----------------------------------------
+   0A7A                    2535 _spi_2_out:
+   0A7A AE 82              2536 	mov	r6,dpl
+   0A7C AF 83              2537 	mov	r7,dph
+                           2538 ;	../fb_app_out.c:715: unten=daten & 0xFF;
+   0A7E 8E 04              2539 	mov	ar4,r6
+   0A80 7D 00              2540 	mov	r5,#0x00
+                           2541 ;	../fb_app_out.c:716: mitte=daten>>8;
+                           2542 ;	../fb_app_out.c:718: WRITE=0;
+   0A82 C2 82              2543 	clr	_P0_2
+                           2544 ;	../fb_app_out.c:719: CLK=0;
+   0A84 C2 83              2545 	clr	_P0_3
+                           2546 ;	../fb_app_out.c:720: for(n=0;n<=7;n++){
+   0A86 7E 00              2547 	mov	r6,#0x00
+   0A88                    2548 00101$:
+   0A88 EE                 2549 	mov	a,r6
+   0A89 24 F8              2550 	add	a,#0xff - 0x07
+   0A8B 40 22              2551 	jc	00104$
+                           2552 ;	../fb_app_out.c:723: BOT_OUT=(unten & 0x080)>>7;
+   0A8D 74 80              2553 	mov	a,#0x80
+   0A8F 5C                 2554 	anl	a,r4
+   0A90 23                 2555 	rl	a
+   0A91 54 01              2556 	anl	a,#0x01
+   0A93 24 FF              2557 	add	a,#0xff
+   0A95 92 80              2558 	mov	_P0_0,c
+                           2559 ;	../fb_app_out.c:724: unten<<=1;
+   0A97 EC                 2560 	mov	a,r4
+   0A98 2C                 2561 	add	a,r4
+   0A99 FC                 2562 	mov	r4,a
+                           2563 ;	../fb_app_out.c:726: MID_OUT=(mitte & 0x080)>>7;
+   0A9A 74 80              2564 	mov	a,#0x80
+   0A9C 5F                 2565 	anl	a,r7
+   0A9D 23                 2566 	rl	a
+   0A9E 54 01              2567 	anl	a,#0x01
+   0AA0 FD                 2568 	mov	r5,a
+   0AA1 24 FF              2569 	add	a,#0xff
+   0AA3 92 81              2570 	mov	_P0_1,c
+                           2571 ;	../fb_app_out.c:727: mitte<<=1;
+   0AA5 EF                 2572 	mov	a,r7
+   0AA6 2F                 2573 	add	a,r7
+   0AA7 FF                 2574 	mov	r7,a
+                           2575 ;	../fb_app_out.c:729: CLK=1;
+   0AA8 D2 83              2576 	setb	_P0_3
+                           2577 ;	../fb_app_out.c:730: CLK=0;
+   0AAA C2 83              2578 	clr	_P0_3
+                           2579 ;	../fb_app_out.c:720: for(n=0;n<=7;n++){
+   0AAC 0E                 2580 	inc	r6
+   0AAD 80 D9              2581 	sjmp	00101$
+   0AAF                    2582 00104$:
+                           2583 ;	../fb_app_out.c:734: WRITE=1;
+   0AAF D2 82              2584 	setb	_P0_2
+                           2585 ;	../fb_app_out.c:736: WRITE=0;
+   0AB1 C2 82              2586 	clr	_P0_2
+   0AB3 22                 2587 	ret
+                           2588 ;------------------------------------------------------------
+                           2589 ;Allocation info for local variables in function 'bus_return'
+                           2590 ;------------------------------------------------------------
+                           2591 ;n                         Allocated to registers r6 
+                           2592 ;bw                        Allocated to registers r7 
+                           2593 ;bwh                       Allocated to registers r5 
+                           2594 ;------------------------------------------------------------
+                           2595 ;	../fb_app_out.c:745: void bus_return(void)		// Aktionen bei Busspannungswiederkehr
+                           2596 ;	-----------------------------------------
+                           2597 ;	 function bus_return
+                           2598 ;	-----------------------------------------
+   0AB4                    2599 _bus_return:
+                           2600 ;	../fb_app_out.c:749: portbuffer=eeprom[PORTSAVE];	// Verhalten nach Busspannungs-Wiederkehr
+   0AB4 90s00r99           2601 	mov	dptr,#(_eeprom + 0x0099)
+   0AB7 E4                 2602 	clr	a
+   0AB8 93                 2603 	movc	a,@a+dptr
+   0AB9 F5*16              2604 	mov	_portbuffer,a
+                           2605 ;	../fb_app_out.c:751: bw=eeprom[0xF6];
+   0ABB 90s00rF6           2606 	mov	dptr,#(_eeprom + 0x00f6)
+   0ABE E4                 2607 	clr	a
+   0ABF 93                 2608 	movc	a,@a+dptr
+   0AC0 FF                 2609 	mov	r7,a
+                           2610 ;	../fb_app_out.c:752: for(n=0;n<=3;n++) {			// Ausgänge 1-4
+   0AC1 7E 00              2611 	mov	r6,#0x00
+   0AC3                    2612 00109$:
+   0AC3 EE                 2613 	mov	a,r6
+   0AC4 24 FC              2614 	add	a,#0xff - 0x03
+   0AC6 40 46              2615 	jc	00112$
+                           2616 ;	../fb_app_out.c:753: bwh=(bw>>(2*n))&0x03;
+   0AC8 EE                 2617 	mov	a,r6
+   0AC9 75 F0 02           2618 	mov	b,#0x02
+   0ACC A4                 2619 	mul	ab
+   0ACD FC                 2620 	mov	r4,a
+   0ACE AD F0              2621 	mov	r5,b
+   0AD0 8C F0              2622 	mov	b,r4
+   0AD2 05 F0              2623 	inc	b
+   0AD4 EF                 2624 	mov	a,r7
+   0AD5 80 02              2625 	sjmp	00139$
+   0AD7                    2626 00138$:
+   0AD7 C3                 2627 	clr	c
+   0AD8 13                 2628 	rrc	a
+   0AD9                    2629 00139$:
+   0AD9 D5 F0 FB           2630 	djnz	b,00138$
+   0ADC FC                 2631 	mov	r4,a
+   0ADD 74 03              2632 	mov	a,#0x03
+   0ADF 5C                 2633 	anl	a,r4
+   0AE0 FD                 2634 	mov	r5,a
+                           2635 ;	../fb_app_out.c:754: if(bwh==0x01)  portbuffer=portbuffer & (0xFF-(0x01<<n));
+   0AE1 BD 01 14           2636 	cjne	r5,#0x01,00102$
+   0AE4 8E F0              2637 	mov	b,r6
+   0AE6 05 F0              2638 	inc	b
+   0AE8 74 01              2639 	mov	a,#0x01
+   0AEA 80 02              2640 	sjmp	00144$
+   0AEC                    2641 00142$:
+   0AEC 25 E0              2642 	add	a,acc
+   0AEE                    2643 00144$:
+   0AEE D5 F0 FB           2644 	djnz	b,00142$
+   0AF1 FC                 2645 	mov	r4,a
+   0AF2 74 FF              2646 	mov	a,#0xFF
+   0AF4 C3                 2647 	clr	c
+   0AF5 9C                 2648 	subb	a,r4
+   0AF6 52*16              2649 	anl	_portbuffer,a
+   0AF8                    2650 00102$:
+                           2651 ;	../fb_app_out.c:755: if(bwh==0x02)  portbuffer=portbuffer | (0x01<<n);
+   0AF8 BD 02 10           2652 	cjne	r5,#0x02,00111$
+   0AFB 8E F0              2653 	mov	b,r6
+   0AFD 05 F0              2654 	inc	b
+   0AFF 74 01              2655 	mov	a,#0x01
+   0B01 80 02              2656 	sjmp	00149$
+   0B03                    2657 00147$:
+   0B03 25 E0              2658 	add	a,acc
+   0B05                    2659 00149$:
+   0B05 D5 F0 FB           2660 	djnz	b,00147$
+   0B08 FC                 2661 	mov	r4,a
+   0B09 42*16              2662 	orl	_portbuffer,a
+   0B0B                    2663 00111$:
+                           2664 ;	../fb_app_out.c:752: for(n=0;n<=3;n++) {			// Ausgänge 1-4
+   0B0B 0E                 2665 	inc	r6
+   0B0C 80 B5              2666 	sjmp	00109$
+   0B0E                    2667 00112$:
+                           2668 ;	../fb_app_out.c:759: bw=eeprom[0xF7];
+   0B0E 90s00rF7           2669 	mov	dptr,#(_eeprom + 0x00f7)
+   0B11 E4                 2670 	clr	a
+   0B12 93                 2671 	movc	a,@a+dptr
+   0B13 FF                 2672 	mov	r7,a
+                           2673 ;	../fb_app_out.c:760: for(n=0;n<=3;n++) {			// Ausgänge 5-8
+   0B14 7E 00              2674 	mov	r6,#0x00
+   0B16                    2675 00113$:
+   0B16 EE                 2676 	mov	a,r6
+   0B17 24 FC              2677 	add	a,#0xff - 0x03
+   0B19 40 4C              2678 	jc	00116$
+                           2679 ;	../fb_app_out.c:761: bwh=(bw>>(2*n))&0x03;
+   0B1B EE                 2680 	mov	a,r6
+   0B1C 75 F0 02           2681 	mov	b,#0x02
+   0B1F A4                 2682 	mul	ab
+   0B20 FB                 2683 	mov	r3,a
+   0B21 AC F0              2684 	mov	r4,b
+   0B23 8B F0              2685 	mov	b,r3
+   0B25 05 F0              2686 	inc	b
+   0B27 EF                 2687 	mov	a,r7
+   0B28 80 02              2688 	sjmp	00152$
+   0B2A                    2689 00151$:
+   0B2A C3                 2690 	clr	c
+   0B2B 13                 2691 	rrc	a
+   0B2C                    2692 00152$:
+   0B2C D5 F0 FB           2693 	djnz	b,00151$
+   0B2F FB                 2694 	mov	r3,a
+   0B30 74 03              2695 	mov	a,#0x03
+   0B32 5B                 2696 	anl	a,r3
+   0B33 FD                 2697 	mov	r5,a
+                           2698 ;	../fb_app_out.c:762: if(bwh==0x01)  portbuffer=portbuffer & (0xFF-(0x01<<(n+4)));
+   0B34 BD 01 17           2699 	cjne	r5,#0x01,00106$
+   0B37 74 04              2700 	mov	a,#0x04
+   0B39 2E                 2701 	add	a,r6
+   0B3A F5 F0              2702 	mov	b,a
+   0B3C 05 F0              2703 	inc	b
+   0B3E 74 01              2704 	mov	a,#0x01
+   0B40 80 02              2705 	sjmp	00157$
+   0B42                    2706 00155$:
+   0B42 25 E0              2707 	add	a,acc
+   0B44                    2708 00157$:
+   0B44 D5 F0 FB           2709 	djnz	b,00155$
+   0B47 FC                 2710 	mov	r4,a
+   0B48 74 FF              2711 	mov	a,#0xFF
+   0B4A C3                 2712 	clr	c
+   0B4B 9C                 2713 	subb	a,r4
+   0B4C 52*16              2714 	anl	_portbuffer,a
+   0B4E                    2715 00106$:
+                           2716 ;	../fb_app_out.c:763: if(bwh==0x02)  portbuffer=portbuffer | (0x01<<(n+4));
+   0B4E BD 02 13           2717 	cjne	r5,#0x02,00115$
+   0B51 74 04              2718 	mov	a,#0x04
+   0B53 2E                 2719 	add	a,r6
+   0B54 F5 F0              2720 	mov	b,a
+   0B56 05 F0              2721 	inc	b
+   0B58 74 01              2722 	mov	a,#0x01
+   0B5A 80 02              2723 	sjmp	00162$
+   0B5C                    2724 00160$:
+   0B5C 25 E0              2725 	add	a,acc
+   0B5E                    2726 00162$:
+   0B5E D5 F0 FB           2727 	djnz	b,00160$
+   0B61 FD                 2728 	mov	r5,a
+   0B62 42*16              2729 	orl	_portbuffer,a
+   0B64                    2730 00115$:
+                           2731 ;	../fb_app_out.c:760: for(n=0;n<=3;n++) {			// Ausgänge 5-8
+   0B64 0E                 2732 	inc	r6
+   0B65 80 AF              2733 	sjmp	00113$
+   0B67                    2734 00116$:
+                           2735 ;	../fb_app_out.c:767: oldportbuffer=0; 	// auf 0 setzen, da sonst kein Vollstrom aktiviert wird
+   0B67 75*17 00           2736 	mov	_oldportbuffer,#0x00
+                           2737 ;	../fb_app_out.c:768: portchanged=1;		// Post hinterlegen damit in delaytimer nach portschalten springt
+   0B6A D2*01              2738 	setb	_portchanged
+                           2739 ;	../fb_app_out.c:771: rm_state=portbuffer ^ eeprom[RMINV];	// Rückmeldeobjekte setzen
+   0B6C 90s00rF3           2740 	mov	dptr,#(_eeprom + 0x00f3)
+   0B6F E4                 2741 	clr	a
+   0B70 93                 2742 	movc	a,@a+dptr
+   0B71 65*16              2743 	xrl	a,_portbuffer
+   0B73 F5*14              2744 	mov	_rm_state,a
+                           2745 ;	../fb_app_out.c:775: rm_send|=~portbuffer;// Rückmeldung nur für Objekte mit Wert 0, da Wert 1 in normalem port_schalten eh gesendet wird
+   0B75 E5*16              2746 	mov	a,_portbuffer
+   0B77 F4                 2747 	cpl	a
+   0B78 42*1A              2748 	orl	_rm_send,a
+   0B7A 22                 2749 	ret
+                           2750 ;------------------------------------------------------------
+                           2751 ;Allocation info for local variables in function 'restart_app'
+                           2752 ;------------------------------------------------------------
+                           2753 ;	../fb_app_out.c:780: void restart_app(void) 		// Alle Applikations-Parameter zurücksetzen
+                           2754 ;	-----------------------------------------
+                           2755 ;	 function restart_app
+                           2756 ;	-----------------------------------------
+   0B7B                    2757 _restart_app:
+                           2758 ;	../fb_app_out.c:785: P0=0;
+   0B7B 75 80 00           2759 	mov	_P0,#0x00
+                           2760 ;	../fb_app_out.c:786: P0M1=0x00;		// Port 0 Modus push-pull für Ausgang
+   0B7E 75 84 00           2761 	mov	_P0M1,#0x00
+                           2762 ;	../fb_app_out.c:788: P0M2=0xFF;
+   0B81 75 85 FF           2763 	mov	_P0M2,#0xFF
+                           2764 ;	../fb_app_out.c:798: TMOD=(TMOD & 0xF0) + 2;		// Timer 0 als PWM
+   0B84 74 F0              2765 	mov	a,#0xF0
+   0B86 55 89              2766 	anl	a,_TMOD
+   0B88 24 02              2767 	add	a,#0x02
+   0B8A F5 89              2768 	mov	_TMOD,a
+                           2769 ;	../fb_app_out.c:799: TAMOD=0x01;
+   0B8C 75 8F 01           2770 	mov	_TAMOD,#0x01
+                           2771 ;	../fb_app_out.c:800: TH0=DUTY;		// Pulsverhältnis PWM
+   0B8F 75 8C 50           2772 	mov	_TH0,#0x50
+                           2773 ;	../fb_app_out.c:801: AUXR1|=0x10;	// PWM von Timer 0 auf Pin ausgeben, gleichzeitig low-powermode ein (da <8MHz)
+   0B92 43 A2 10           2774 	orl	_AUXR1,#0x10
+                           2775 ;	../fb_app_out.c:802: TR0=1;			// Timer 0 starten (PWM)
+   0B95 D2 8C              2776 	setb	_TCON_4
+                           2777 ;	../fb_app_out.c:807: ET0=0;			// Interrupt für Timer 0 sperren
+   0B97 C2 A9              2778 	clr	_IEN0_1
+                           2779 ;	../fb_app_out.c:808: IT0=1;
+   0B99 D2 88              2780 	setb	_TCON_0
+                           2781 ;	../fb_app_out.c:809: zf_state=0x00;		// Zustand der Zusatzfunktionen 1-4
+   0B9B 75*15 00           2782 	mov	_zf_state,#0x00
+                           2783 ;	../fb_app_out.c:810: blocked=0x00;		// Ausgänge nicht gesperrt
+                           2784 ;	../fb_app_out.c:811: timer=0;			// Timer-Variable, wird alle 130ms inkrementiert
+                           2785 ;	../fb_app_out.c:813: logicstate=0;
+   0B9E E4                 2786 	clr	a
+   0B9F F5*18              2787 	mov	_blocked,a
+   0BA1 F5*10              2788 	mov	_timer,a
+   0BA3 F5*11              2789 	mov	(_timer + 1),a
+   0BA5 F5*19              2790 	mov	_logicstate,a
+                           2791 ;	../fb_app_out.c:814: delay_toggle=0;
+   0BA7 C2*00              2792 	clr	_delay_toggle
+                           2793 ;	../fb_app_out.c:816: EA=0;						// Interrupts sperren, damit flashen nicht unterbrochen wird
+   0BA9 C2 AF              2794 	clr	_IEN0_7
+                           2795 ;	../fb_app_out.c:817: START_WRITECYCLE
+   0BAB 75 E4 00           2796 	mov	_FMCON,#0x00
+                           2797 ;	../fb_app_out.c:818: WRITE_BYTE(0x01,0x03,0x00)	// Herstellercode 0x0004 = Jung
+   0BAE 75 E7 1D           2798 	mov	_FMADRH,#0x1D
+   0BB1 75 E6 03           2799 	mov	_FMADRL,#0x03
+   0BB4 75 E5 00           2800 	mov	_FMDATA,#0x00
+                           2801 ;	../fb_app_out.c:819: WRITE_BYTE(0x01,0x04,0x04)
+   0BB7 75 E7 1D           2802 	mov	_FMADRH,#0x1D
+   0BBA 75 E6 04           2803 	mov	_FMADRL,#0x04
+   0BBD 75 E5 04           2804 	mov	_FMDATA,#0x04
+                           2805 ;	../fb_app_out.c:821: WRITE_BYTE(0x01,0x05,0x20)	// Devicetype 0x2060 = Jung Aktor 2138.10
+   0BC0 75 E7 1D           2806 	mov	_FMADRH,#0x1D
+   0BC3 75 E6 05           2807 	mov	_FMADRL,#0x05
+   0BC6 75 E5 20           2808 	mov	_FMDATA,#0x20
+                           2809 ;	../fb_app_out.c:822: WRITE_BYTE(0x01,0x06,0x60)	
+   0BC9 75 E7 1D           2810 	mov	_FMADRH,#0x1D
+   0BCC 75 E6 06           2811 	mov	_FMADRL,#0x06
+   0BCF 75 E5 60           2812 	mov	_FMDATA,#0x60
+                           2813 ;	../fb_app_out.c:828: WRITE_BYTE(0x01,0x07,0x01)	// Versionnumber of application programm
+   0BD2 75 E7 1D           2814 	mov	_FMADRH,#0x1D
+   0BD5 75 E6 07           2815 	mov	_FMADRL,#0x07
+   0BD8 75 E5 01           2816 	mov	_FMDATA,#0x01
+                           2817 ;	../fb_app_out.c:829: WRITE_BYTE(0x01,0x0C,0x00)	// PORT A Direction Bit Setting
+   0BDB 75 E7 1D           2818 	mov	_FMADRH,#0x1D
+   0BDE 75 E6 0C           2819 	mov	_FMADRL,#0x0C
+   0BE1 75 E5 00           2820 	mov	_FMDATA,#0x00
+                           2821 ;	../fb_app_out.c:830: WRITE_BYTE(0x01,0x0D,0xFF)	// Run-Status (00=stop FF=run)
+   0BE4 75 E7 1D           2822 	mov	_FMADRH,#0x1D
+   0BE7 75 E6 0D           2823 	mov	_FMADRL,#0x0D
+   0BEA 75 E5 FF           2824 	mov	_FMDATA,#0xFF
+                           2825 ;	../fb_app_out.c:831: WRITE_BYTE(0x01,0x12,0x9A)	// COMMSTAB Pointer
+   0BED 75 E7 1D           2826 	mov	_FMADRH,#0x1D
+   0BF0 75 E6 12           2827 	mov	_FMADRL,#0x12
+   0BF3 75 E5 9A           2828 	mov	_FMDATA,#0x9A
+                           2829 ;	../fb_app_out.c:832: STOP_WRITECYCLE
+   0BF6 75 E4 68           2830 	mov	_FMCON,#0x68
+                           2831 ;	../fb_app_out.c:833: EA=1;						// Interrupts freigeben
+   0BF9 D2 AF              2832 	setb	_IEN0_7
+   0BFB 22                 2833 	ret
+                           2834 	.area CSEG    (CODE)
+                           2835 	.area CONST   (CODE)
+                           2836 	.area XINIT   (CODE)
+                           2837 	.area CABS    (ABS,CODE)
