@@ -91,4 +91,11 @@
    <version>4.10</version>
   </dependency>
  </dependencies>
+ <url>https://github.com/selfbus/lpc-debugger/wiki</url>
+ <description>A tool for debugging C programs running on a LPC microcontroller</description>
+ <scm>
+  <connection>git://github.com/selfbus/lpc-debugger.git</connection>
+  <url>https://github.com/selfbus/lpc-debugger</url>
+  <developerConnection>git@github.com:selfbus/lpc-debugger.git</developerConnection>
+ </scm>
 </project>
