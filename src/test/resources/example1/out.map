@@ -446,7 +446,7 @@ Files Linked                              [ module(s) ]
 
 Libraries Linked                          [ object file ]
 
-C:\Freebus\C_Programme\oldisprogramm\lib_lpc922\Release/fb_lpc922.lib
+C:\C_Programme\oldisprogramm\lib_lpc922\Release/fb_lpc922.lib
                                           [ fb_lpc922 ]
 C:\Programme\SDCC\bin\..\lib\small-stack-auto/mcs51.lib
                                           [ crtclear.rel ]
