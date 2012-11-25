@@ -94,23 +94,14 @@ public class SerialPortWrapper
          serialPort.setInputBufferSize(2048);
          serialPort.setOutputBufferSize(2048);
 
-         // Taken from Calimero's RxtxAdapter:
-//         serialPort.enableReceiveThreshold(1024);
+         serialPort.enableReceiveTimeout(250);
+         serialPort.enableReceiveThreshold(1024);
       }
       catch (Exception e)
       {
          serialPort = null;
          throw new IOException("cannot open port: " + portName, e);
       }
-
-      // try
-      // {
-      // serialPort.enableReceiveTimeout(250);
-      // }
-      // catch (UnsupportedCommOperationException e)
-      // {
-      // Logger.getLogger(getClass()).warn("no timeout support: serial port might hang during close");
-      // }
 
       inputStream = serialPort.getInputStream();
       outputStream = serialPort.getOutputStream();

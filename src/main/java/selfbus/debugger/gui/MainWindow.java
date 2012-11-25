@@ -95,7 +95,7 @@ public class MainWindow extends JFrame implements DebugListener
       {
          public void actionPerformed(ActionEvent e)
          {
-            DebugController controller = application.getController();
+            final DebugController controller = application.getController();
 
             String connectionName = (String) cboConnection.getSelectedItem();
             if (demoConnectionName.equals(connectionName))
@@ -108,8 +108,16 @@ public class MainWindow extends JFrame implements DebugListener
                application.getConfig().setProperty("connection", connectionName);
             }
 
-            controller.setConnectionName(connectionName);
-            controller.close();
+            final String conName = connectionName;
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               @Override
+               public void run()
+               {
+                  controller.close();
+                  controller.setConnectionName(conName);
+               }
+            });
          }
       });
       connectionClosed();

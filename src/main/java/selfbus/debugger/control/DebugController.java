@@ -102,10 +102,13 @@ public class DebugController extends AbstractDebugController implements Closeabl
             newValue = readMem(address, size);
          }
 
-         if ((newValue != null) && (!Arrays.equals(newValue, var.getValue())))
+         if (newValue != null)
          {
-            var.setValue(newValue);
-            fireValueChanged(var);
+            if (var.getPrevValue() != null || !Arrays.equals(newValue, var.getValue()))
+            {
+               var.setValue(newValue);
+               fireValueChanged(var);
+            }
          }
       }
       catch (IOException e)

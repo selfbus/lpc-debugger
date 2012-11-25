@@ -32,8 +32,10 @@ public class SettingsDialog extends JDialog
 
    private static final Insets PARAGRAPH_INSETS = new Insets(10, 8, 2, 8);
    private static final Insets INSETS = new Insets(2, 8, 2, 8);
-   private static final int[] AUTO_UPDATE_MSEC = { 0, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000 };
    private static final int DEFAULT_AUTO_UPDATE_MSEC = 2000;
+   private static final int[] AUTO_UPDATE_MSEC = { 0, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000 };
+   private static final int DEFAULT_BAUD_RATE = 115200;
+   private static final int[] BAUD_RATES = { 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400 };
 
    private final JComboBox<Integer> cboBaudRate = new JComboBox<Integer>();
    private final JComboBox<String> cboAutoUpdate = new JComboBox<String>();
@@ -82,8 +84,12 @@ public class SettingsDialog extends JDialog
             SettingsDialog.this.dispose();
          }
       });
+
       setupBaudRates();
+      cboBaudRate.setMaximumRowCount(cboBaudRate.getItemCount());
+
       setupAutoUpdates();
+      cboAutoUpdate.setMaximumRowCount(cboAutoUpdate.getItemCount());
 
       fromConfig();
    }
@@ -93,13 +99,8 @@ public class SettingsDialog extends JDialog
     */
    protected void setupBaudRates()
    {
-      this.cboBaudRate.addItem(Integer.valueOf(4800));
-      this.cboBaudRate.addItem(Integer.valueOf(9600));
-      this.cboBaudRate.addItem(Integer.valueOf(19200));
-      this.cboBaudRate.addItem(Integer.valueOf(38400));
-      this.cboBaudRate.addItem(Integer.valueOf(57600));
-      this.cboBaudRate.addItem(Integer.valueOf(115200));
-      this.cboBaudRate.addItem(Integer.valueOf(230400));
+      for (int baudRate: BAUD_RATES)
+         cboBaudRate.addItem(Integer.valueOf(baudRate));
    }
 
    /**
@@ -111,12 +112,12 @@ public class SettingsDialog extends JDialog
       {
          if (updateMsec <= 1000)
          {
-            this.cboAutoUpdate.addItem(I18n.formatMessage("Settings.autoUpdateMsec",
+            cboAutoUpdate.addItem(I18n.formatMessage("Settings.autoUpdateMsec",
                new String[] { Integer.toString(updateMsec) }));
          }
          else
          {
-            this.cboAutoUpdate.addItem(I18n.formatMessage("Settings.autoUpdateSec",
+            cboAutoUpdate.addItem(I18n.formatMessage("Settings.autoUpdateSec",
                new String[] { Float.toString(updateMsec * 0.001F) }));
          }
       }
@@ -127,19 +128,19 @@ public class SettingsDialog extends JDialog
     */
    public void fromConfig()
    {
-      int baudRate = Integer.parseInt(this.props.getProperty("serial.baudRate", "115200"));
+      int baudRate = Integer.parseInt(props.getProperty("serial.baudRate", Integer.toString(DEFAULT_BAUD_RATE)));
 
-      for (int i = 0; i < this.cboBaudRate.getItemCount(); i++)
+      for (int i = 0; i < cboBaudRate.getItemCount(); i++)
       {
-         if (((Integer) this.cboBaudRate.getItemAt(i)).intValue() == baudRate)
+         if (((Integer) cboBaudRate.getItemAt(i)).intValue() == baudRate)
          {
-            this.cboBaudRate.setSelectedIndex(i);
+            cboBaudRate.setSelectedIndex(i);
             break;
          }
       }
 
       int updateMsec = Integer.parseInt(this.props.getProperty("autoUpdateMsec", Integer.toString(DEFAULT_AUTO_UPDATE_MSEC)));
-      for (int i = 0; i < this.cboAutoUpdate.getItemCount(); i++)
+      for (int i = 0; i < cboAutoUpdate.getItemCount(); i++)
       {
          if (AUTO_UPDATE_MSEC[i] == updateMsec)
          {
@@ -156,9 +157,9 @@ public class SettingsDialog extends JDialog
    {
       LOGGER.debug("Writing configuration");
       this.props.setProperty("serial.baudRate",
-         Integer.toString(((Integer) this.cboBaudRate.getSelectedItem()).intValue()));
+         Integer.toString(((Integer) cboBaudRate.getSelectedItem()).intValue()));
       this.props.setProperty("autoUpdateMsec",
-         Integer.toString(AUTO_UPDATE_MSEC[this.cboAutoUpdate.getSelectedIndex()]));
+         Integer.toString(AUTO_UPDATE_MSEC[cboAutoUpdate.getSelectedIndex()]));
 
       ActionFactory actionFactory = ActionFactory.getInstance();
       AutoUpdateAction autoUpdateAction = (AutoUpdateAction) actionFactory.getAction("autoUpdateAction");
