@@ -6,10 +6,9 @@ public final class ByteUtils
    {
       int result = 0;
 
-      while (count > 0)
+      for (int pos = offset + count - 1; pos >= offset; --pos)
       {
-         result = result << 8 | data[(offset++)] & 0xFF;
-         count--;
+         result = result << 8 | data[pos] & 0xFF;
       }
 
       return result;
