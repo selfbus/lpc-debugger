@@ -5,7 +5,6 @@
 #include <P89LPC922.h>
 
 #include "debug.h"
-#include "rtc.h"
 
 // Setup the debug variables
 DEBUG_VARIABLES;
@@ -26,8 +25,8 @@ void main()
 	   // Here happens the serial communication with the PC
 		DEBUG_POINT;
 
-		++i;
-		if (i == 0)
+		++count;
+		if (count == 0)
 			P0_1 = !P0_1;
 	}
 }
