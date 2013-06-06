@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# LPC-debugger start script for Unix like operating systems
+# Start script for Unix like operating systems
 #
 
 topDir=`dirname $0`
@@ -9,5 +9,5 @@ if [ -n "$topDir" ]; then
 fi
 
 set -x
-exec java -cp libs -jar libs/lpc-debugger*.jar $*
+exec java -cp libs -jar libs/MAIN_JAR $*
 
