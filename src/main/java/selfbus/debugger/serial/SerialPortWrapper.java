@@ -93,6 +93,8 @@ public class SerialPortWrapper
          serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
          serialPort.setInputBufferSize(2048);
          serialPort.setOutputBufferSize(2048);
+         serialPort.setDTR(true);
+         serialPort.setRTS(true);
 
          serialPort.enableReceiveTimeout(250);
          serialPort.enableReceiveThreshold(1024);
@@ -118,6 +120,9 @@ public class SerialPortWrapper
          return;
 
       LOGGER.debug("Closing serial port " + portName);
+
+      serialPort.setDTR(false);
+      serialPort.setRTS(false);
 
       try
       {
