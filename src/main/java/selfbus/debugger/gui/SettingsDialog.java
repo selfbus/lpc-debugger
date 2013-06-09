@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.util.Properties;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -39,6 +40,7 @@ public class SettingsDialog extends JDialog
 
    private final JComboBox<Integer> cboBaudRate = new JComboBox<Integer>();
    private final JComboBox<String> cboAutoUpdate = new JComboBox<String>();
+   private final JCheckBox cboResetOnOpen = new JCheckBox(I18n.getMessage("Settings.resetOnOpen"));
    private final Properties props;
 
    /**
@@ -63,19 +65,21 @@ public class SettingsDialog extends JDialog
       setLayout(new GridBagLayout());
       int row = -1;
 
-      add(new JLabel(I18n.getMessage("Settings.baudRate")), new GridBagConstraints(0, ++row, 1, 1, 1.0D, 1.0D, 18, 0,
+      add(new JLabel(I18n.getMessage("Settings.baudRate")), new GridBagConstraints(0, ++row, 1, 1, 1, 1, 18, 0,
          PARAGRAPH_INSETS, 0, 0));
-      add(this.cboBaudRate, new GridBagConstraints(0, ++row, 1, 1, 1.0D, 1.0D, 18, 0, INSETS, 0, 0));
+      add(cboBaudRate, new GridBagConstraints(0, ++row, 1, 1, 1, 1, 18, 0, INSETS, 0, 0));
 
-      add(new JLabel(I18n.getMessage("Settings.autoUpdateInterval")), new GridBagConstraints(0, ++row, 1, 1, 1.0D,
-         1.0D, 18, 0, PARAGRAPH_INSETS, 0, 0));
-      add(this.cboAutoUpdate, new GridBagConstraints(0, ++row, 1, 1, 1.0D, 1.0D, 18, 0, INSETS, 0, 0));
+      add(cboResetOnOpen, new GridBagConstraints(0, ++row, 2, 1, 1, 1, 18, 0, INSETS, 0, 0));
+      
+      add(new JLabel(I18n.getMessage("Settings.autoUpdateInterval")), new GridBagConstraints(0, ++row, 1, 1, 1,
+         1, 18, 0, PARAGRAPH_INSETS, 0, 0));
+      add(cboAutoUpdate, new GridBagConstraints(0, ++row, 1, 1, 1, 1, 18, 0, INSETS, 0, 0));
 
-      add(Box.createVerticalGlue(), new GridBagConstraints(0, ++row, 1, 1, 1.0D, 100.0D, 18, 2, new Insets(0, 0, 0, 0),
+      add(Box.createVerticalGlue(), new GridBagConstraints(0, ++row, 1, 1, 1, 100.0D, 18, 2, new Insets(0, 0, 0, 0),
          0, 0));
 
       JButton closeButton = new JButton(I18n.getMessage("Settings.close"));
-      add(closeButton, new GridBagConstraints(0, ++row, 1, 1, 1.0D, 1.0D, 14, 0, new Insets(20, 8, 8, 8), 0, 0));
+      add(closeButton, new GridBagConstraints(0, ++row, 1, 1, 1, 1, 14, 0, new Insets(20, 8, 8, 8), 0, 0));
       closeButton.addActionListener(new ActionListener()
       {
          public void actionPerformed(ActionEvent e)
@@ -139,7 +143,7 @@ public class SettingsDialog extends JDialog
          }
       }
 
-      int updateMsec = Integer.parseInt(this.props.getProperty("autoUpdateMsec", Integer.toString(DEFAULT_AUTO_UPDATE_MSEC)));
+      int updateMsec = Integer.parseInt(props.getProperty("autoUpdateMsec", Integer.toString(DEFAULT_AUTO_UPDATE_MSEC)));
       for (int i = 0; i < cboAutoUpdate.getItemCount(); i++)
       {
          if (AUTO_UPDATE_MSEC[i] == updateMsec)
@@ -148,6 +152,9 @@ public class SettingsDialog extends JDialog
             break;
          }
       }
+
+      boolean resetOnOpen = Integer.parseInt(props.getProperty("resetOnOpen", "0")) == 1;
+      cboResetOnOpen.setSelected(resetOnOpen);
    }
 
    /**
@@ -156,10 +163,12 @@ public class SettingsDialog extends JDialog
    public void toConfig()
    {
       LOGGER.debug("Writing configuration");
-      this.props.setProperty("serial.baudRate",
+
+      props.setProperty("serial.baudRate",
          Integer.toString(((Integer) cboBaudRate.getSelectedItem()).intValue()));
-      this.props.setProperty("autoUpdateMsec",
+      props.setProperty("autoUpdateMsec",
          Integer.toString(AUTO_UPDATE_MSEC[cboAutoUpdate.getSelectedIndex()]));
+      props.setProperty("resetOnOpen", cboResetOnOpen.isSelected() ? "1" : "0");
 
       ActionFactory actionFactory = ActionFactory.getInstance();
       AutoUpdateAction autoUpdateAction = (AutoUpdateAction) actionFactory.getAction("autoUpdateAction");

@@ -34,10 +34,10 @@ public class DebugController extends AbstractDebugController implements Closeabl
    public synchronized void open()
    {
       if (this.connectionName == null)
-         this.connection = new SimulatedConnection();
-      else this.connection = new SerialConnection(this.connectionName);
+         connection = new SimulatedConnection();
+      else connection = new SerialConnection(this.connectionName);
 
-      this.connection.open();
+      connection.open();
       fireConnectionOpened();
    }
 

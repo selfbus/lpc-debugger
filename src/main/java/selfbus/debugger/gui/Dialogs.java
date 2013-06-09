@@ -59,6 +59,35 @@ public final class Dialogs
    }
 
    /**
+    * Show a warning dialog.
+    * 
+    * @param title - The title of the dialog window
+    * @param message - Some human readable message (not {@link Exception#getMessage}!)
+    */
+   public static void showWarningDialog(String title, String message)
+   {
+      MainWindow appWin = MainWindow.getInstance();
+
+      if (appWin != null)
+         appWin.setCursor(Cursor.getDefaultCursor());
+
+      if (!message.startsWith("<html>"))
+         message = "<html><body width=\"400px\">" + message.replace("\n", "<br>") + "</body></html>";
+
+      JOptionPane.showMessageDialog(appWin, message, title, JOptionPane.WARNING_MESSAGE);
+   }
+
+   /**
+    * Show a warning dialog with the default error-dialog window title.
+    * 
+    * @param message - Some human readable message (not {@link Exception#getMessage()}!)
+    */
+   public static void showWarningDialog(String message)
+   {
+      showWarningDialog(I18n.getMessage("Dialogs.Warning_Title"), message);
+   }
+
+   /**
     * Format the exception and the message as it is used in
     * {@link #showExceptionDialog(Exception, String)}.
     * 

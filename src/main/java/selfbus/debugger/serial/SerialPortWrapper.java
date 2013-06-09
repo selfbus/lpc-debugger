@@ -48,6 +48,9 @@ public class SerialPortWrapper
    private InputStream inputStream;
    private OutputStream outputStream;
    private String portName;
+   private boolean resetOnOpen = true;
+
+   
 
    /**
     * Throw a runtime exception if the serial port was not properly closed.
@@ -80,7 +83,7 @@ public class SerialPortWrapper
 
       try
       {
-         LOGGER.debug("Opening serial port " + portName);
+         LOGGER.info("Opening serial port " + portName);
 
          inputStream = null;
          outputStream = null;
@@ -93,11 +96,21 @@ public class SerialPortWrapper
          serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
          serialPort.setInputBufferSize(2048);
          serialPort.setOutputBufferSize(2048);
-         serialPort.setDTR(true);
-         serialPort.setRTS(true);
+
+         if (resetOnOpen)
+         {
+            LOGGER.info("Resetting LPC");
+            serialPort.setDTR(false);
+            serialPort.setRTS(false);
+            Thread.sleep(100);
+         }
 
          serialPort.enableReceiveTimeout(250);
          serialPort.enableReceiveThreshold(1024);
+
+         serialPort.setDTR(true);
+         serialPort.setRTS(true);
+         Thread.sleep(resetOnOpen ? 500 : 100);
       }
       catch (Exception e)
       {
@@ -107,6 +120,10 @@ public class SerialPortWrapper
 
       inputStream = serialPort.getInputStream();
       outputStream = serialPort.getOutputStream();
+
+      // Drain the input stream
+      while (inputStream.read() != -1)
+         ;
 
       this.portName = portName;
    }
@@ -119,7 +136,7 @@ public class SerialPortWrapper
       if (serialPort == null)
          return;
 
-      LOGGER.debug("Closing serial port " + portName);
+      LOGGER.info("Closing serial port " + portName);
 
       serialPort.setDTR(false);
       serialPort.setRTS(false);
@@ -197,6 +214,24 @@ public class SerialPortWrapper
    {
       serialPort.enableReceiveTimeout(time);
       serialPort.enableReceiveThreshold(1024);
+   }
+
+   /**
+    * @return True if the LPC shall be resetted on open.
+    */
+   public boolean isResetOnOpen()
+   {
+      return resetOnOpen;
+   }
+
+   /**
+    * Set if the LPC shall be resetted on open.
+    *
+    * @param resetOnOpen - to enable reset-on-open
+    */
+   public void setResetOnOpen(boolean resetOnOpen)
+   {
+      this.resetOnOpen = resetOnOpen;
    }
 
    /**

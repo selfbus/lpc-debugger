@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import selfbus.debugger.control.DebugController;
 import selfbus.debugger.gui.Dialogs;
@@ -30,6 +32,8 @@ import selfbus.debugger.model.map.MapUtils;
  */
 public final class Application extends AbstractApplication
 {
+   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
    private final DebugController controller = new DebugController();
    private File cdbFile;
    private MainWindow win;
@@ -116,6 +120,13 @@ public final class Application extends AbstractApplication
          }
       }
 
+      if (variables.size() == 0 && parser.getNumUnresolved() > 0)
+      {
+         Dialogs.showWarningDialog(I18n.getMessage("Error.noSymbolsFound") + "\n\n" +
+            I18n.getMessage("Error.noSymbolsFoundDetails"));
+      }
+
+      LOGGER.debug("{} variables loaded", variables.size());
       controller.setVariables(variables);
       win.setTitle(file.getName() + " - " + I18n.getMessage("App.name"));
       cdbFile = file;

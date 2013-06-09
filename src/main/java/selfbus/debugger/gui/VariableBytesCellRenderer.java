@@ -20,6 +20,7 @@ import sun.swing.DefaultLookup;
  * A table cell renderer that renders the raw bytes of a {@link Variable}.
  * Parts of this implementation are taken from Swing's DefaultTableCellRenderer.
  */
+@SuppressWarnings("restriction")
 public class VariableBytesCellRenderer extends JPanel implements TableCellRenderer, Serializable
 {
    private static final long serialVersionUID = -8279672471105020636L;
@@ -96,7 +97,6 @@ public class VariableBytesCellRenderer extends JPanel implements TableCellRender
 
    private Border getNoFocusBorder()
    {
-      @SuppressWarnings("restriction")
       Border border = DefaultLookup.getBorder(this, ui, "Table.cellNoFocusBorder");
       if (System.getSecurityManager() != null)
       {
@@ -133,7 +133,6 @@ public class VariableBytesCellRenderer extends JPanel implements TableCellRender
     * @return the default table cell renderer
     * @see javax.swing.JComponent#isPaintingForPrint()
     */
-   @SuppressWarnings("restriction")
    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
       int row, int column)
    {

@@ -1,0 +1,4 @@
+2013-06-09  Version 0.3
+        Added warning message when no debugger symbols are found in .cdb file
+        Replaced application icon
+        Added an option to reset the LPC on connect

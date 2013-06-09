@@ -3,6 +3,7 @@ package selfbus.debugger.control;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 
 import org.apache.commons.lang3.Validate;
 
@@ -20,27 +21,41 @@ public class SerialConnection implements Connection
    private InputStream portIn;
    private OutputStream portOut;
 
+   /**
+    * Create a new serial connection.
+    *
+    * @param portName - the name of the port.
+    */
    public SerialConnection(String portName)
    {
       this.portName = portName;
    }
 
+   /**
+    * @return The name of the port.
+    */
    public String getPortName()
    {
-      return this.portName;
+      return portName;
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public void open()
    {
-      Validate.isTrue(!this.port.isOpened());
+      Validate.isTrue(!port.isOpened());
 
-      int baudRate = Integer.parseInt(Application.getInstance().getConfig().getProperty("serial.baudRate", "115200"));
+      Properties props = Application.getInstance().getConfig();
+      int baudRate = Integer.parseInt(props.getProperty("serial.baudRate", "115200"));
+      port.setResetOnOpen(Integer.parseInt(props.getProperty("resetOnOpen", "0")) == 1);
+
       try
       {
-         this.port.open(this.portName, baudRate, 8, 1, 0);
+         port.open(portName, baudRate, 8, 1, 0);
 
-         this.portIn = this.port.getInputStream();
-         this.portOut = this.port.getOutputStream();
+         portIn = port.getInputStream();
+         portOut = port.getOutputStream();
       }
       catch (IOException e)
       {
@@ -48,14 +63,20 @@ public class SerialConnection implements Connection
       }
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public void close()
    {
-      this.portIn = null;
-      this.portOut = null;
+      portIn = null;
+      portOut = null;
 
-      this.port.close();
+      port.close();
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public byte[] readMem(int address, int size) throws IOException
    {
       Validate.isTrue(this.port.isOpened());
@@ -69,6 +90,9 @@ public class SerialConnection implements Connection
       return data;
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public byte readMem(int address) throws IOException
    {
       if (this.portIn != null)

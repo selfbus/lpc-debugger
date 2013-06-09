@@ -25,7 +25,7 @@ public class CdbParser
    private final Map<String, Symbol> symbols = new TreeMap<String, Symbol>();
    private final BufferedReader reader;
    private String location = "<stream>";
-   private int lineNo;
+   private int lineNo, numUnresolved;
    private String module;
 
    /**
@@ -64,7 +64,7 @@ public class CdbParser
     */
    public int getLineNumber()
    {
-      return this.lineNo;
+      return lineNo;
    }
 
    /**
@@ -73,7 +73,15 @@ public class CdbParser
     */
    public Map<String, Symbol> getSymbols()
    {
-      return this.symbols;
+      return symbols;
+   }
+
+   /**
+    * @return The number of unresolved linker symbols. Valid after {@link #parse()}.
+    */
+   public int getNumUnresolved()
+   {
+      return numUnresolved;
    }
 
    /**
@@ -85,6 +93,7 @@ public class CdbParser
    public void parse() throws IOException, ParseException
    {
       lineNo = -1;
+      numUnresolved = 0;
 
       while (true)
       {
@@ -218,7 +227,8 @@ public class CdbParser
 
          AddressSpace addrSpace = AddressSpace.valueOfType(restParts[0]);
 
-         this.symbols.put(name, new Symbol(name, symbolSpec, addrSpace, this.module));
+         LOGGER.debug("Found symbol {}", name);
+         symbols.put(name, new Symbol(name, symbolSpec, addrSpace, module));
       }
    }
 
@@ -287,10 +297,11 @@ public class CdbParser
       {
          String name = parts[1];
 
-         Symbol sym = (Symbol) this.symbols.get(name);
+         Symbol sym = (Symbol) symbols.get(name);
          if (sym == null)
          {
             LOGGER.warn("Ignoring unresolved linker symbol: {}", name);
+            numUnresolved++;
             return;
          }
 
