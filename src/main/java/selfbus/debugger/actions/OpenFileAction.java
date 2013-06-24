@@ -53,6 +53,9 @@ public final class OpenFileAction extends BasicAction
       if (file == null)
          return;
 
+      if (!file.getAbsolutePath().equals(app.getConfig().getProperty("lastCdbFile")))
+         app.getConfig().remove("hiddenVariables");
+
       app.setCdbFile(file);
       app.getConfig().setProperty("lastOpenDir", file.getParentFile().getAbsolutePath());
       app.getConfig().setProperty("lastCdbFile", file.getAbsolutePath());

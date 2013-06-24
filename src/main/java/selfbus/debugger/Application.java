@@ -48,6 +48,7 @@ public final class Application extends AbstractApplication
       return this.controller;
    }
 
+   @Override
    protected void startup()
    {
       LookAndFeelManager.setDefaultLookAndFeel();
@@ -62,11 +63,19 @@ public final class Application extends AbstractApplication
       win.setVisible(true);
    }
 
+   @Override
+   protected void ready()
+   {
+      win.updateHiddenVariables();
+   }
+
+   @Override
    protected void shutdown()
    {
-      getConfig().setProperty("connected", this.controller.isOpen() ? "true" : "false");
+      getConfig().setProperty("connected", controller.isOpen() ? "true" : "false");
 
-      this.controller.removeListener(this.win);
+      controller.removeListener(win);
+      win.beforeShutdown();
 
       saveConfig(getConfigFile(), "lpc-debugger configuration");
    }

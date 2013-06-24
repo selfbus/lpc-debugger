@@ -25,6 +25,7 @@ public class DebugController extends AbstractDebugController implements Closeabl
    private String connectionName;
    private final short[] memCache = new short[256];
    private AddressRanges addrRanges = new LpcAddressRanges();
+   private boolean filterVariables = true;
 
    public synchronized void setConnectionName(String name)
    {
@@ -67,7 +68,10 @@ public class DebugController extends AbstractDebugController implements Closeabl
       try
       {
          for (Variable var : this.variables)
-            update(var);
+         {
+            if (!filterVariables || var.isVisible())
+               update(var);
+         }
       }
       finally
       {
@@ -162,5 +166,15 @@ public class DebugController extends AbstractDebugController implements Closeabl
    public Set<Variable> getVariables()
    {
       return this.variables;
+   }
+
+   public boolean isFilterVariables()
+   {
+      return filterVariables;
+   }
+
+   public void setFilterVariables(boolean enable)
+   {
+      this.filterVariables = enable;
    }
 }

@@ -14,6 +14,7 @@ public class Variable extends MapAreaLocation implements Comparable<Variable>
    private byte[] value, prevValue;
    private SymbolSpec spec;
    private boolean modified;
+   private boolean visible = true;
 
    public Variable(String name, int address, int size, String module)
    {
@@ -92,6 +93,24 @@ public class Variable extends MapAreaLocation implements Comparable<Variable>
       return prevValue;
    }
 
+   /**
+    * Set the GUI visibility flag
+    * 
+    * @param visible - true if visible
+    */
+   public void setVisible(boolean visible)
+   {
+      this.visible = visible;
+   }
+
+   /**
+    * @return True if the variable is visible (in the GUI)
+    */
+   public boolean isVisible()
+   {
+      return visible;
+   }
+   
    /**
     * Test if the current and the previous value differ.
     * 

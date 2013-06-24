@@ -1,4 +1,4 @@
-package selfbus.debugger.gui;
+package selfbus.debugger.gui.table;
 
 import java.awt.Component;
 

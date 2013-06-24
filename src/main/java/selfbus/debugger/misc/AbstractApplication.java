@@ -42,6 +42,8 @@ public abstract class AbstractApplication
          {
          }
       }
+
+      ready();
    }
 
    public void exit()
@@ -79,10 +81,23 @@ public abstract class AbstractApplication
       }
    }
 
+   /**
+    * The application starts.
+    */
    protected abstract void startup();
 
+   /**
+    * The application shuts down.
+    */
    protected abstract void shutdown();
 
+   /**
+    * The application finished startup.
+    */
+   protected void ready()
+   {
+   }
+   
    public String getOS()
    {
       return this.osname;

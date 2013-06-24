@@ -167,7 +167,7 @@ public class CdbParser
     * Parse a function record. The format is:
     * 
     * <pre>
-    * { G | F[Filename] | L { [function] | "-null-"}}
+    * F:{ G | F[Filename] | L { [function] | "-null-"}}
     * $[Name]
     * $[Level]
     * $[Block]
@@ -190,7 +190,7 @@ public class CdbParser
     * Parse a symbol record. The format is (in one line):
     * 
     * <pre>
-    * { G | F[Filename] | L { [function] | "-null-" }}
+    * S:{ G | F[Filename] | L { [function] | "-null-" }}
     * $[Name]
     * $[Level]
     * $[Block]
@@ -213,6 +213,8 @@ public class CdbParser
 
       String rest = parts[3];
 
+      // A global symbol
+      // E.g.  L:G$tel_arrived$0$0:6
       if ("G".equals(type))
       {
          int begParen = rest.indexOf('(');
@@ -227,16 +229,18 @@ public class CdbParser
 
          AddressSpace addrSpace = AddressSpace.valueOfType(restParts[0]);
 
-         LOGGER.debug("Found symbol {}", name);
+//         LOGGER.debug("Found symbol {}", name);
          symbols.put(name, new Symbol(name, symbolSpec, addrSpace, module));
       }
+
+      // if ("L".equals(type)) // a local symbol (a local variable)
    }
 
    /**
     * Parse a type / structure record. The format is (in one line):
     * 
     * <pre>
-    * F[filename]
+    * T:F[filename]
     * $[name]
     * [[typeMember]{[typeMember]}
     * </pre>
@@ -257,7 +261,7 @@ public class CdbParser
     * Parse a linker record. The format is (in one line):
     * 
     * <pre>
-    * { G | F[filename] | L[function] | XG | XF[filename] | XL[function] }
+    * L:{ G | F[filename] | L[function] | XG | XF[filename] | XL[function] }
     * $[name]
     * $[level]
     * $[block]
@@ -267,16 +271,16 @@ public class CdbParser
     * or a linker ASM line record:
     * 
     * <pre>
-    * A
+    * L:A
     * $[filename]
     * $[line]
     * $[endAddress]
     * </pre>
     * 
-    * or a linker C-line record:
+    * or a linker C code/block location record:
     * 
     * <pre>
-    * C
+    * L:C
     * $[filename]
     * $[level]
     * $[block]

@@ -1,9 +1,11 @@
 package selfbus.debugger.actions;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 
 import selfbus.debugger.Application;
 import selfbus.debugger.control.DebugController;
+import selfbus.debugger.gui.MainWindow;
 import selfbus.debugger.misc.I18n;
 
 /**
@@ -27,7 +29,17 @@ public class ConnectAction extends BasicAction
       }
       else
       {
-         controller.open();
+         MainWindow mainWin = MainWindow.getInstance();
+
+         mainWin.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+         try
+         {
+            controller.open();
+         }
+         finally
+         {
+            mainWin.setCursor(Cursor.getDefaultCursor());
+         }
       }
    }
 

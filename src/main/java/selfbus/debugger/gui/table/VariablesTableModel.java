@@ -1,10 +1,11 @@
-package selfbus.debugger.model;
+package selfbus.debugger.gui.table;
 
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
 import selfbus.debugger.misc.I18n;
+import selfbus.debugger.model.Variable;
 import selfbus.debugger.model.cdb.ArraySymbolSpec;
 import selfbus.debugger.model.cdb.StructureSymbolSpec;
 import selfbus.debugger.model.cdb.SymbolSign;
@@ -18,20 +19,26 @@ public class VariablesTableModel extends AbstractTableModel
 {
    private static final long serialVersionUID = 7040737433963301064L;
 
-   /** The index of the variable type column. */
-   public static final int TYPE_COLUMN = 0;
+   /** The index of the variable's (is)visible column. */
+   public static final int VISIBLE_COLUMN = 0;
 
-   /** The index of the variable name column. */
-   public static final int NAME_COLUMN = 1;
+   /** The index of the variable's module column. */
+   public static final int MODULE_COLUMN = 1;
 
-   /** The index of the variable value column. */
-   public static final int VALUE_COLUMN = 2;
+   /** The index of the variable's type column. */
+   public static final int TYPE_COLUMN = 2;
 
-   /** The index of the variable bytes column. */
-   public static final int BYTES_COLUMN = 3;
+   /** The index of the variable's name column. */
+   public static final int NAME_COLUMN = 3;
+
+   /** The index of the variable's value column. */
+   public static final int VALUE_COLUMN = 4;
+
+   /** The index of the variable's bytes column. */
+   public static final int BYTES_COLUMN = 5;
 
    /** The number of columns that the model contains. */
-   public static final int COLUMNS = 4;
+   public static final int COLUMNS = 6;
 
    private final Vector<Variable> vars;
    private final Vector<String> types;
@@ -40,6 +47,8 @@ public class VariablesTableModel extends AbstractTableModel
    static
    {
       COLUMN_NAMES = new String[COLUMNS];
+      COLUMN_NAMES[VISIBLE_COLUMN] = "*";
+      COLUMN_NAMES[MODULE_COLUMN]  = I18n.getMessage("VariableComponent.moduleHeader");
       COLUMN_NAMES[TYPE_COLUMN]  = I18n.getMessage("VariableComponent.typeHeader");
       COLUMN_NAMES[NAME_COLUMN]  = I18n.getMessage("VariableComponent.nameHeader");
       COLUMN_NAMES[VALUE_COLUMN] = I18n.getMessage("VariableComponent.valueHeader");
@@ -53,6 +62,7 @@ public class VariablesTableModel extends AbstractTableModel
     */
    public VariablesTableModel(Vector<Variable> vars)
    {
+      super();
       this.vars = vars;
 
       types = new Vector<String>(vars.size());
@@ -60,7 +70,6 @@ public class VariablesTableModel extends AbstractTableModel
       for (int i = 0; i < vars.size(); ++i)
       {
          Variable var = vars.get(i);
-
          types.add(createTypeStr(var));
       }
    }
@@ -102,6 +111,9 @@ public class VariablesTableModel extends AbstractTableModel
     */
    public Class<?> getColumnClass(int col)
    {
+      if (col == VISIBLE_COLUMN)
+         return Boolean.class;
+
       if (col == VALUE_COLUMN || col == BYTES_COLUMN)
          return byte.class;
 
@@ -112,30 +124,54 @@ public class VariablesTableModel extends AbstractTableModel
     * {@inheritDoc}
     */
    @Override
+   public boolean isCellEditable(int row, int col)
+   {
+      return col == VISIBLE_COLUMN;
+   }
+   
+   /**
+    * {@inheritDoc}
+    */
+   @Override
    public Object getValueAt(int row, int col)
    {
-      if (col == TYPE_COLUMN)
+      switch (col)
       {
-         return types.get(row);
-      }
-      else if (col == NAME_COLUMN)
-      {
-         return vars.get(row).getName();
-      }
-      else if (col == VALUE_COLUMN)
-      {
-         return vars.get(row);
-      }
-      else if (col == BYTES_COLUMN)
-      {
-         return vars.get(row);
-      }
-      else
-      {
-         throw new IllegalArgumentException("invalid column " + col);
+         case VISIBLE_COLUMN:
+            return Boolean.valueOf(vars.get(row).isVisible());
+
+         case MODULE_COLUMN:
+            return vars.get(row).getModule();
+
+         case TYPE_COLUMN:
+            return types.get(row);
+
+         case NAME_COLUMN:
+            return vars.get(row).getName();
+
+         case VALUE_COLUMN:
+            return vars.get(row);
+
+         case BYTES_COLUMN:
+            return vars.get(row);
+
+         default:
+            throw new IllegalArgumentException("invalid column " + col);
       }
    }
 
+   /**
+    * {@inheritDoc}
+    */
+   public void setValueAt(Object value, int row, int col)
+   {
+      if (col == VISIBLE_COLUMN)
+      {
+         vars.get(row).setVisible((Boolean) value);
+         fireTableCellUpdated(row, VISIBLE_COLUMN);
+      }
+   }
+   
    /**
     * Create a human readable string describing the type of the variable.
     * 

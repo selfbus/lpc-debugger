@@ -6,19 +6,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 import selfbus.debugger.Application;
 import selfbus.debugger.actions.ActionFactory;
@@ -26,10 +34,15 @@ import selfbus.debugger.actions.AutoUpdateAction;
 import selfbus.debugger.actions.ConnectAction;
 import selfbus.debugger.control.DebugController;
 import selfbus.debugger.control.DebugListener;
+import selfbus.debugger.gui.table.ExtTableColumnModel;
+import selfbus.debugger.gui.table.ExtTableHeader;
+import selfbus.debugger.gui.table.TableUtils;
+import selfbus.debugger.gui.table.VariableBytesCellRenderer;
+import selfbus.debugger.gui.table.VariableValueCellRenderer;
+import selfbus.debugger.gui.table.VariablesTableModel;
 import selfbus.debugger.misc.I18n;
 import selfbus.debugger.misc.ImageCache;
 import selfbus.debugger.model.Variable;
-import selfbus.debugger.model.VariablesTableModel;
 import selfbus.debugger.serial.SerialPortUtil;
 
 /**
@@ -45,12 +58,17 @@ public class MainWindow extends JFrame implements DebugListener
    private JToolBar toolBar = new JToolBar("mainToolbar");
    private JComboBox<String> cboConnection = new JComboBox<String>();
    private VariablesTableModel varsTableModel;
+   private TableRowSorter<VariablesTableModel> rowSorter;
+   private ExtTableColumnModel varsTableColumnModel = new ExtTableColumnModel();
    private ActionFactory actionFactory = ActionFactory.getInstance();
    private boolean initialUpdate;
+   private boolean filterVariables;
    private final Application application;
    private final JTable varsTable = new JTable();
-   private final JScrollPane variablesView = new JScrollPane(varsTable);
+   private final JScrollPane variablesView;
    private final String demoConnectionName = I18n.getMessage("MainWindow.simulatedConnection");
+   private final JPopupMenu tablePopup = new JPopupMenu();
+   private JToggleButton filterVarsButton;
 
    /**
     * Create a main application window.
@@ -63,6 +81,8 @@ public class MainWindow extends JFrame implements DebugListener
 
       this.application = application;
       instance = this;
+
+      filterVariables = "1".equals(application.getConfig().getProperty("filterVariables", "1"));
 
       setDefaultCloseOperation(2);
       addWindowListener(new WindowAdapter()
@@ -83,13 +103,18 @@ public class MainWindow extends JFrame implements DebugListener
       add(toolBar, "North");
       setupToolbar();
 
+      varsTable.setGridColor(getBackground());
+      varsTable.setColumnModel(varsTableColumnModel);
+      ExtTableHeader tableHeader = new ExtTableHeader(varsTable.getColumnModel());
+      tableHeader.setPopupMenu(tablePopup);
+      varsTable.setTableHeader(tableHeader);
+
+      variablesView = new JScrollPane(varsTable);
       variablesView.getVerticalScrollBar().setUnitIncrement(25);
       variablesView.getVerticalScrollBar().setBlockIncrement(50);
       variablesView.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
       variablesView.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
       add(variablesView, "Center");
-
-      varsTable.setGridColor(getBackground());
 
       cboConnection.setMaximumSize(new Dimension(150, 32));
       cboConnection.addActionListener(new ActionListener()
@@ -121,6 +146,7 @@ public class MainWindow extends JFrame implements DebugListener
             });
          }
       });
+
       connectionClosed();
       setupConnectOptions();
    }
@@ -134,10 +160,70 @@ public class MainWindow extends JFrame implements DebugListener
    }
 
    /**
+    * Setup the tablePopup.
+    */
+   protected void setupTablePopup()
+   {
+      final Properties config = application.getConfig();
+      tablePopup.removeAll();
+
+      for (int idx = 0; idx < varsTableModel.getColumnCount(); ++idx)
+      {
+         final TableColumn col = varsTable.getColumnModel().getColumn(idx);
+         final int cidx = idx;
+
+         String label;
+         if (idx == VariablesTableModel.VISIBLE_COLUMN)
+            label = I18n.getMessage("VariableComponent.visibleHeader");
+         else label = varsTableModel.getColumnName(idx);
+         
+         final JCheckBox cbx = new JCheckBox(label);
+         boolean isVisible = "1".equals(config.getProperty("columnVisible" + cidx, "1"));
+         cbx.setSelected(isVisible);
+
+         if (!isVisible)
+            varsTable.getColumnModel().removeColumn(col);
+         
+         cbx.addActionListener(new ActionListener()
+         {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+               SwingUtilities.invokeLater(new Runnable()
+               {
+                  @Override
+                  public void run()
+                  {
+                     if (cbx.isSelected())
+                     {
+                        config.setProperty("columnVisible" + cidx, "1");
+                        varsTableColumnModel.insertColumn(cidx, col);
+                     }
+                     else
+                     {
+                        config.setProperty("columnVisible" + cidx, "0");
+                        varsTable.getColumnModel().removeColumn(col);
+                     }
+                  }
+               });
+            }
+         });
+
+         tablePopup.add(cbx);
+      }
+
+      varsTable.getTableHeader().add(tablePopup);
+   }
+
+   /**
     * Setup the toolbar.
     */
    protected void setupToolbar()
    {
+      filterVarsButton = new JToggleButton(actionFactory.getAction("toggleFilterAction"));
+      filterVarsButton.setSelected(filterVariables);
+      filterVarsButton.setText(null);
+
       toolBar.add(actionFactory.getAction("connectAction"));
       toolBar.add(cboConnection);
       toolBar.addSeparator();
@@ -148,6 +234,8 @@ public class MainWindow extends JFrame implements DebugListener
       toolBar.add(actionFactory.getAction("autoUpdateAction"));
       toolBar.add(actionFactory.getAction("unusedValuesAction"));
       toolBar.addSeparator();
+      toolBar.add(actionFactory.getAction("showColumnsChooserAction"));
+      toolBar.add(filterVarsButton);
       toolBar.add(actionFactory.getAction("settingsAction"));
    }
 
@@ -194,9 +282,36 @@ public class MainWindow extends JFrame implements DebugListener
       Set<Variable> varsSet = application.getController().getVariables();
       Vector<Variable> newVars = new Vector<Variable>(varsSet.size());
       newVars.addAll(varsSet);
-      
+
+      varVisibilityFromConfig();
+
       VariablesTableModel newModel = new VariablesTableModel(newVars);
 
+      RowFilter<VariablesTableModel, Integer> filter = new RowFilter<VariablesTableModel, Integer>()
+      {
+         @Override
+         public boolean include(javax.swing.RowFilter.Entry<? extends VariablesTableModel, ? extends Integer> entry)
+         {
+            if (!filterVariables)
+               return true;
+
+            if (entry.getValueCount() > VariablesTableModel.VISIBLE_COLUMN)
+            {
+               Object v = entry.getValue(VariablesTableModel.VISIBLE_COLUMN);
+               if (v instanceof Boolean) return (Boolean) v;
+            }
+            return true;
+         }
+      };
+
+      rowSorter = new TableRowSorter<VariablesTableModel>(newModel);
+      rowSorter.setRowFilter(filter);
+      varsTable.setRowSorter(rowSorter);
+
+      if (varsTableModel != null)
+         varsTableModel.removeTableModelListener(varVisibilityListener);
+      newModel.addTableModelListener(varVisibilityListener);
+      
       varsTable.setModel(newModel);
       varsTableModel = newModel;
 
@@ -204,7 +319,15 @@ public class MainWindow extends JFrame implements DebugListener
       columnModel.getColumn(VariablesTableModel.VALUE_COLUMN).setCellRenderer(new VariableValueCellRenderer());
       columnModel.getColumn(VariablesTableModel.BYTES_COLUMN).setCellRenderer(new VariableBytesCellRenderer());
 
-      this.variablesView.updateUI();
+//      variablesView.updateUI();
+      setupTablePopup();
+   }
+
+   /**
+    * Called when the application is shutting down.
+    */
+   public void beforeShutdown()
+   {
    }
 
    /**
@@ -353,4 +476,100 @@ public class MainWindow extends JFrame implements DebugListener
          }
       });
    }
+
+   /**
+    * Show the popup menu for selecting the visible table columns.
+    * 
+    * @param x - the X position of the popup menu
+    * @param y - the Y position of the popup menu
+    */
+   public void showColumnsPopup(int x, int y)
+   {
+      tablePopup.show(this, x, y);
+   }
+
+   /**
+    * Update the visibility of hidden variables.
+    */
+   public void updateHiddenVariables()
+   {
+      filterVariables = filterVarsButton.isSelected();
+      application.getConfig().setProperty("filterVariables", filterVariables ? "1" : "0");
+
+      DebugController controller = Application.getInstance().getController();
+      if (controller != null)
+      {
+         controller.setFilterVariables(filterVariables);
+
+         if (!filterVariables && controller.isOpen())
+            controller.update();
+      }
+
+      filterVarsButton.setIcon(ImageCache.getIcon(filterVariables ? "icons/filter" : "icons/filter-disabled"));
+
+      if (rowSorter != null)
+         rowSorter.sort();
+   }
+
+   /**
+    * Store visibility information in the config.
+    */
+   void varVisibilityToConfig()
+   {
+      StringBuilder sb = new StringBuilder();
+
+      for (Variable var : application.getController().getVariables())
+      {
+         if (!var.isVisible())
+            sb.append(var.getName()).append(';');
+      }
+
+      application.getConfig().setProperty("hiddenVariables", sb.toString());
+   }
+
+   /**
+    * Apply the variable visibility from the config to the variables.
+    */
+   void varVisibilityFromConfig()
+   {
+      String[] names = application.getConfig().getProperty("hiddenVariables", "").split(";");
+      Set<String> hidden = new HashSet<String>();
+
+      for (String name : names)
+         hidden.add(name);
+
+      for (Variable var : application.getController().getVariables())
+      {
+         var.setVisible(!hidden.contains(var.getName()));
+      }
+   }
+
+   /**
+    * Private listener for visibility change of single variables by the user.
+    */
+   private TableModelListener varVisibilityListener = new TableModelListener()
+   {
+      boolean updatePending;
+
+      @Override
+      public void tableChanged(TableModelEvent e)
+      {
+         if (!updatePending && e.getColumn() == VariablesTableModel.VISIBLE_COLUMN && filterVariables && rowSorter != null)
+         {
+            updatePending = true;
+
+            SwingUtilities.invokeLater(new Runnable()
+            {
+               @Override
+               public void run()
+               {
+                  updatePending = false;
+
+                  rowSorter.sort();
+                  varVisibilityToConfig();
+               }
+            });
+         }
+      }
+   };
 }
