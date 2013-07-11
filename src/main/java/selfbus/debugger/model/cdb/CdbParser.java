@@ -343,7 +343,7 @@ public class CdbParser
       if (SymbolType.ARRAY.equals(type))
       {
          String[] countRest = parts[1].substring(2).split(",", 2);
-         int count = Integer.parseInt(countRest[0]);
+         int count = Integer.parseInt(countRest[0], 16);
          type = SymbolType.valueOfType(countRest[1].substring(0, 2));
 
          return new ArraySymbolSpec(type, size, count);
