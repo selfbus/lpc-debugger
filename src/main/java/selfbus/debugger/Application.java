@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -37,17 +39,35 @@ public final class Application extends AbstractApplication
    private final DebugController controller = new DebugController();
    private File cdbFile;
    private MainWindow win;
+   private String version;
 
+   /**
+    * @return The application instance.
+    */
    public static Application getInstance()
    {
       return (Application) AbstractApplication.getInstance();
    }
 
+   /**
+    * @return The controller.
+    */
    public DebugController getController()
    {
       return this.controller;
    }
 
+   /**
+    * @return The application's version.
+    */
+   public String getVersion()
+   {
+      return version == null ? "(devel)" : version;
+   }
+
+   /**
+    * {@inheritDoc}
+    */
    @Override
    protected void startup()
    {
@@ -58,6 +78,10 @@ public final class Application extends AbstractApplication
       {
          loadConfig(configFile);
       }
+
+      Properties props = getManifestProperties(getClass());
+      version = props.getProperty("version");
+
       win = new MainWindow(this);
       controller.addListener(win);
       win.setVisible(true);
@@ -176,5 +200,39 @@ public final class Application extends AbstractApplication
    {
       if (cdbFile != null)
          setCdbFile(cdbFile);
+   }
+
+
+   /**
+    * Get the manifest properties of the JAR that contains the given class.
+    * 
+    * @param clazz - the class to use for searching the manifest properties. 
+    * 
+    * @return the manifest's properties.
+    */
+   public Properties getManifestProperties(Class<?> clazz)
+   {
+      Properties manifestProps = new Properties();
+
+      try
+      {
+         final String classContainer = clazz.getProtectionDomain().getCodeSource().getLocation().toString();
+
+         if (classContainer.toLowerCase().endsWith(".jar"))
+         {
+            final URL manifestUrl = new URL("jar:" + classContainer + "!/META-INF/MANIFEST.MF");
+            manifestProps.load(manifestUrl.openStream());
+         }
+         else
+         {
+            LOGGER.info("FTS is not started from a jar. Manifest information is unavailable.");
+         }
+      }
+      catch (IOException e)
+      {
+         Dialogs.formatExceptionMessage(e, "Failed to load the manifest from the FTS jar");
+      }
+
+      return manifestProps;
    }
 }

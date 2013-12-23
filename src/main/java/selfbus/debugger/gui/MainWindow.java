@@ -77,7 +77,7 @@ public class MainWindow extends JFrame implements DebugListener
     */
    public MainWindow(final Application application)
    {
-      super(I18n.getMessage("App.name"));
+      super(I18n.formatMessage("App.name", new String[] { application.getVersion() }));
 
       this.application = application;
       instance = this;

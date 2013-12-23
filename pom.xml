@@ -29,6 +29,7 @@
       </manifest>
       <manifestEntries>
        <Version>${project.version}</Version>
+       <SCM-Revision>${buildNumber}</SCM-Revision>
       </manifestEntries>
      </archive>
     </configuration>
