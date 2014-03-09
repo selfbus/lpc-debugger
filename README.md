@@ -1,4 +1,1 @@
-lpc-debugger
-============
-
-A Java program for debugging C programs running on a LPC microcontroller
+The lpc-debugger was moved to the Github repository selfbus/development-tools.
